@@ -24,7 +24,7 @@ Note: The `-g` flag will install it globally and requires admin (`sudo`) rights 
 
 ## Development server
 
-##### Node server
+#### Node server
 
 To run the application with the node server during local development and build/consume APIs do the following:
 
