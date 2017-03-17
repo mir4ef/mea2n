@@ -8,8 +8,8 @@ const def = {
     description: 'A sample API' // Description (optional)
   },
   schemes: ['https'], // Schemes (optional)
-  basePath: '/api', // Host (optional)
-  host: 'localhost:8080' // Host (optional)
+  basePath: '/api' // API base path (optional)
+  // host: config.host // Host (optional)
 };
 
 module.exports = def;

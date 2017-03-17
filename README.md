@@ -67,7 +67,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## API Documentation
 
-Run `npm run apidocs` to generate the documentation. Start the server and navigate to `http://localhost:4200/documentation/api`. Run `npm run apidocs:watch` to watch and automatically generate the documentation. The swagger definitions can be set in the `swaggerDef.js` file located under the `server` folder.
+Run `npm run apidocs` to generate the documentation. Start the server and navigate to `http://localhost:port/documentation/api`. Run `npm run apidocs:watch` to watch and automatically generate the documentation. The swagger definitions can be set in the `swaggerDef.js` file located under the `server` folder. Note that if you are using the `lite server` to view the documentation, the 'Try it out!' button will return errors (`404`s). If you want to use the button, it is recommended to view the docs using the node server URL.
 
 ## Build
 
