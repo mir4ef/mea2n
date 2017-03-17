@@ -4,11 +4,14 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "npm run apidocs && ng serve",
+    "build": "npm run apidocs && ng build",
+    "build:prod": "npm run apidocs && ng build --prod --aot",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "apidocs": "./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js ./server/routes/v1/**/* -d ./server/swaggerDef.js -o ./src/documentation/api/swagger.json",
+    "apidocs:watch": "./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js ./server/routes/v1/**/* -d ./server/swaggerDef.js -o ./src/documentation/api/swagger.json -w"
   },
   "private": true,
   "dependencies": {
@@ -43,10 +46,11 @@
     "karma": "~1.4.1",
     "karma-chrome-launcher": "~2.0.0",
     "karma-cli": "~1.0.1",
+    "karma-coverage-istanbul-reporter": "^0.2.0",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "karma-coverage-istanbul-reporter": "^0.2.0",
     "protractor": "~5.1.0",
+    "swagger-jsdoc": "^1.9.2",
     "ts-node": "~2.0.0",
     "tslint": "~4.4.2",
     "typescript": "~2.2.0"
