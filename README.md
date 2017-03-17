@@ -10,10 +10,10 @@ This is a starting point for a (M)EAN stack applications (with Angular 2 and `ht
 
 - NodeJS is required (v >= **6.3.0**). It can be downloaded and installed from [here](https://nodejs.org/).
 
-- Angular CLI (v >= **1.0.0**). It can be downloaded and installed by running `npm install -g @angular/cli`.
+- Angular CLI is required (v >= **1.0.0**). It can be downloaded and installed by running `npm install -g @angular/cli`.
 Note: The `-g` flag will install it globally and requires admin (`sudo`) rights for the current user.
 
-- Nodemon is optional. It is used to automatically restart/reload the server on changes to the back. It can be downloaded and installed by running `npm install -g nodemon`. Then, you can just run the server by going to the application folder and typing `nodemon server.js`.
+- Nodemon is optional. It is used to automatically restart/reload the server on changes to the backend. It can be downloaded and installed by running `npm install -g nodemon`. Then, you can just run the server by going to the application folder and typing `nodemon server.js`.
 Note: The `-g` flag will install it globally and requires admin (`sudo`) rights for the current user.
 
 #### Prod and Dev
@@ -61,13 +61,17 @@ To run the application with the node server during local development and build/c
 
 If you want, you can run the client side separately from node with `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the client side source files. To run the app with a secure connection (`https`) please use the `--ssl` flag - `ng server --ssl` - and change the protocol to `https` - `https://localhost:4200/`. It is **recommended** to run it with the secure flag to be closer to the prod env, which uses the secure protocol.
 
+**Note**: If you want to listen for client side changes and auto build the client side and still use the node URL, you can use `npm run build:watch`, but this won't auto refresh the browser.
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
 
 ## API Documentation
 
-Run `npm run apidocs` to generate the documentation. Start the server and navigate to `http://localhost:port/documentation/api`. Run `npm run apidocs:watch` to watch and automatically generate the documentation. The swagger definitions can be set in the `swaggerDef.js` file located under the `server` folder. Note that if you are using the `lite server` to view the documentation, the 'Try it out!' button will return errors (`404`s). If you want to use the button, it is recommended to view the docs using the node server URL.
+Run `npm run apidocs` to generate the documentation. Start the server and navigate to `http://localhost:port/documentation/api`. Run `npm run apidocs:watch` to watch and automatically generate the documentation. The swagger definitions can be set in the `swaggerDef.js` file located under the `server` folder.
+
+**Note**: If you are using the `lite server` to view the documentation, the 'Try it out!' button will return errors (`404`s). If you want to use the button, it is recommended to view the docs using the node server URL.
 
 ## Build
 
