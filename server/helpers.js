@@ -1,6 +1,8 @@
 'use strict';
 
+const chalk = require('chalk');
 const config = require('./config');
+const logger = require('./logger').logger;
 
 /**
  * @description Handler to set the headers to handle CORS requests
@@ -8,16 +10,16 @@ const config = require('./config');
  * @param {Object} res The response object
  * @param {Function} next The call back function to allow the application to continue
  */
-exports.handleCORS = (req, res, next) => {
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type');
-    
-    if (config.allowCORS) {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-    }
-    
-    next();
-};
+function handleCORS(req, res, next) {
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type');
+
+  if (config.allowCORS) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  }
+
+  next();
+}
 
 /**
  * @description Handler for all application level errors and returns a json with the error message to the caller
@@ -28,15 +30,15 @@ exports.handleCORS = (req, res, next) => {
  * @param {Function} next The call back function to allow the application to continue
  * @returns {Object} Object containing the error message
  */
-exports.handleErrors = ({ message = 'An error occurred', code = 500 }, req, res, next) => {
-    if (message.toLowerCase() === 'request entity too large') {
-        code = 413;
-    }
+function handleError({message = 'An error occurred', code = 500}, req, res, next) {
+  if (message.toLowerCase() === 'request entity too large') {
+    code = 413;
+  }
 
-    console.error(`${new Date()}: ERROR: error code '${code}' and message '${message}'.`);
+  logger('error', `error code '${code}' and message '${message}'`);
 
-    return res.status(code).json({ success: false, message: message });
-};
+  return res.status(code).json({ success: false, message: message });
+}
 
 /**
  * @description Handler for HTTP request to redirect them to HTTPS
@@ -44,19 +46,27 @@ exports.handleErrors = ({ message = 'An error occurred', code = 500 }, req, res,
  * @param {Object} res The response object
  * @param {Function} next The call back function to allow the application to continue
  */
-exports.redirectToHTTPS = (req, res, next) => {
-    if (!req.secure) {
-        // request was via http, so redirect to https
-        return res.redirect('https://' + req.headers.host + req.url);
-    }
+function redirectToHTTPS(req, res, next) {
+  if (!req.secure) {
+    // request was via http, so redirect to https
+    return res.redirect('https://' + req.headers.host + req.url);
+  }
 
-    // request was via https, so do no special handling
-    next();
-};
+  // request was via https, so do no special handling
+  next();
+}
 
 /**
  * @description Safely escape characters during replace or other RegEx methods
  * @param {String} str
  * @returns {String}
  */
-exports.escapeRegExp = str => str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$&");
+function escapeRegExp(str) {
+  return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$&");
+}
+
+// export the methods for consumption by other modules/files
+exports.handleCORS = handleCORS;
+exports.handleErrors = handleError;
+exports.redirectToHTTPS = redirectToHTTPS;
+exports.escapeRegExp = escapeRegExp;

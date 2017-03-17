@@ -13,6 +13,7 @@ const morgan = require('morgan');
 const spdy = require('spdy');
 const config = require('./server/config');
 const helpers = require('./server/helpers');
+const logger = require('./server/logger').logger;
 const apiRoutesV1 = require('./server/routes/v1/api').apiRoutes(app, express);
 const options = {
     key: fs.readFileSync(`server/certs/ng2-${config.env}.key`),
@@ -35,23 +36,24 @@ if (config.env !== 'development') {
     ]
 }
 
-// print if debugging logs are enabled
-if (config.debug) {
-    console.info(`##############################`);
-    console.info(`###     DEBUG ENABLED     ####`);
-    console.info(`##############################`);
+logger('debug', `##############################`);
+logger('debug', `###     DEBUG ENABLED     ####`);
+logger('debug', `##############################`);
 
-    // log all requests to the console
+// print if debugging logs are enabled and log all requests to the console
+if (config.debug) {
     app.use(morgan('dev'));
+}
+
+// warn if Cross Origin requests are allowed
+if (config.allowCORS) {
+  logger('warn', 'Cross Origin Enabled!');
 }
 
 // enable when you're behind a reverse proxy (Heroku, Bluemix, AWS if you use an ELB, custom Nginx setup, etc)
 if (config.trustProxy) {
     app.enable('trust proxy');
-
-    if (config.debug) {
-        console.info(`${new Date()}: 'trust proxy' enabled!`);
-    }
+    logger('info', `trust proxy' enabled!`);
 }
 
 // compress static files (JavaScript, CSS)
@@ -90,6 +92,6 @@ app.get('*', (req, res) => {
 
 // start the server
 spdy.createServer(options, app).listen(config.port, () => {
-    console.info(`${new Date()}: The server has been started on port ${config.port}`);
-    console.info(`${new Date()}: The environment is ${config.env}`);
+    logger('info', `The server has been started on port ${config.port}`);
+    logger('info', `The environment is ${config.env}`);
 });
