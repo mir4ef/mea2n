@@ -3,24 +3,24 @@
 // load the packages
 const cluster = require('cluster');
 const os = require('os');
-const helpers = require('./server/helpers');
+const logger = require('./server/logger').logger;
 
 if (cluster.isMaster) {
     const numCPUs = os.cpus().length;
 
-    helpers.logger('info', `Starting ${numCPUs} nodes...`);
+    logger('info', `Starting ${numCPUs} nodes...`);
 
     for (let i = 0; i < numCPUs; i++) {
         cluster.fork();
     }
 
     cluster.on('online', worker => {
-        helpers.logger('info', `Node ${worker.process.pid} started!`);
+        logger('info', `Node ${worker.process.pid} started!`);
     });
 
     cluster.on('exit', (worker, code, signal) => {
-        helpers.logger('warn', `Node ${worker.process.pid} died with code: ${code}, and signal: ${signal}`);
-        helpers.logger('info', `Starting a new node...`);
+        logger('warn', `Node ${worker.process.pid} died with code: ${code}, and signal: ${JSON.stringify(signal)}`);
+        logger('info', `Starting a new node...`);
         cluster.fork();
     });
 } else {
