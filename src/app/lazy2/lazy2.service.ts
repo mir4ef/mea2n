@@ -29,7 +29,7 @@ export class Lazy2Service {
       .catch(this.handleError);
   }
 
-  // idealy this should be a call to an API endpoint (please see ./server/api/routes/v1/sampleEntries.js - this file contains an API endpoint, which returns only one entry)
+  // ideally this should be a call to an API endpoint (please see ./server/api/routes/v1/sampleEntries.js - this file contains an API endpoint, which returns only one entry)
   getEntry(id: number | string) {
     return this.dataArray.find(entry => entry.id === +id);
   }
