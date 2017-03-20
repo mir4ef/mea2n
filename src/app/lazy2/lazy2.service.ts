@@ -43,7 +43,7 @@ export class Lazy2Service {
     return response;
   }
 
-  private handleError(error: any): Promise<any> {
-    return Promise.reject(error.message || error);
+  private handleError(err: Response) {    
+    return Promise.reject(err.json());
   }
 }
