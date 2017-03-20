@@ -1,3 +1,11 @@
 <p>
   detail works!
 </p>
+<div *ngIf="entry">
+    <div>Id: {{entry.id}}</div><br>
+    <label>Name:
+        <input [(ngModel)]="entry.name" />
+    </label>
+</div>
+<br>
+<a routerLink="../">Back to Entries List</a>
