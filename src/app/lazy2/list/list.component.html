@@ -2,6 +2,6 @@
   list works!
 </p>
 
-<div *ngFor='let entry of entries | async'>
+<div *ngFor='let entry of entries'>
     <a routerLink="{{entry.id}}">{{entry.id}} - {{entry.name}}</a>
 </div>

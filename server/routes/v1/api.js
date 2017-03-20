@@ -1,6 +1,8 @@
 'use strict';
 
 const config = require('../../config');
+const sampleData = require('./sampleData');
+const sampleEntries = require('./sampleEtries');
 
 function apiRoutes(app, express) {
     // get an instance of the express router
@@ -17,6 +19,14 @@ function apiRoutes(app, express) {
      */
     // api endpoint for testing
     apiRouter.get('/', (req, res) => res.json({ success: true, message: 'API is working!' }));
+
+    // sample api endpoint to return sample data to the client
+    apiRouter.route('/sampleData').get(sampleData.sampleDataGET);
+
+    // sample api endpoint to return sample array of data ot the client
+    apiRouter.route('/sampleEntries').get(sampleEntries.sampleEntriesGET);
+    // return only one entry
+    apiRouter.route('/sampleEntries/:id').get(sampleEntries.sampleEntryGET);
 
     /**
      * *************************************************

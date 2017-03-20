@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { sampleEntry, Lazy2Service } from '../lazy2.service';
+import { SampleEntry, Lazy2Service } from '../lazy2.service';
 
 @Component({
   selector: 'app-list',
@@ -9,11 +9,13 @@ import { sampleEntry, Lazy2Service } from '../lazy2.service';
 })
 
 export class ListComponent implements OnInit {
-  entries: Promise<sampleEntry[]>;
+  entries: SampleEntry[];
 
   constructor(private entryService: Lazy2Service) { }
 
   ngOnInit() {
-    this.entries = this.entryService.getEntries();
+    // example with Promise
+    // for an example with Observable, view lazy component/service
+    this.entryService.getEntries().then(res => this.entries = res.message);
   }
 }

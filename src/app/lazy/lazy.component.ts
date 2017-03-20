@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { sampleData, LazyService } from './lazy.service';
+import { SampleData, LazyService } from './lazy.service';
 
 @Component({
   selector: 'app-lazy',
@@ -9,11 +9,18 @@ import { sampleData, LazyService } from './lazy.service';
 })
 
 export class LazyComponent implements OnInit {
-  data: sampleData;
+  data: SampleData;
+  err;
 
   constructor(private dataService: LazyService) { }
 
   ngOnInit() {
-    this.dataService.getData().then(data => this.data = data);
+    // example with Observable
+    // for an example with Promise, view lazy2 component/service
+    this.dataService
+      .getData()
+      .subscribe(
+        data => this.data = data.message,
+        err => this.err = err);
   }
 }

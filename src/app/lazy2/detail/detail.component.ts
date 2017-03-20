@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { sampleEntry, Lazy2Service } from '../lazy2.service';
+import { SampleEntry, Lazy2Service } from '../lazy2.service';
 
 @Component({
   selector: 'app-detail',
@@ -9,7 +9,7 @@ import { sampleEntry, Lazy2Service } from '../lazy2.service';
   styleUrls: ['./detail.component.less']
 })
 export class DetailComponent implements OnInit {
-  entry:sampleEntry;
+  entry: SampleEntry;
 
   constructor(private route: ActivatedRoute, private entryService: Lazy2Service) {
 
@@ -17,6 +17,6 @@ export class DetailComponent implements OnInit {
 
   ngOnInit() {
     const id = Number.parseInt(this.route.snapshot.params['id'], 10);
-    this.entryService.getEntry(id).then(entry => this.entry = entry);
+    this.entry = this.entryService.getEntry(id);
   }
 }
