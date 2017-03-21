@@ -1,8 +1,8 @@
 'use strict';
 
 const config = require('../../config');
-const sampleData = require('./sampleData');
-const sampleEntries = require('./sampleEtries');
+const sampleData = require('./sample.data');
+const sampleEntries = require('./sample.entries');
 
 function apiRoutes(app, express) {
     // get an instance of the express router
