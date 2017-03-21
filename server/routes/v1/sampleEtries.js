@@ -46,4 +46,4 @@ function sampleEntryGET(req, res, next) {
 }
 
 exports.sampleEntriesGET = sampleEntriesGET;
-exports.sampleEntryGET = sampleEntryGET
+exports.sampleEntryGET = sampleEntryGET;
