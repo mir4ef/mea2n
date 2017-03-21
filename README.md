@@ -8,7 +8,7 @@ This is a starting point for a (M)EAN stack applications (with Angular 2 and `ht
 
 #### Prerequisites
 
-- NodeJS is required (v >= **6.3.0**). It can be downloaded and installed from [here](https://nodejs.org/).
+- NodeJS is required (v >= **6.9.0**). It can be downloaded and installed from [here](https://nodejs.org/).
 
 - Angular CLI is required (v >= **1.0.0**). It can be downloaded and installed by running `npm install -g @angular/cli`.
 Note: The `-g` flag will install it globally and requires admin (`sudo`) rights for the current user.
