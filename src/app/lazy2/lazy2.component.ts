@@ -12,7 +12,5 @@ export class Lazy2Component implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() { }
 }

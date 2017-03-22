@@ -30,7 +30,7 @@ export class LazyService {
     return res.json();
   }
 
-  private handleError(err: Response) {    
+  private handleError(err: Response) {
     return Promise.reject(err.json());
   }
 }
