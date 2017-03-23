@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Lazy2Service } from './lazy2.service';
-
 @Component({
   selector: 'app-lazy2',
   templateUrl: './lazy2.component.html',
-  styleUrls: ['./lazy2.component.less'],
-  providers: [Lazy2Service]
+  styleUrls: ['./lazy2.component.less']
 })
 export class Lazy2Component implements OnInit {
 

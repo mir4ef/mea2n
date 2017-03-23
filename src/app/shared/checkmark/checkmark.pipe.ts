@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CheckmarkPipe implements PipeTransform {
 
-  transform(value: boolean|string): string {
+  transform(value: boolean | string): string {
     if (typeof value === 'boolean') {
       return value ? '\u2713' : '\u2718';
     }

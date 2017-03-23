@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { Lazy2Module } from '../lazy2.module';
 import { ListComponent } from './list.component';
 
 describe('ListComponent', () => {
@@ -8,7 +9,7 @@ describe('ListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListComponent ]
+      imports: [ Lazy2Module ]
     })
     .compileComponents();
   }));

@@ -1,11 +1,13 @@
 import { TestBed, inject } from '@angular/core/testing';
+import { HttpModule } from '@angular/http';
 
 import { LazyService } from './lazy.service';
 
 describe('LazyService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [LazyService]
+      imports: [ HttpModule ],
+      providers: [ LazyService ]
     });
   });
 

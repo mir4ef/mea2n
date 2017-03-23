@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class Ng2BoilerplatePage {
+export class Mea2nPage {
   navigateTo() {
     return browser.get('/');
   }

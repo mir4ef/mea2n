@@ -1,10 +1,10 @@
-import { Ng2BoilerplatePage } from './app.po';
+import { Mea2nPage } from './app.po';
 
-describe('ng2-boilerplate App', () => {
-  let page: Ng2BoilerplatePage;
+describe('mea2n App', () => {
+  let page: Mea2nPage;
 
   beforeEach(() => {
-    page = new Ng2BoilerplatePage();
+    page = new Mea2nPage();
   });
 
   it('should display message saying app works', () => {

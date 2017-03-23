@@ -5,7 +5,7 @@ import { EagerService } from './eager.service';
 describe('EagerService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [EagerService]
+      providers: [ EagerService ]
     });
   });
 
