@@ -6,14 +6,20 @@
     "ng": "ng",
     "start": "npm run apidocs && ng serve",
     "build": "npm run apidocs && ng build",
-    "build:prod": "npm run apidocs && ng lint && ng test --single-run --code-coverage && ng build --prod --aot",
+    "build:prod": "npm run apidocs && npm run lint && npm run test:once -- --code-coverage && ng build --prod --aot",
     "build:watch": "ng build -w",
     "test": "ng test",
+    "test:once": "ng test --single-run",
     "lint": "./node_modules/lesshint/bin/lesshint src/ && ng lint",
     "e2e": "ng e2e",
     "apidocs": "./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js ./server/routes/v1/**/* -d ./server/swagger.def.js -o ./src/documentation/api/swagger.json",
     "apidocs:watch": "./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js ./server/routes/v1/**/* -d ./server/swagger.def.js -o ./src/documentation/api/swagger.json -w"
   },
+  "pre-commit": [
+    "lint",
+    "test:once",
+    "e2e"
+  ],
   "private": true,
   "dependencies": {
     "@angular/common": "^2.4.0",
@@ -51,6 +57,7 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "lesshint": "^3.1.0",
+    "pre-commit": "^1.2.2",
     "protractor": "~5.1.0",
     "swagger-jsdoc": "^1.9.2",
     "ts-node": "~2.0.0",
