@@ -9,7 +9,7 @@
     "build:prod": "npm run apidocs && ng lint && ng test --single-run --code-coverage && ng build --prod --aot",
     "build:watch": "ng build -w",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "./node_modules/lesshint/bin/lesshint src/ && ng lint",
     "e2e": "ng e2e",
     "apidocs": "./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js ./server/routes/v1/**/* -d ./server/swagger.def.js -o ./src/documentation/api/swagger.json",
     "apidocs:watch": "./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js ./server/routes/v1/**/* -d ./server/swagger.def.js -o ./src/documentation/api/swagger.json -w"
@@ -50,6 +50,7 @@
     "karma-coverage-istanbul-reporter": "~1.0.0",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "lesshint": "^3.1.0",
     "protractor": "~5.1.0",
     "swagger-jsdoc": "^1.9.2",
     "ts-node": "~2.0.0",
