@@ -10,7 +10,7 @@
     "build:watch": "ng build -w",
     "test": "ng test",
     "test:once": "ng test --single-run",
-    "lint": "./node_modules/lesshint/bin/lesshint src/ && ng lint",
+    "lint": "./node_modules/lesshint/bin/lesshint ./src/ && ./node_modules/htmlhint-ng2/bin/htmlhint ./src/app/ && ng lint",
     "e2e": "ng e2e",
     "apidocs": "./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js ./server/routes/v1/**/* -d ./server/swagger.def.js -o ./src/documentation/api/swagger.json",
     "apidocs:watch": "./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js ./server/routes/v1/**/* -d ./server/swagger.def.js -o ./src/documentation/api/swagger.json -w"
@@ -48,6 +48,7 @@
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
     "codelyzer": "~2.0.0",
+    "htmlhint-ng2": "0.0.13",
     "jasmine-core": "~2.5.2",
     "jasmine-spec-reporter": "~3.2.0",
     "karma": "~1.5.0",
