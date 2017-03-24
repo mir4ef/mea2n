@@ -1,8 +1,8 @@
-# (M)EAN Stack with Angular 2 Starter
+# (M)EAN Stack with Angular 2+ Starter
 
-### Current version: 0.0.1
+### Current version: 0.0.2
 
-This is a starting point for a (M)EAN stack applications (with Angular 2 and `http/2`). MongoDB drivers are not setup as part of this boilerplate, but can easily be added (with `mongoose` or some other package). The idea is to have a setup to get you up and running quickly and to be database agnostic. You can easily add a database driver that fits your needs. It also uses [Swagger](http://swagger.io) (through `swagger-jsdoc`) to generate the API documentation and visualize it with [Swagger UI](http://swagger.io/swagger-ui/).
+This is a starting point for (M)EAN stack applications (with Angular 2+ and `http/2`). MongoDB drivers are not setup as part of this boilerplate, but can easily be added (with `mongoose` or some other package). The idea is to have a setup to get you up and running quickly and to be database agnostic. You can easily add a database driver that fits your needs. It also uses [Swagger](http://swagger.io) (through `swagger-jsdoc`) to generate the API documentation and visualize it with [Swagger UI](http://swagger.io/swagger-ui/).
 
 ## Setup
 
@@ -92,6 +92,7 @@ Run `npm run lint` to lint your code. It will scan the CSS (`LESS`), TypeScript 
 
 ## Notes
 
+ - The project is setup with Angular 4.
  - This project is pre-configured to work with `LESS`, because it is easier to setup and requires less dependencies than `SASS`. But if you prefer to use `SASS`, please update the project accordingly to fit your needs.
  - The project has a `pre-commit` hook to perform certain tasks before the code is committed. The base setup only runs the linting and the tests. Feel free to modify it to fit your needs or remove it completely.
 
