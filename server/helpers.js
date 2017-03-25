@@ -1,6 +1,5 @@
 'use strict';
 
-const chalk = require('chalk');
 const config = require('./config');
 const logger = require('./logger').logger;
 
@@ -9,6 +8,7 @@ const logger = require('./logger').logger;
  * @param {Object} req The request object
  * @param {Object} res The response object
  * @param {Function} next The call back function to allow the application to continue
+ * @returns {void}
  */
 function handleCORS(req, res, next) {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
@@ -30,14 +30,16 @@ function handleCORS(req, res, next) {
  * @param {Function} next The call back function to allow the application to continue
  * @returns {Object} Object containing the error message
  */
-function handleError({message = 'An error occurred', code = 500}, req, res, next) {
+// eslint-disable-next-line no-unused-vars
+function handleError({ message = 'An error occurred', code = 500 }, req, res, next) {
   if (message.toLowerCase() === 'request entity too large') {
+    // eslint-disable-next-line no-param-reassign
     code = 413;
   }
 
   logger('error', `error code '${code}' and message '${message}'`);
 
-  return res.status(code).json({ success: false, message: message });
+  return res.status(code).json({ success: false, message });
 }
 
 /**
@@ -45,11 +47,12 @@ function handleError({message = 'An error occurred', code = 500}, req, res, next
  * @param {Object} req The request object
  * @param {Object} res The response object
  * @param {Function} next The call back function to allow the application to continue
+ * @returns {void}
  */
 function redirectToHTTPS(req, res, next) {
   if (!req.secure) {
     // request was via http, so redirect to https
-    return res.redirect('https://' + req.headers.host + req.url);
+    return res.redirect(`https://${req.headers.host}${req.url}`);
   }
 
   // request was via https, so do no special handling
@@ -58,11 +61,11 @@ function redirectToHTTPS(req, res, next) {
 
 /**
  * @description Safely escape characters during replace or other RegEx methods
- * @param {String} str
- * @returns {String}
+ * @param {String} str - The string that needs escaping
+ * @returns {String} The string with safely escaped characters
  */
 function escapeRegExp(str) {
-  return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$&");
+  return str.replace(/([.*+?^=!:${}()|[\]/\\])/g, '\\$&');
 }
 
 // export the methods for consumption by other modules/files

@@ -1,12 +1,15 @@
 'use strict';
 
+/* eslint no-console: ["error", { allow: ["log"] }] */
+
 const chalk = require('chalk');
 const config = require('./config');
 
 /**
+ * @constructor
  * @description print to the console/system logs based on the type of event and write in colors for easy identification
  * @param {String} type - The type of message to be printed (e.g. info, error, etc.)
- * @param message - the message to be printed
+ * @param {String} message - the message to be printed
  */
 function logger(type, message = 'Nothing passed to write to the logs...') {
   switch (type) {

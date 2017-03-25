@@ -16,24 +16,29 @@ const helpers = require('./server/helpers');
 const logger = require('./server/logger').logger;
 const apiRoutesV1 = require('./server/routes/v1/api').apiRoutes(app, express);
 const options = {
-    key: fs.readFileSync(`server/certs/ng2-${config.env}.key`),
-    cert: fs.readFileSync(`server/certs/ng2-${config.env}.pem`),
-    passphrase: config.certphrase,
-    secureOptions: crypto.constants.SSL_OP_NO_TLSv1
+  key: fs.readFileSync(`server/certs/ng2-${config.env}.key`),
+  cert: fs.readFileSync(`server/certs/ng2-${config.env}.pem`),
+  passphrase: config.certphrase,
+  secureOptions: crypto.constants.SSL_OP_NO_TLSv1
 };
 const RateLimit = require('express-rate-limit');
 const limiter = new RateLimit({
-    windowMs: Number.parseInt(config.windowMs, 10) * 60 * 1000, // minutes window to track requests (default 30)
-    max: Number.parseInt(config.maxRequests, 10), // limit each IP to maximum requests per windowMs (default 300)
-    delayMs: 0 // disable delaying - full speed until the max limit is reached
+  // minutes window to track requests (default 30)
+  windowMs: Number.parseInt(config.windowMs, 10) * 60 * 1000,
+
+  // limit each IP to maximum requests per windowMs (default 300)
+  max: Number.parseInt(config.maxRequests, 10),
+
+  // disable delaying - full speed until the max limit is reached
+  delayMs: 0
 });
 
 
 // add the CA for non development environments e.g. test, production, etc.
 if (config.env !== 'development') {
-    options.ca = [
-        fs.readFileSync('server/certs/certificateca.cer')
-    ]
+  options.ca = [
+    fs.readFileSync('server/certs/certificateca.cer')
+  ];
 }
 
 logger('debug', `##############################`);
@@ -42,7 +47,7 @@ logger('debug', `##############################`);
 
 // print if debugging logs are enabled and log all requests to the console
 if (config.debug) {
-    app.use(morgan('dev'));
+  app.use(morgan('dev'));
 }
 
 // warn if Cross Origin requests are allowed
@@ -52,8 +57,8 @@ if (config.allowCORS) {
 
 // enable when you're behind a reverse proxy (Heroku, Bluemix, AWS if you use an ELB, custom Nginx setup, etc)
 if (config.trustProxy) {
-    app.enable('trust proxy');
-    logger('info', `trust proxy' enabled!`);
+  app.enable('trust proxy');
+  logger('info', `trust proxy' enabled!`);
 }
 
 // compress static files (JavaScript, CSS)
@@ -68,9 +73,10 @@ app.use(limiter);
 
 // use body parser to get info from POST requests
 // for parsing application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({limit: '2mb', extended: false}));
+app.use(bodyParser.urlencoded({ limit: '2mb', extended: false }));
+
 // for parsing application/json
-app.use(bodyParser.json({limit: '2mb'}));
+app.use(bodyParser.json({ limit: '2mb' }));
 
 // handle CORS requests
 app.use(helpers.handleCORS);
@@ -87,11 +93,11 @@ app.use(helpers.handleErrors);
 // catch all routes and send the user to the frontend
 // has to be registered after API ROUTES
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/dist/index.html'));
+  res.sendFile(path.join(__dirname, '/dist/index.html'));
 });
 
 // start the server
 spdy.createServer(options, app).listen(config.port, () => {
-    logger('info', `The server has been started on port ${config.port}`);
-    logger('info', `The environment is ${config.env}`);
+  logger('info', `The server has been started on port ${config.port}`);
+  logger('info', `The environment is ${config.env}`);
 });

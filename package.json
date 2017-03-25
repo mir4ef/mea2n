@@ -10,7 +10,11 @@
     "build:watch": "ng build -w",
     "test": "ng test",
     "test:once": "ng test --single-run",
-    "lint": "./node_modules/lesshint/bin/lesshint ./src/ && ./node_modules/htmlhint-ng2/bin/htmlhint ./src/app/ && ng lint",
+    "lint": "npm run lint:css && npm run lint:html && npm run lint:node && npm run lint:ts",
+    "lint:css": "./node_modules/lesshint/bin/lesshint ./src/",
+    "lint:html": "./node_modules/htmlhint-ng2/bin/htmlhint ./src/app/",
+    "lint:node": "./node_modules/.bin/eslint ./server cluster.js server.js",
+    "lint:ts": "ng lint",
     "e2e": "ng e2e",
     "apidocs": "./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js ./server/routes/v1/**/* -d ./server/swagger.def.js -o ./src/documentation/api/swagger.json",
     "apidocs:watch": "./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js ./server/routes/v1/**/* -d ./server/swagger.def.js -o ./src/documentation/api/swagger.json -w"

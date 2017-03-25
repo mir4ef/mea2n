@@ -3,13 +3,24 @@
 const def = {
   swagger: '2.0',
   info: {
-    title: 'My Title', // Title (required)
-    version: 'v1', // Version (required)
-    description: 'A sample API' // Description (optional)
+    // Title (required)
+    title: 'My Title',
+
+    // Version (required)
+    version: 'v1',
+
+    // Description (optional)
+    description: 'A sample API'
   },
-  schemes: ['https'], // Schemes (optional)
-  basePath: '/api' // API base path (optional)
-  // host: config.host // Host (optional)
+
+  // Schemes (optional)
+  schemes: ['https'],
+
+  // API base path (optional)
+  basePath: '/api'
+
+  // Host (optional)
+  // host: config.host
 };
 
 module.exports = def;
