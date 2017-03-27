@@ -31,7 +31,7 @@
     "test:once": "ng test --single-run",
     "lint": "npm run lint:css && npm run lint:html && npm run lint:node && npm run lint:ts",
     "lint:css": "./node_modules/lesshint/bin/lesshint ./src/",
-    "lint:html": "./node_modules/htmlhint-ng2/bin/htmlhint ./src/app/",
+    "lint:html": "./node_modules/htmlhint-ng2/bin/htmlhint --rulesdir ./custom-rules/ ./src/app/ ./src/index.html",
     "lint:node": "./node_modules/.bin/eslint ./server cluster.js server.js",
     "lint:ts": "ng lint",
     "e2e": "ng e2e",
@@ -84,8 +84,8 @@
     "pre-commit": "^1.2.2",
     "protractor": "~5.1.0",
     "swagger-jsdoc": "^1.9.2",
-    "ts-node": "~2.0.0",
-    "tslint": "~4.4.2",
+    "ts-node": "~3.0.2",
+    "tslint": "~4.5.1",
     "typescript": "~2.2.0"
   }
 }
