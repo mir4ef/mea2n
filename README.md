@@ -1,6 +1,6 @@
 # (M)EAN Stack with Angular 2+ Starter
 
-### Current version: 0.0.2
+### Current version: 0.0.1
 
 This is a starting point for (M)EAN stack applications (with Angular 2+ and `http/2`). MongoDB drivers are not setup as part of this boilerplate, but can easily be added (with `mongoose` or some other package). The idea is to have a setup to get you up and running quickly and to be database agnostic. You can easily add a database driver that fits your needs. It also uses [Swagger](http://swagger.io) (through `swagger-jsdoc`) to generate the API documentation and visualize it with [Swagger UI](http://swagger.io/swagger-ui/).
 

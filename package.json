@@ -1,7 +1,26 @@
 {
   "name": "mea2n",
-  "version": "0.0.2",
+  "description": "(M)EAN Stack with Angular 2+ Starter",
+  "version": "0.0.1",
   "license": "MIT",
+  "private": true,
+  "author": "My Name <my@email.com>",
+  "homepage": "https://example.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mir4ef/mea2n.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mir4ef/mea2n/issues"
+  },
+  "engines": {
+    "node": ">=6.9.0"
+  },
+  "main": "server.js",
+  "directories": {
+    "app": "src",
+    "node": "server"
+  },
   "scripts": {
     "ng": "ng",
     "start": "npm run apidocs && ng serve",
@@ -24,7 +43,6 @@
     "test:once",
     "e2e"
   ],
-  "private": true,
   "dependencies": {
     "@angular/common": "~4.0.0",
     "@angular/compiler": "~4.0.0",
