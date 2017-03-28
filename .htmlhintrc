@@ -9,6 +9,7 @@
   "attr-value-double-quotes": false,
   "attr-value-single-quotes": true,
   "attr-value-not-empty": false,
+  "attr-value-required": true,
   "csslint": false,
   "doctype-first": false,
   "doctype-html5": true,
