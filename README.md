@@ -67,9 +67,13 @@ If you want, you can run the client side separately from node with `ng serve` fo
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
 
+## App Documentation
+
+Run `npm run docs:app` to generate the documentation. Start the server and navigate to `http://localhost:port/documentation/app`.
+
 ## API Documentation
 
-Run `npm run apidocs` to generate the documentation. Start the server and navigate to `http://localhost:port/documentation/api`. Run `npm run apidocs:watch` to watch and automatically generate the documentation. The swagger definitions can be set in the `swagger.def.js` file located under the `server` folder.
+Run `npm run docs:api` to generate the documentation. Start the server and navigate to `http://localhost:port/documentation/api`. Run `npm run docs:api:watch` to watch and automatically generate the documentation on changes. The swagger definitions can be set in the `swagger.def.js` file located under the `server` folder.
 
 **Note**: If you are using the `lite server` to view the documentation, the 'Try it out!' button will return errors (`404`s). If you want to use the button, it is recommended to view the docs using the node server URL.
 
@@ -84,7 +88,6 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 ## Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve` (or `npm start`).
 
 ## Linting
 

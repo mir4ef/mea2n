@@ -23,9 +23,9 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "npm run apidocs && ng serve",
-    "build": "npm run apidocs && ng build",
-    "build:prod": "npm run apidocs && npm run lint && npm run test:once -- --code-coverage && ng build --prod --aot",
+    "start": "npm run docs:api && npm run docs:app && ng serve",
+    "build": "npm run docs:api && npm run docs:app && ng build",
+    "build:prod": "npm run docs:api && npm run docs:app && npm run lint && npm run test:once -- --code-coverage && ng build --prod --aot",
     "build:watch": "ng build -w",
     "test": "ng test",
     "test:once": "ng test --single-run",
@@ -35,8 +35,9 @@
     "lint:node": "./node_modules/.bin/eslint ./server cluster.js server.js",
     "lint:ts": "ng lint",
     "e2e": "ng e2e",
-    "apidocs": "./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js ./server/routes/v1/**/* -d ./server/swagger.def.js -o ./src/documentation/api/swagger.json",
-    "apidocs:watch": "./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js ./server/routes/v1/**/* -d ./server/swagger.def.js -o ./src/documentation/api/swagger.json -w"
+    "docs:app": "./node_modules/typedoc/bin/typedoc --out ./src/documentation/app/ --mode file --module \"node\" --target \"ES5\" ./src/app/",
+    "docs:api": "./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js ./server/routes/v1/**/* -d ./server/swagger.def.js -o ./src/documentation/api/swagger.json",
+    "docs:api:watch": "./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js ./server/routes/v1/**/* -d ./server/swagger.def.js -o ./src/documentation/api/swagger.json -w"
   },
   "pre-commit": [
     "lint",
@@ -86,6 +87,7 @@
     "swagger-jsdoc": "^1.9.2",
     "ts-node": "~3.0.2",
     "tslint": "~4.5.1",
+    "typedoc": "^0.5.9",
     "typescript": "~2.2.0"
   }
 }
