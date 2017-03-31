@@ -2,7 +2,7 @@
 
 ### Current version: 0.0.1
 
-This is a starting point for (M)EAN stack applications (with Angular 2+ and `http/2`). MongoDB drivers are not setup as part of this boilerplate, but can easily be added (with `mongoose` or some other package). The idea is to have a setup to get you up and running quickly and to be database agnostic. You can easily add a database driver that fits your needs. It also uses [Swagger](http://swagger.io) (through `swagger-jsdoc`) to generate the API documentation and visualize it with [Swagger UI](http://swagger.io/swagger-ui/).
+This is a starting point for (M)EAN stack applications (with Angular 2+ and `http/2`). MongoDB drivers are not setup as part of this boilerplate, but can easily be added (with `mongoose` or some other package). The idea is to have a setup to get you up and running quickly and to be database agnostic. You can easily add a database driver that fits your needs.
 
 ## Setup
 
@@ -67,13 +67,17 @@ If you want, you can run the client side separately from node with `ng serve` fo
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
 
-## App Documentation
+## Application Documentation
 
 Run `npm run docs:app` to generate the documentation. Start the server and navigate to `http://localhost:port/documentation/app`.
+
+The application documentation is generated using [TypeDoc](http://typedoc.org).
 
 ## API Documentation
 
 Run `npm run docs:api` to generate the documentation. Start the server and navigate to `http://localhost:port/documentation/api`. Run `npm run docs:api:watch` to watch and automatically generate the documentation on changes. The swagger definitions can be set in the `swagger.def.js` file located under the `server` folder.
+
+The API documentation is generated with [Swagger](http://swagger.io) (through `swagger-jsdoc`) and visualized with [Swagger UI](http://swagger.io/swagger-ui/).
 
 **Note**: If you are using the `lite server` to view the documentation, the 'Try it out!' button will return errors (`404`s). If you want to use the button, it is recommended to view the docs using the node server URL.
 
@@ -91,7 +95,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 ## Linting
 
-Run `npm run lint` to lint your code. It will scan the CSS (`LESS`), TypeScript, JavaScript (server side) and HTML files.
+Run `npm run lint` to lint your code. It will scan the CSS (`LESS`), the TypeScript (client side), the JavaScript (server side) and the HTML files.
 
 ## Notes
 
