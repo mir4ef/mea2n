@@ -21,6 +21,7 @@
   "inline-script-disabled": true,
   "inline-style-disabled": true,
   "jshint": false,
+  "enforce-newline": true,
   "space-tab-mixed-disabled": true,
   "spec-char-escape": true,
   "src-not-empty": true,

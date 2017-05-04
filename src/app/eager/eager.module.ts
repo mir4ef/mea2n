@@ -9,6 +9,8 @@ import { EagerComponent } from './eager.component';
     CommonModule,
     EagerRoutingModule
   ],
-  declarations: [EagerComponent]
+  declarations: [
+    EagerComponent
+  ]
 })
 export class EagerModule { }

@@ -87,7 +87,11 @@ Run `npm run build` to build the project. The build artifacts will be stored in 
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm run test:ng` to execute the client side unit tests via [Karma](https://karma-runner.github.io).
+
+Run `npm run test:node` to execute server side unit tests via [Jasmine](https://jasmine.github.io).
+
+Use `npm test` to run all unit tests at once.
 
 ## Running end-to-end tests
 

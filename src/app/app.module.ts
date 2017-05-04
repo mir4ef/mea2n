@@ -19,7 +19,9 @@ import { AppComponent } from './app.component';
     EagerModule,
     AppRoutingModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 
 export class AppModule { }
