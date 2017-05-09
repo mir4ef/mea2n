@@ -8,7 +8,7 @@ export class AuthGuard implements CanActivate {
 
   constructor(private router: Router, private tokenService: TokenService) { }
 
-  canActivate() {
+  canActivate(): boolean {
     if (this.tokenService.token) {
       // logged in so return true
       return true;
