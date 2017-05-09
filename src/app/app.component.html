@@ -5,6 +5,10 @@
   <a routerLink='eager' routerLinkActive='active'>Another eager</a>
   <a routerLink='lazy' routerLinkActive='active'>Lazy</a>
   <a routerLink='lazy2' routerLinkActive='active'>Lazy with children</a>
+  <a routerLink='protected' routerLinkActive='active'>Protected page</a>
+  <a *ngIf='!isLoggedIn' routerLink='login' routerLinkActive='active'>login</a>
+  <a href='javascript:' (click)='logout();'>logout</a>
+  <!--<a [routerLink]='["/protected"]'>Protected page</a>-->
 </nav>
 <router-outlet></router-outlet>
 <app-footer></app-footer>
