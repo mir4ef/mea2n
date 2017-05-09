@@ -3,12 +3,20 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'login',
+    loadChildren: 'app/login/login.module#LoginModule'
+  },
+  {
     path: 'lazy',
     loadChildren: 'app/lazy/lazy.module#LazyModule'
   },
   {
     path: 'lazy2',
     loadChildren: 'app/lazy2/lazy2.module#Lazy2Module'
+  },
+  {
+    path: 'protected',
+    loadChildren: 'app/data/data.module#DataModule'
   },
   {
     path: '',
@@ -18,7 +26,7 @@ const routes: Routes = [
   {
     path: '**',
     redirectTo: 'home',
-    pathMatch: 'full' // is this really needed? need to test!
+    pathMatch: 'full'
   }
 ];
 

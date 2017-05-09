@@ -21,6 +21,7 @@ export class LazyComponent implements OnInit {
       .getData()
       .subscribe(
         data => this.data = data.message,
-        err => this.err = err);
+        err => this.err = err
+      );
   }
 }

@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { SharedModule } from '../shared/shared.module';
+
 import { Lazy2Module } from './lazy2.module';
 import { Lazy2Component } from './lazy2.component';
 
@@ -11,6 +13,7 @@ describe('Lazy2Component', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        SharedModule,
         Lazy2Module,
         RouterTestingModule
       ]
