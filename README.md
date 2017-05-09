@@ -47,6 +47,7 @@ To run the application with the node server during local development and build/c
     - PORT - `integer` - the port the node server will be listening on (default: `8080`)
     - ENV - `string` - the server environment (default: `development`)
     - CERTPHRASE - `string` - the certificate password if there is one (default: `undefined`)
+    - SECRET - `string` - the secret to encode/decode the generated token (default: `undefined`)
     - APP_DEBUG - `"true"` (`string`) - prints verbose output in the console (default: `false`)
     - MAX_REQUESTS - `integer` - how many requests are allowed per window from a single IP address before it is blocked (default: `300` requests)
     - WINDOW_MINUTES - `integer` - how many minutes should the requests window be (default: `30` minutes)
