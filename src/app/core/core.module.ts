@@ -6,7 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
 import { TokenService } from './auth/token.service';
-import { BaseService } from './base/base.service';
+import { CoreHttpService } from './http/core-http.service';
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -30,7 +30,7 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
     AuthGuard,
     AuthService,
     TokenService,
-    BaseService
+    CoreHttpService
   ]
 })
 

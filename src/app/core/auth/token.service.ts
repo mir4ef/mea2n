@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Headers, RequestOptions } from '@angular/http';
 
 @Injectable()
 export class TokenService {
@@ -17,15 +16,5 @@ export class TokenService {
 
   public get token(): string {
     return localStorage.getItem(this.tokenKey);
-  }
-
-  public authHeaders() {
-    const token = this.token;
-
-    if (token) {
-      const headers = new Headers({ 'x-access-token': token });
-
-      return new RequestOptions({ headers });
-    }
   }
 }

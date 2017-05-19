@@ -3,8 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -13,13 +11,12 @@ describe('HomeComponent', () => {
     .compileComponents();
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  it('should exist', () => {
+    const fixture: ComponentFixture<HomeComponent> = TestBed.createComponent(HomeComponent);
+    const component: HomeComponent = fixture.componentInstance;
 
-  it('should create', () => {
+    fixture.detectChanges();
+
     expect(component).toBeTruthy();
   });
 });

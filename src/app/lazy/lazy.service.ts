@@ -1,36 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-
-export class SampleData {
-  constructor(public id: number, public title: string, public bodyText: string) { }
-}
-export class ResponseFormat {
-  constructor(public success: boolean, public message: SampleData) { }
-}
+import { CoreHttpService, IResponse } from '../core/http/core-http.service';
 
 @Injectable()
 export class LazyService {
 
-  constructor(private http: Http) { }
+  constructor(private httpService: CoreHttpService) { }
 
   // example with Observable
   // for an example with Promise, view lazy2 component/service
-  getData(): Observable<ResponseFormat> {
-    return this.http
-      .get('/api/v1/sampleData')
-      .map(this.handleResponse)
-      .catch(this.handleError);
-  }
-
-  private handleResponse(res: Response) {
-    return res.json();
-  }
-
-  private handleError(err: Response) {
-    return Promise.reject(err.json());
+  getData(): Observable<IResponse> {
+    return this.httpService.apiGet({ path: 'sampleData' });
   }
 }

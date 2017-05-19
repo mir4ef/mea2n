@@ -1,39 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-
-import { TokenService } from '../core/auth/token.service';
+import { AuthService } from '../core/auth/auth.service';
+import { CoreHttpService, IResponse } from '../core/http/core-http.service';
 
 @Injectable()
 export class DataService {
 
-  constructor(
-    private http: Http,
-    private router: Router,
-    private tokenService: TokenService
-  ) { }
+  constructor(private autService: AuthService, private http: CoreHttpService) { }
 
-  getUser(id: number | string): Observable<Response> {
-    return this.http
-      .get(`/api/v1/data/${id}`, this.tokenService.authHeaders())
-      .map(this.handleResponse)
-      .catch(this.handleError);
+  public getUser(id: number | string): Observable<IResponse> {
+    return this.http.apiGet({ path: `data/${id}` });
   }
 
-  private handleResponse(res: Response) {
-    return res.json().message;
-  }
-
-  private handleError = (err: Response) => {
-    if (err.status === 403) {
-      this.tokenService.token = '';
-      this.router.navigate(['/login']);
-    }
-
-    return Promise.reject(err.json());
+  public logout() {
+    this.autService.logout();
   }
 }

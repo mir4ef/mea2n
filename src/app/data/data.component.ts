@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService } from '../core/auth/auth.service';
-
 import { DataService } from './data.service';
 
 @Component({
@@ -13,24 +11,20 @@ export class DataComponent implements OnInit {
   userData;
   errMsg: string;
 
-  constructor(
-    private router: Router,
-    private autService: AuthService,
-    private dataService: DataService
-  ) {
+  constructor(private router: Router, private dataService: DataService) {
 
   }
 
   ngOnInit() {
     this.dataService.getUser(123)
       .subscribe(
-        data => this.userData = data,
+        data => this.userData = data.message,
         err => this.errMsg = err.message
       );
   }
 
   logout() {
-    this.autService.logout();
+    this.dataService.logout();
     this.router.navigate(['/login']);
   }
 }

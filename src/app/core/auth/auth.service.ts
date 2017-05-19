@@ -1,49 +1,52 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-
+import { CoreHttpService, IResponse } from '../http/core-http.service';
 import { TokenService } from './token.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private http: Http, private tokenService: TokenService) { }
+  constructor(private http: CoreHttpService, private tokenService: TokenService) { }
 
-  public login(user): Observable<Response> {
-    return this.http
-      .post('/api/v1/auth', user)
-      .map(this.handleResponse)
-      .catch(this.handleError);
+  /**
+   * @description login the user
+   * @param {Object} user - The username and password of the user
+   * @returns {Observable<IResponse>} Session details
+   */
+  public login(user): Observable<IResponse> {
+    const opt = {
+      body: user,
+      path: 'auth'
+    };
+
+    return this.http.apiPost(opt).map(data => {
+      this.tokenService.token = data.token;
+
+      return data;
+    });
   }
 
-  public logout() {
+  /**
+   * @description Logout the user
+   * @return {void}
+   */
+  public logout(): void {
     this.tokenService.token = '';
   }
 
-  public isLoggedIn() {
+  /**
+   * @description Check if the user has a valid token
+   * @return {Boolean} Whether the token is valid or not
+   */
+  public isLoggedIn(): boolean {
     return !!this.tokenService.token;
   }
 
-  public getUser() {
-    return this.http
-      .get('/api/v1/me', this.tokenService.authHeaders())
-      .map(res => res.json())
-      .catch(this.handleError);
-  }
-
-  private handleResponse = (res: Response) => {
-    const resp = res.json();
-
-    if (resp && resp.token) {
-      this.tokenService.token = resp.token;
-    }
-
-    return resp;
-  }
-
-  private handleError(err: Response) {
-    return Promise.reject(err.json());
+  /**
+   * @description Get the user info from the token
+   * @return {Observable<IResponse>} User details response
+   */
+  public getUser(): Observable<IResponse> {
+    return this.http.apiGet({ path: 'me'});
   }
 }

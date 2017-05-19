@@ -3,8 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FooterComponent } from './footer.component';
 
 describe('FooterComponent', () => {
-  let component: FooterComponent;
-  let fixture: ComponentFixture<FooterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -13,13 +11,12 @@ describe('FooterComponent', () => {
     .compileComponents();
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(FooterComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  it('should exist', () => {
+    const fixture: ComponentFixture<FooterComponent> = TestBed.createComponent(FooterComponent);
+    const component: FooterComponent = fixture.componentInstance;
 
-  it('should create', () => {
+    fixture.detectChanges();
+
     expect(component).toBeTruthy();
   });
 });

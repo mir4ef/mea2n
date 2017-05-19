@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SampleData, LazyService } from './lazy.service';
+import { LazyService } from './lazy.service';
 
 @Component({
   selector: 'app-lazy',
@@ -9,7 +9,7 @@ import { SampleData, LazyService } from './lazy.service';
 })
 
 export class LazyComponent implements OnInit {
-  data: SampleData;
+  data;
   err;
 
   constructor(private dataService: LazyService) { }

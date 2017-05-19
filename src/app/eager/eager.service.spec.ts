@@ -9,7 +9,7 @@ describe('EagerService', () => {
     });
   });
 
-  it('should ...', inject([EagerService], (service: EagerService) => {
+  it('should exist', inject([EagerService], (service: EagerService) => {
     expect(service).toBeTruthy();
   }));
 });

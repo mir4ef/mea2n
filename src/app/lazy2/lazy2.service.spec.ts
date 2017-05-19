@@ -11,7 +11,7 @@ describe('Lazy2Service', () => {
     });
   });
 
-  it('should ...', inject([Lazy2Service], (service: Lazy2Service) => {
+  it('should exist', inject([Lazy2Service], (service: Lazy2Service) => {
     expect(service).toBeTruthy();
   }));
 });
