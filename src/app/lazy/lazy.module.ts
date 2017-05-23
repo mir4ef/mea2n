@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
+import { SharedModule } from '../shared/shared.module';
 
 import { LazyRoutingModule } from './lazy-routing.module';
 import { LazyComponent } from './lazy.component';
@@ -7,7 +8,7 @@ import { LazyService } from './lazy.service';
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
     LazyRoutingModule
   ],
   declarations: [

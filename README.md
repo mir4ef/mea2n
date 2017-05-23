@@ -106,7 +106,7 @@ Run `npm run lint` to lint your code. It will scan the CSS (`LESS`), the TypeScr
 
  - The project is setup with Angular 4.
  - This project is pre-configured to work with `LESS`, because it is easier to setup and requires less dependencies than `SASS`. But if you prefer to use `SASS` or something else, please update the project accordingly to fit your needs.
- - The project has a `pre-commit` hook to perform certain tasks before the code is committed. The base setup only runs the linting and the tests. Feel free to modify it to fit your needs or remove it completely.
+ - The project has a `pre-commit` hook to perform certain tasks before the code is committed. The base setup only runs the linting, the tests and scans the packages in `packae.json` for known vulnerabilities. Feel free to modify it to fit your needs or remove it completely.
 
 ## Further help
 

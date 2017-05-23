@@ -6,7 +6,20 @@ import { TokenService } from './token.service';
 
 @Injectable()
 export class AuthService {
+  // property to hold the url the user came from
+  private fromURL: string = '/';
+
   constructor(private http: CoreHttpService, private tokenService: TokenService) { }
+
+  // setter for the url the user came from
+  public set requestingURL(url: string) {
+    this.fromURL = url;
+  }
+
+  // getter for the url the user came from
+  public get requestingURL(): string {
+    return this.fromURL;
+  }
 
   /**
    * @description login the user

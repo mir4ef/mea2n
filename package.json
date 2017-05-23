@@ -24,22 +24,24 @@
   "scripts": {
     "start": "npm run docs:api && npm run docs:app && ng serve",
     "build": "npm run docs:api && npm run docs:app && ng build",
-    "build:prod": "npm run docs:api && npm run docs:app && npm run lint && npm test -- --code-coverage && ng build --prod --aot",
+    "build:prod": "npm run security:scan && npm run docs:api && npm run docs:app && npm run lint && npm test -- --code-coverage && ng build --prod --aot",
     "build:watch": "ng build -w",
     "test": "npm run test:ng -- --single-run && npm run test:node",
     "test:ng": "ng test",
     "test:node": "node spec/helpers/reporter.js",
+    "e2e": "ng e2e",
     "lint": "npm run lint:css && npm run lint:node && npm run lint:ts",
     "lint:css": "node ./node_modules/lesshint/bin/lesshint ./src/",
     "lint:html": "node ./node_modules/htmlhint-ng2/bin/htmlhint --config ./.htmlhintrc --rulesdir ./custom-rules/ ./src/app/ ./src/index.html",
     "lint:node": "node ./node_modules/.bin/eslint ./server cluster.js server.js",
     "lint:ts": "ng lint --type-check",
-    "e2e": "ng e2e",
     "docs:app": "node ./node_modules/typedoc/bin/typedoc --out ./src/documentation/app/ --mode file --module \"node\" --target \"ES5\" ./src/app/",
     "docs:api": "node ./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js -d ./server/swagger.def.js -o ./src/documentation/api/swagger.json ./server/routes/v1/**/*.js",
-    "docs:api:watch": "node ./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js -d ./server/swagger.def.js -o ./src/documentation/api/swagger.json ./server/routes/v1/**/*.js -w"
+    "docs:api:watch": "node ./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js -d ./server/swagger.def.js -o ./src/documentation/api/swagger.json ./server/routes/v1/**/*.js -w",
+    "security:scan": "node ./node_modules/nsp/bin/nsp check"
   },
   "pre-commit": [
+    "security:scan",
     "lint",
     "test",
     "e2e"
@@ -85,6 +87,7 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "~0.2.2",
     "lesshint": "~3.3.0",
+    "nsp": "^2.6.3",
     "pre-commit": "^1.2.2",
     "protractor": "~5.1.0",
     "swagger-jsdoc": "~1.9.4",

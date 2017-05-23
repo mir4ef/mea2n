@@ -1,0 +1,32 @@
+.spinner {
+  -moz-animation: ring-spin .5s infinite linear;
+  -webkit-animation: ring-spin .5s infinite linear;
+  animation: ring-spin .5s infinite linear;
+  border: 5px solid darkred;
+  border-radius: 50%;
+  border-right-color: transparent;
+  height: 60px;
+  left: calc(~'(100% - 60px)' / 2);
+  position: fixed;
+  top: calc(~'(100% - 60px)' / 2);
+  width: 60px;
+  z-index: 99999;
+}
+
+@-moz-keyframes ring-spin {
+  from { -moz-transform: rotate(0deg); }
+
+  to { -moz-transform: rotate(360deg); }
+}
+
+@-webkit-keyframes ring-spin {
+  from { -webkit-transform: rotate(0deg); }
+
+  to { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes ring-spin {
+  from { transform: rotate(0deg); }
+
+  to { transform: rotate(360deg); }
+}

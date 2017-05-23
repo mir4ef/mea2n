@@ -63,7 +63,7 @@ export class CoreHttpService {
   public apiPost(request: IRequestOptions<{}>) {
     return this.http.post(
       this.getURL(request),
-      this.hasBody(request.body) ? this.getBody(request.body) : null,
+      this.getBody(request.body),
       { headers: this.getHeaders(request.headers)})
       .map(this.handleResponse)
       .catch(this.handleError);
@@ -129,7 +129,7 @@ export class CoreHttpService {
    * @return {String} A single string with all the params and values to be appended to the URL
    */
   private getQueryParams(params: IParams): string {
-    const paramKeys: Array<string> = Object.keys(params);
+    const paramKeys: Array <string> = Object.keys(params);
     const len: number = paramKeys.length;
 
     // the reducer method that generates the query string
@@ -166,28 +166,12 @@ export class CoreHttpService {
   }
 
   /**
-   * @description Checks to see if this request has any headers
-   * @return {Boolean} Returns whether or not the request has any headers
-   */
-  private hasHeaders(headers): boolean {
-    return headers && Object.keys(headers).length > 0;
-  }
-
-  /**
-   * @description Checks to see if this request has a body
-   * @return {Boolean} Returns whether or not the request has a body
-   */
-  private hasBody(body): boolean {
-    return !!body;
-  }
-
-  /**
-   * @description Get the request body or throw an error
-   * @return {Error} The request body or an error
+   * @description Get the request body or an empty/null body object
+   * @return {Object} The request body or null object
    */
   private getBody(body) {
-    if (!this.hasBody(body)) {
-      throw new Error(`The current request has no request body`);
+    if (!body) {
+      return null;
     }
 
     return body;

@@ -7,9 +7,11 @@ import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
 import { TokenService } from './auth/token.service';
 import { CoreHttpService } from './http/core-http.service';
+import { LoadingIndicatorService } from './loading-indicator/loading-indicator.service';
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
 
 import { throwIfAlreadyLoaded } from './module-import-guard';
 
@@ -20,17 +22,20 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
   ],
   exports: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LoadingIndicatorComponent
   ],
   declarations: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LoadingIndicatorComponent
   ],
   providers: [
     AuthGuard,
     AuthService,
     TokenService,
-    CoreHttpService
+    CoreHttpService,
+    LoadingIndicatorService
   ]
 })
 
