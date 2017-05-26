@@ -1,7 +1,3 @@
-/**
- * Unit tests for the token service
- */
-
 import { inject, TestBed } from '@angular/core/testing';
 
 import { TokenService } from './token.service';
@@ -13,12 +9,21 @@ describe('Token Service', () => {
     });
   });
 
+  beforeEach(() => {
+    // reset the token before each unit test
+    const tokenService = TestBed.get(TokenService);
+    tokenService.token = '';
+  });
+
+  afterAll(() => {
+    // reset the token after done with this unit test
+    const tokenService = TestBed.get(TokenService);
+    tokenService.token = '';
+  });
+
   it('should be null when initialized',
     inject([ TokenService ], (tokenService: TokenService) => {
       expect(tokenService.token).toBeNull();
-
-      // clear the token after each assignment
-      tokenService.token = '';
     }),
   );
 
@@ -26,10 +31,8 @@ describe('Token Service', () => {
     inject([ TokenService ], (tokenService: TokenService) => {
       const token = 'token string';
       tokenService.token = token;
-      expect(tokenService.token).toEqual(token);
 
-      // clear the token after each assignment
-      tokenService.token = '';
+      expect(tokenService.token).toEqual(token);
     }),
   );
 
@@ -37,6 +40,7 @@ describe('Token Service', () => {
     inject([ TokenService ], (tokenService: TokenService) => {
       const token = 'token string';
       tokenService.token = token;
+
       expect(tokenService.token).toEqual(token);
 
       tokenService.token = '';

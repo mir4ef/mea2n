@@ -61,10 +61,7 @@ export class CoreHttpService {
    * @returns {Observable<Response>}
    */
   public apiPost(request: IRequestOptions<{}>) {
-    return this.http.post(
-      this.getURL(request),
-      this.getBody(request.body),
-      { headers: this.getHeaders(request.headers)})
+    return this.http.post(this.getURL(request), this.getBody(request.body), { headers: this.getHeaders(request.headers) })
       .map(this.handleResponse)
       .catch(this.handleError);
   }
@@ -113,7 +110,7 @@ export class CoreHttpService {
     }
 
     if (options.path) {
-      url += `${options.path}`;
+      url += options.path;
     }
 
     if (options.params) {
@@ -129,7 +126,7 @@ export class CoreHttpService {
    * @return {String} A single string with all the params and values to be appended to the URL
    */
   private getQueryParams(params: IParams): string {
-    const paramKeys: Array <string> = Object.keys(params);
+    const paramKeys: Array<string> = Object.keys(params);
     const len: number = paramKeys.length;
 
     // the reducer method that generates the query string

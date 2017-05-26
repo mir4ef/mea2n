@@ -9,7 +9,7 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./header.component.less']
 })
 export class HeaderComponent implements OnInit {
-  isLoggedIn: boolean = false;
+  public isLoggedIn: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) {
 
@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
     this.isLoggedIn = this.authService.isLoggedIn();
   }
 
-  logout() {
+  public logout() {
     this.isLoggedIn = false;
     this.authService.logout();
     this.router.navigate(['/']);
