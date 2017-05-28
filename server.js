@@ -8,6 +8,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const compress = require('compression');
+const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const spdy = require('spdy');
@@ -50,11 +51,6 @@ if (config.debug) {
   app.use(morgan('dev'));
 }
 
-// warn if Cross Origin requests are allowed
-if (config.allowCORS) {
-  logger('warn', 'Cross Origin Enabled!');
-}
-
 // enable when you're behind a reverse proxy (Heroku, Bluemix, AWS if you use an ELB, custom Nginx setup, etc)
 if (config.trustProxy) {
   app.enable('trust proxy');
@@ -79,7 +75,19 @@ app.use(bodyParser.urlencoded({ limit: '2mb', extended: false }));
 app.use(bodyParser.json({ limit: '2mb' }));
 
 // handle CORS requests
-app.use(helpers.handleCORS);
+app.use(cors({
+  origin: config.allowCORS,
+  methods: ['GET, POST'],
+  allowedHeaders: ['X-Requested-With', 'Content-Type'],
+
+  // Provides a status code to use for successful OPTIONS requests, since some legacy browsers (IE11, various SmartTVs) choke on 204.
+  optionsSuccessStatus: 200
+}));
+
+// warn if Cross Origin requests are allowed
+if (config.allowCORS) {
+  logger('warn', 'Cross Origin Enabled!');
+}
 
 // set the public folder to serve public assets the frontend will request
 app.use(express.static('dist'));

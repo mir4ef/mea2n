@@ -1,25 +1,6 @@
 'use strict';
 
-const config = require('./config');
 const logger = require('./logger').logger;
-
-/**
- * @description Handler to set the headers to handle CORS requests
- * @param {Object} req The request object
- * @param {Object} res The response object
- * @param {Function} next The call back function to allow the application to continue
- * @returns {void}
- */
-function handleCORS(req, res, next) {
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type');
-
-  if (config.allowCORS) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-  }
-
-  next();
-}
 
 /**
  * @description Handler for all application level errors and returns a json with the error message to the caller
@@ -69,7 +50,6 @@ function escapeRegExp(str) {
 }
 
 // export the methods for consumption by other modules/files
-exports.handleCORS = handleCORS;
 exports.handleErrors = handleError;
 exports.redirectToHTTPS = redirectToHTTPS;
 exports.escapeRegExp = escapeRegExp;

@@ -30,9 +30,14 @@ export class LazyComponent implements OnInit, OnDestroy {
       .getData()
       .takeUntil(this.ngUnsubscribe)
       .subscribe(
-        data => this.data = data.message,
-        err => this.err = err,
-        () => this.loaderIndicator.setIndicatorState(false)
+        data => {
+          this.loaderIndicator.setIndicatorState(false);
+          this.data = data.message;
+        },
+        err => {
+          this.loaderIndicator.setIndicatorState(false);
+          this.err = err;
+        }
       );
   }
 
