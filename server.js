@@ -57,12 +57,12 @@ if (config.trustProxy) {
   logger('info', `trust proxy' enabled!`);
 }
 
+// protect the app from some well-known web vulnerabilities by setting HTTP headers appropriately
+app.use(helmet());
+
 // compress static files (JavaScript, CSS)
 // MUST BE PLACED BEFORE DEFINING THE STATIC FILES FOLDER/PATH!!!
 app.use(compress());
-
-// protect the app from some well-known web vulnerabilities by setting HTTP headers appropriately
-app.use(helmet());
 
 // apply rate limiter to all requests
 app.use(limiter);
