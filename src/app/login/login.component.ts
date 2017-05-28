@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs/Subject';
+
+import 'rxjs/add/operator/takeUntil';
 
 import { AuthService } from '../core/auth/auth.service';
 import { LoadingIndicatorService } from '../core/loading-indicator/loading-indicator.service';
@@ -8,7 +11,8 @@ import { LoadingIndicatorService } from '../core/loading-indicator/loading-indic
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.less']
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
   user = {
     username: '',
     password: ''
@@ -20,7 +24,7 @@ export class LoginComponent {
     private authService: AuthService,
     private loadingIndicator: LoadingIndicatorService
   ) {
-
+    this.authService.updateLoggedInState();
   }
 
   login() {
@@ -30,10 +34,21 @@ export class LoginComponent {
     // login the user
     this.authService
       .login(this.user)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe(
-        res => this.router.navigate([this.authService.requestingURL]),
-        err => this.errMsg = err.message,
-        () => this.loadingIndicator.setIndicatorState(false)
+        () => {
+          this.loadingIndicator.setIndicatorState(false);
+          this.router.navigate([this.authService.requestedURL]);
+        },
+        err => {
+          this.loadingIndicator.setIndicatorState(false);
+          this.errMsg = err.message;
+        }
       );
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

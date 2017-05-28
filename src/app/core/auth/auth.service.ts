@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { CoreHttpService, IResponse } from '../http/core-http.service';
 import { TokenService } from './token.service';
@@ -8,16 +9,17 @@ import { TokenService } from './token.service';
 export class AuthService {
   // property to hold the url the user came from
   private fromURL: string = '/';
+  private loggedInState = new BehaviorSubject<boolean>(this.isLoggedIn());
 
   constructor(private http: CoreHttpService, private tokenService: TokenService) { }
 
   // setter for the url the user came from
-  public set requestingURL(url: string) {
+  public set requestedURL(url: string) {
     this.fromURL = url;
   }
 
   // getter for the url the user came from
-  public get requestingURL(): string {
+  public get requestedURL(): string {
     return this.fromURL;
   }
 
@@ -34,6 +36,7 @@ export class AuthService {
 
     return this.http.apiPost(opt).map(data => {
       this.tokenService.token = data.token;
+      this.updateLoggedInState();
 
       return data;
     });
@@ -45,6 +48,7 @@ export class AuthService {
    */
   public logout(): void {
     this.tokenService.token = '';
+    this.updateLoggedInState();
   }
 
   /**
@@ -53,6 +57,21 @@ export class AuthService {
    */
   public isLoggedIn(): boolean {
     return !!this.tokenService.token;
+  }
+
+  /**
+   * @description Update the user logged in state
+   */
+  public updateLoggedInState() {
+    this.loggedInState.next(this.isLoggedIn());
+  }
+
+  /**
+   * @description Create an observable for the user logged in state so a component can subscribe and react to changes
+   * @return {Observable<boolean>}
+   */
+  public getLoggedInState(): Observable<boolean> {
+    return this.loggedInState.asObservable();
   }
 
   /**

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+
+import 'rxjs/add/operator/takeUntil';
 
 import { LoadingIndicatorService } from '../core/loading-indicator/loading-indicator.service';
 
@@ -10,7 +13,8 @@ import { LazyService } from './lazy.service';
   styleUrls: ['./lazy.component.less']
 })
 
-export class LazyComponent implements OnInit {
+export class LazyComponent implements OnInit, OnDestroy {
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
   data;
   err;
 
@@ -24,10 +28,16 @@ export class LazyComponent implements OnInit {
     // for an example with Promise, view lazy2 component/service
     this.dataService
       .getData()
+      .takeUntil(this.ngUnsubscribe)
       .subscribe(
         data => this.data = data.message,
         err => this.err = err,
         () => this.loaderIndicator.setIndicatorState(false)
       );
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }
