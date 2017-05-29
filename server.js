@@ -34,7 +34,6 @@ const limiter = new RateLimit({
   delayMs: 0
 });
 
-
 // add the CA for non development environments e.g. test, production, etc.
 if (config.env !== 'development') {
   options.ca = [
