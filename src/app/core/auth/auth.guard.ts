@@ -12,7 +12,6 @@ import {
 import { AuthService } from './auth.service';
 import { TokenService } from './token.service';
 
-
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 

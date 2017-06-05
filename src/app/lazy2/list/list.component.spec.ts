@@ -21,8 +21,34 @@ describe('ListComponent', () => {
     const fixture: ComponentFixture<ListComponent> = TestBed.createComponent(ListComponent);
     const component: ListComponent = fixture.componentInstance;
 
-    fixture.detectChanges();
-
     expect(component).toBeTruthy();
   });
+
+  it('should get a list of entries by calling getEntries promise', async(() => {
+    const sampleEntries = [
+      {
+        id: 123,
+        name: 'Entry 1'
+      },
+      {
+        id: 456,
+        name: 'Entry 2'
+      }
+    ];
+    const len = sampleEntries.length;
+    const fixture: ComponentFixture<ListComponent> = TestBed.createComponent(ListComponent);
+    const component: ListComponent = fixture.componentInstance;
+    const lazy2Service: Lazy2Service = fixture.debugElement.injector.get(Lazy2Service);
+
+    spyOn(lazy2Service, 'getEntries').and.returnValue(Promise.resolve({ message: sampleEntries }));
+
+    fixture.detectChanges();
+
+    expect(lazy2Service.getEntries).toHaveBeenCalled();
+
+    fixture.whenStable().then(() => {
+      expect(component.entries).toEqual(sampleEntries);
+      expect(component.entries.length).toBe(len);
+    });
+  }));
 });

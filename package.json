@@ -33,7 +33,7 @@
     "lint": "npm run lint:css && npm run lint:node && npm run lint:ts",
     "lint:css": "node ./node_modules/lesshint/bin/lesshint ./src/",
     "lint:html": "node ./node_modules/htmlhint-ng2/bin/htmlhint --config ./.htmlhintrc --rulesdir ./custom-rules/ ./src/app/ ./src/index.html",
-    "lint:node": "node ./node_modules/.bin/eslint ./server cluster.js server.js",
+    "lint:node": "node ./node_modules/eslint/bin/eslint.js ./server cluster.js server.js",
     "lint:ts": "ng lint --type-check",
     "docs:app": "node ./node_modules/typedoc/bin/typedoc --out ./src/documentation/app/ --mode file --module \"node\" --target \"ES5\" ./src/app/",
     "docs:api": "node ./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js -d ./server/swagger.def.js -o ./src/documentation/api/swagger.json ./server/routes/v1/**/*.js",
@@ -97,7 +97,7 @@
     "protractor": "~5.1.0",
     "swagger-jsdoc": "~1.9.4",
     "ts-node": "~3.0.2",
-    "tslint": "~5.3.2",
+    "tslint": "~5.4.2",
     "typedoc": "~0.7.0",
     "typescript": "~2.3.0"
   }

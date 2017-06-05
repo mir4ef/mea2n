@@ -8,10 +8,6 @@ import { DetailComponent } from './detail.component';
 import { Lazy2Service } from '../lazy2.service';
 
 describe('DetailComponent', () => {
-  let component: DetailComponent;
-  let fixture: ComponentFixture<DetailComponent>;
-  let entryService: Lazy2Service;
-  let spy;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -24,19 +20,27 @@ describe('DetailComponent', () => {
     .compileComponents();
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DetailComponent);
-
-    component = fixture.componentInstance;
-
-    entryService = fixture.debugElement.injector.get(Lazy2Service);
-
-    spy = spyOn(entryService, 'getEntry').and.returnValue({ id: 111, name: 'Name' });
-
-    fixture.detectChanges();
-  });
-
   it('should create', () => {
+    const fixture: ComponentFixture<DetailComponent> = TestBed.createComponent(DetailComponent);
+    const component: DetailComponent = fixture.componentInstance;
+
     expect(component).toBeTruthy();
   });
+
+  it('should get the details of the selected element by calling getEntry promise', async(() => {
+    const sampleEntry = { id: 123, name: 'Name' };
+    const fixture: ComponentFixture<DetailComponent> = TestBed.createComponent(DetailComponent);
+    const component: DetailComponent = fixture.componentInstance;
+    const lazy2Service: Lazy2Service = fixture.debugElement.injector.get(Lazy2Service);
+
+    spyOn(lazy2Service, 'getEntry').and.returnValue(sampleEntry);
+
+    fixture.detectChanges();
+
+    expect(lazy2Service.getEntry).toHaveBeenCalled();
+
+    fixture.whenStable().then(() => {
+      expect(component.entry).toEqual(sampleEntry);
+    });
+  }));
 });
