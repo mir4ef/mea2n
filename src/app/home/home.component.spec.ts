@@ -15,8 +15,6 @@ describe('HomeComponent', () => {
     const fixture: ComponentFixture<HomeComponent> = TestBed.createComponent(HomeComponent);
     const component: HomeComponent = fixture.componentInstance;
 
-    fixture.detectChanges();
-
     expect(component).toBeTruthy();
   });
 });

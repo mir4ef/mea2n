@@ -3,6 +3,7 @@ import {
   HttpModule,
   Http,
   BaseRequestOptions,
+  RequestMethod,
   Response,
   ResponseOptions
 } from '@angular/http';
@@ -52,7 +53,12 @@ describe('LazyService', () => {
     const baseResponse = new Response(response);
 
     backend.connections.subscribe(
-      (c: MockConnection) => c.mockRespond(baseResponse)
+      (c: MockConnection) => {
+        c.mockRespond(baseResponse);
+
+        expect(c.request.method).toBe(RequestMethod.Get);
+        expect(c.request.url).toBe('/api/v1/sampleData');
+      }
     );
 
     service.getData().subscribe(data => {

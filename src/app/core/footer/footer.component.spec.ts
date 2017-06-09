@@ -15,8 +15,6 @@ describe('FooterComponent', () => {
     const fixture: ComponentFixture<FooterComponent> = TestBed.createComponent(FooterComponent);
     const component: FooterComponent = fixture.componentInstance;
 
-    fixture.detectChanges();
-
     expect(component).toBeTruthy();
   });
 });

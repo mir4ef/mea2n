@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -24,31 +24,32 @@ describe('ListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should get a list of entries by calling getEntries promise', async(() => {
-    const sampleEntries = [
-      {
-        id: 123,
-        name: 'Entry 1'
-      },
-      {
-        id: 456,
-        name: 'Entry 2'
-      }
-    ];
-    const len = sampleEntries.length;
-    const fixture: ComponentFixture<ListComponent> = TestBed.createComponent(ListComponent);
-    const component: ListComponent = fixture.componentInstance;
-    const lazy2Service: Lazy2Service = fixture.debugElement.injector.get(Lazy2Service);
+  it('should get a list of entries by calling getEntries promise', async(
+    inject([Lazy2Service], (lazy2Service: Lazy2Service) => {
+      const sampleEntries = [
+        {
+          id: 123,
+          name: 'Entry 1'
+        },
+        {
+          id: 456,
+          name: 'Entry 2'
+        }
+      ];
+      const len = sampleEntries.length;
+      const fixture: ComponentFixture<ListComponent> = TestBed.createComponent(ListComponent);
+      const component: ListComponent = fixture.componentInstance;
 
-    spyOn(lazy2Service, 'getEntries').and.returnValue(Promise.resolve({ message: sampleEntries }));
+      spyOn(lazy2Service, 'getEntries').and.returnValue(Promise.resolve({ message: sampleEntries }));
 
-    fixture.detectChanges();
+      fixture.detectChanges();
 
-    expect(lazy2Service.getEntries).toHaveBeenCalled();
+      expect(lazy2Service.getEntries).toHaveBeenCalled();
 
-    fixture.whenStable().then(() => {
-      expect(component.entries).toEqual(sampleEntries);
-      expect(component.entries.length).toBe(len);
-    });
-  }));
+      fixture.whenStable().then(() => {
+        expect(component.entries).toEqual(sampleEntries);
+        expect(component.entries.length).toBe(len);
+      });
+    })
+  ));
 });

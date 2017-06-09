@@ -23,8 +23,6 @@ describe('HeaderComponent', () => {
     const fixture: ComponentFixture<HeaderComponent> = TestBed.createComponent(HeaderComponent);
     const component: HeaderComponent = fixture.componentInstance;
 
-    fixture.detectChanges();
-
     expect(component).toBeTruthy();
   });
 });

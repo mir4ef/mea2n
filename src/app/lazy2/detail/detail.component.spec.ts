@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { SharedModule } from '../../shared/shared.module';
@@ -27,20 +27,21 @@ describe('DetailComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should get the details of the selected element by calling getEntry promise', async(() => {
-    const sampleEntry = { id: 123, name: 'Name' };
-    const fixture: ComponentFixture<DetailComponent> = TestBed.createComponent(DetailComponent);
-    const component: DetailComponent = fixture.componentInstance;
-    const lazy2Service: Lazy2Service = fixture.debugElement.injector.get(Lazy2Service);
+  it('should get the details of the selected element by calling getEntry promise', async(
+    inject([Lazy2Service], (lazy2Service: Lazy2Service) => {
+      const sampleEntry = { id: 123, name: 'Name' };
+      const fixture: ComponentFixture<DetailComponent> = TestBed.createComponent(DetailComponent);
+      const component: DetailComponent = fixture.componentInstance;
 
-    spyOn(lazy2Service, 'getEntry').and.returnValue(sampleEntry);
+      spyOn(lazy2Service, 'getEntry').and.returnValue(sampleEntry);
 
-    fixture.detectChanges();
+      fixture.detectChanges();
 
-    expect(lazy2Service.getEntry).toHaveBeenCalled();
+      expect(lazy2Service.getEntry).toHaveBeenCalled();
 
-    fixture.whenStable().then(() => {
-      expect(component.entry).toEqual(sampleEntry);
-    });
-  }));
+      fixture.whenStable().then(() => {
+        expect(component.entry).toEqual(sampleEntry);
+      });
+    })
+  ));
 });

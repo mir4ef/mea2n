@@ -17,8 +17,6 @@ describe('Lazy2Component', () => {
     const fixture: ComponentFixture<Lazy2Component> = TestBed.createComponent(Lazy2Component);
     const component: Lazy2Component = fixture.componentInstance;
 
-    fixture.detectChanges();
-
     expect(component).toBeTruthy();
   });
 });

@@ -15,8 +15,6 @@ describe('EagerComponent', () => {
     const fixture: ComponentFixture<EagerComponent> = TestBed.createComponent(EagerComponent);
     const component: EagerComponent = fixture.componentInstance;
 
-    fixture.detectChanges();
-
     expect(component).toBeTruthy();
   });
 });
