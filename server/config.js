@@ -4,7 +4,7 @@
 
 module.exports = {
   'port': process.env.PORT || 8080,
-  'env': process.env.ENV || 'development',
+  'env': process.env.NODE_ENV || 'development',
   'certphrase': process.env.CERTPHRASE || '',
   'secret': process.env.SECRET,
   'maxRequests': process.env.MAX_REQUESTS || 300,
