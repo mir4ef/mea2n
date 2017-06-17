@@ -107,6 +107,7 @@ Run `npm run lint` to lint your code. It will scan the CSS (`LESS`), the TypeScr
  - The project is setup with Angular 4.2.x.
  - This project is pre-configured to work with `LESS`, because it is easier to setup and requires less dependencies than `SASS`. But if you prefer to use `SASS` or something else, please update the project accordingly to fit your needs.
  - The project has a `pre-commit` hook to perform certain tasks before the code is committed. The base setup only runs the production build and the e2e tests. Feel free to modify it to fit your needs or remove it completely.
+ - The project has a `pre-push` hook to perform certain tasks before the code is pushed. The base setup only runs the production build and the e2e tests. Feel free to modify it to fit your needs or remove it completely. (The idea is that during rebasing mistakes might happen and end up in the repo, because rebasing skips `commit` and directly `push`es)
  - The project is setup with `@types/jasmine` v2.5.46+, which is a bit more strict, because `any` was replaced with an expected type (`Expected<T>`). If you are encountering problems, please downgrade to v2.4.45 ([more info](https://github.com/angular/angularfire2/issues/875))
 
 ## Further help

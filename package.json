@@ -43,6 +43,10 @@
   "pre-commit": [
     "e2e",
     "build:prod"
+  ],,
+  "pre-push": [
+    "e2e",
+    "build:prod"
   ],
   "dependencies": {
     "@angular/common": "~4.2.0",
@@ -91,6 +95,7 @@
     "nsp": "^2.6.3",
     "phantomjs-prebuilt": "^2.1.14",
     "pre-commit": "^1.2.2",
+    "pre-push": "^0.1.1",
     "protractor": "~5.1.0",
     "swagger-jsdoc": "~1.9.4",
     "ts-node": "~3.0.2",
