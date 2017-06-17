@@ -43,10 +43,6 @@
   "pre-commit": [
     "e2e",
     "build:prod"
-  ],,
-  "pre-push": [
-    "e2e",
-    "build:prod"
   ],
   "pre-push": [
     "e2e",
