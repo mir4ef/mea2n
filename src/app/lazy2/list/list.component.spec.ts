@@ -2,7 +2,7 @@ import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing'
 import { HttpModule } from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { Lazy2Service } from '../lazy2.service';
+import { IEntry, Lazy2Service } from '../lazy2.service';
 
 import { ListComponent } from './list.component';
 
@@ -26,7 +26,7 @@ describe('ListComponent', () => {
 
   it('should get a list of entries by calling getEntries promise', async(
     inject([Lazy2Service], (lazy2Service: Lazy2Service) => {
-      const sampleEntries = [
+      const sampleEntries: IEntry[] = [
         {
           id: 123,
           name: 'Entry 1'
@@ -40,6 +40,8 @@ describe('ListComponent', () => {
       const fixture: ComponentFixture<ListComponent> = TestBed.createComponent(ListComponent);
       const component: ListComponent = fixture.componentInstance;
 
+      component.errorMsg = '';
+
       spyOn(lazy2Service, 'getEntries').and.returnValue(Promise.resolve({ message: sampleEntries }));
 
       fixture.detectChanges();
@@ -49,6 +51,28 @@ describe('ListComponent', () => {
       fixture.whenStable().then(() => {
         expect(component.entries).toEqual(sampleEntries);
         expect(component.entries.length).toBe(len);
+        expect(component.errorMsg).toEqual('');
+      });
+    })
+  ));
+
+  it('should get a server error', async(
+    inject([Lazy2Service], (lazy2Service: Lazy2Service) => {
+      const response = 'an error occurred.';
+      const fixture: ComponentFixture<ListComponent> = TestBed.createComponent(ListComponent);
+      const component: ListComponent = fixture.componentInstance;
+
+      component.errorMsg = '';
+
+      spyOn(lazy2Service, 'getEntries').and.returnValue(Promise.reject({ message: response }));
+
+      fixture.detectChanges();
+
+      expect(lazy2Service.getEntries).toHaveBeenCalled();
+
+      fixture.whenStable().then(() => {
+        expect(component.entries).toBeUndefined();
+        expect(component.errorMsg).toEqual(response);
       });
     })
   ));

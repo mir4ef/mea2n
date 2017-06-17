@@ -45,6 +45,8 @@ describe('LazyComponent', () => {
       const fixture: ComponentFixture<LazyComponent> = TestBed.createComponent(LazyComponent);
       const component: LazyComponent = fixture.componentInstance;
 
+      component.err = '';
+
       spyOn(lazyService, 'getData').and.returnValue(Observable.of({ message: sampleData }));
 
       fixture.detectChanges();
@@ -53,6 +55,28 @@ describe('LazyComponent', () => {
 
       fixture.whenStable().then(() => {
         expect(component.data).toEqual(sampleData);
+        expect(component.err).toEqual('');
+      });
+    })
+  ));
+
+  it('should get a server error', async(
+    inject([LazyService], (lazyService: LazyService) => {
+      const response = 'an error occurred.';
+      const fixture: ComponentFixture<LazyComponent> = TestBed.createComponent(LazyComponent);
+      const component: LazyComponent = fixture.componentInstance;
+
+      component.err = '';
+
+      spyOn(lazyService, 'getData').and.returnValue(Observable.throw(response));
+
+      fixture.detectChanges();
+
+      expect(lazyService.getData).toHaveBeenCalled();
+
+      fixture.whenStable().then(() => {
+        expect(component.data).toBeUndefined();
+        expect(component.err).toEqual(response);
       });
     })
   ));

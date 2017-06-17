@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { SampleEntry, Lazy2Service } from '../lazy2.service';
+import { IEntry, Lazy2Service } from '../lazy2.service';
 
 @Component({
   selector: 'app-detail',
@@ -9,7 +9,7 @@ import { SampleEntry, Lazy2Service } from '../lazy2.service';
   styleUrls: ['./detail.component.less']
 })
 export class DetailComponent implements OnInit {
-  entry: SampleEntry;
+  entry: IEntry;
 
   constructor(private route: ActivatedRoute, private entryService: Lazy2Service) {
 

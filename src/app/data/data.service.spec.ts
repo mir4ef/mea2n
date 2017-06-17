@@ -13,7 +13,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { AuthService } from '../core/auth/auth.service';
 import { TokenService } from '../core/auth/token.service';
-import { CoreHttpService } from '../core/http/core-http.service';
+import { CoreHttpService, IResponse } from '../core/http/core-http.service';
 
 import { DataService } from './data.service';
 
@@ -48,7 +48,7 @@ describe('DataService', () => {
 
   it('should return user data details', inject([DataService, MockBackend], (service: DataService, backend: MockBackend) => {
     const id = 111;
-    const sampleUser = { id, name: 'Name', username: 'first.last' };
+    const sampleUser: IResponse = { success: true, message: { id, name: 'Name', username: 'first.last' }};
     const response: ResponseOptions = new ResponseOptions({ body: JSON.stringify(sampleUser) });
     const baseResponse: Response = new Response(response);
 
@@ -63,12 +63,12 @@ describe('DataService', () => {
 
     service.getUser(id).subscribe(data => {
       expect(data).toEqual(sampleUser);
-    })
+    });
   }));
 
   it('should return 404 if the user id doesnt exist', inject([DataService, MockBackend], (service: DataService, backend: MockBackend) => {
     const id = 111;
-    const res = { success: false, message: 'user doesnt exists' };
+    const res: IResponse = { success: false, message: 'user doesnt exists' };
     const response: ResponseOptions = new ResponseOptions({ type: ResponseType.Error, status: 404, body: JSON.stringify(res) });
     const baseResponse: Response = new Response(response);
 
@@ -88,7 +88,7 @@ describe('DataService', () => {
 
   it('should return a server error if something went wrong on the server side', inject([DataService, MockBackend], (service: DataService, backend: MockBackend) => {
     const id = 111;
-    const res = { success: false, message: 'server error' };
+    const res: IResponse = { success: false, message: 'server error' };
     const response: ResponseOptions = new ResponseOptions({ type: ResponseType.Error, status: 500, body: JSON.stringify(res) });
     const baseResponse: Response = new Response(response);
 

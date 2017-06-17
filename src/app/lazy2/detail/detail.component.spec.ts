@@ -5,7 +5,7 @@ import { SharedModule } from '../../shared/shared.module';
 
 import { Lazy2Module } from '../lazy2.module';
 import { DetailComponent } from './detail.component';
-import { Lazy2Service } from '../lazy2.service';
+import { IEntry, Lazy2Service } from '../lazy2.service';
 
 describe('DetailComponent', () => {
 
@@ -29,7 +29,7 @@ describe('DetailComponent', () => {
 
   it('should get the details of the selected element by calling getEntry promise', async(
     inject([Lazy2Service], (lazy2Service: Lazy2Service) => {
-      const sampleEntry = { id: 123, name: 'Name' };
+      const sampleEntry: IEntry = { id: 123, name: 'Name' };
       const fixture: ComponentFixture<DetailComponent> = TestBed.createComponent(DetailComponent);
       const component: DetailComponent = fixture.componentInstance;
 

@@ -9,6 +9,8 @@ import {
 } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
+import { IResponse } from '../core/http/core-http.service';
+
 import { Lazy2Service } from './lazy2.service';
 
 describe('Lazy2Service', () => {
@@ -38,18 +40,19 @@ describe('Lazy2Service', () => {
   }));
 
   it('should return a list of entries', inject([Lazy2Service, MockBackend], (service: Lazy2Service, backend: MockBackend) => {
-    const sampleEntries = [
-      {
-        id: 123,
-        name: 'Entry 1'
-      },
-      {
-        id: 456,
-        name: 'Entry 2'
-      }
-    ];
-    const response = new ResponseOptions({ body: JSON.stringify(sampleEntries) });
-    const baseResponse = new Response(response);
+    const sampleEntries: IResponse = { success : true, message: [
+        {
+          id: 123,
+          name: 'Entry 1'
+        },
+        {
+          id: 456,
+          name: 'Entry 2'
+        }
+      ]
+    };
+    const response: ResponseOptions = new ResponseOptions({ body: JSON.stringify(sampleEntries) });
+    const baseResponse: Response = new Response(response);
 
     backend.connections.subscribe(
       (c: MockConnection) => {

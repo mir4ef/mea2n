@@ -3,11 +3,11 @@ import { Http, Response } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
-export class SampleEntry {
-  constructor(public id: number, public name: string) { }
-}
-export class ResponseFormat {
-  constructor(public success: boolean, public message: SampleEntry[]) { }
+import { IResponse } from '../core/http/core-http.service';
+
+export interface IEntry {
+  id: number;
+  name: string;
 }
 
 @Injectable()
@@ -17,13 +17,13 @@ export class Lazy2Service {
   // it will be used to 'cache' a response and save a trip to the backend (not recommended approach unless you are dealing with data that won't change i.e. image urls - not a perfect example, but the idea is
   // that the image URLs will be pretty static, but the image itself could change (which you don't care about))
   // however, if you are dealing with data that could change (i.e user data, shopping card), you should have an endpoint which returns a single entry (recommended)
-  private dataArray: SampleEntry[];
+  private dataArray: IEntry[];
 
   constructor(private http: Http) { }
 
   // example with Promise
   // for an example with Observable, view lazy component/service
-  getEntries(): Promise<ResponseFormat> {
+  getEntries(): Promise<IResponse> {
     return this.http.get('/api/v1/sampleEntries')
       .toPromise()
       .then(this.handleResponse)
@@ -42,7 +42,7 @@ export class Lazy2Service {
     this.dataArray = response.message;
 
     return response;
-  }
+  };
 
   private handleError(err: Response) {
     return Promise.reject(err.json());

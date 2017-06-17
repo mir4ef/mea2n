@@ -45,7 +45,7 @@ To run the application with the node server during local development and build/c
     
     Available environmental variables:
     - PORT - `integer` - the port the node server will be listening on (default: `8080`)
-    - ENV - `string` - the server environment (default: `development`)
+    - NODE_ENV - `string` - the server environment (default: `development`)
     - CERTPHRASE - `string` - the certificate password if there is one (default: `undefined`)
     - SECRET - `string` - the secret to encode/decode the generated token (default: `undefined`)
     - APP_DEBUG - `"true"` (`string`) - prints verbose output in the console (default: `false`)
@@ -100,13 +100,14 @@ Run `npm run e2e` to execute the end-to-end tests via [Protractor](http://www.pr
 
 ## Linting
 
-Run `npm run lint` to lint your code. It will scan the CSS (`LESS`), the TypeScript (client side), the JavaScript (server side) and the HTML files.
+Run `npm run lint` to lint your code. It will scan the CSS (`LESS`), the TypeScript (client side) and the JavaScript (server side) files.
 
 ## Notes
 
- - The project is setup with Angular 4.1.x.
+ - The project is setup with Angular 4.2.x.
  - This project is pre-configured to work with `LESS`, because it is easier to setup and requires less dependencies than `SASS`. But if you prefer to use `SASS` or something else, please update the project accordingly to fit your needs.
- - The project has a `pre-commit` hook to perform certain tasks before the code is committed. The base setup only runs the linting, the tests and scans the packages in `package.json` for known vulnerabilities. Feel free to modify it to fit your needs or remove it completely.
+ - The project has a `pre-commit` hook to perform certain tasks before the code is committed. The base setup only runs the production build and the e2e tests. Feel free to modify it to fit your needs or remove it completely.
+ - The project is setup with `@types/jasmine` v2.5.46+, which is a bit more strict, because `any` was replaced with an expected type (`Expected<T>`). If you are encountering problems, please downgrade to v2.4.45 ([more info](https://github.com/angular/angularfire2/issues/875))
 
 ## Further help
 
