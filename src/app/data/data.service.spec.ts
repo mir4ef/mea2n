@@ -81,8 +81,8 @@ describe('DataService', () => {
       }
     );
 
-    service.getUser(id).subscribe(data => {
-      expect(data).toEqual(res);
+    service.getUser(id).subscribe(null, error => {
+      expect(error).toEqual(res);
     })
   }));
 
@@ -101,8 +101,8 @@ describe('DataService', () => {
       }
     );
 
-    service.getUser(id).subscribe(data => {
-      expect(data).toEqual(res);
+    service.getUser(id).subscribe(null, error => {
+      expect(error).toEqual(res);
     })
   }));
 });

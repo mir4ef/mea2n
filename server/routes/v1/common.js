@@ -118,7 +118,7 @@ function validateToken(req, res, next) {
 
 /**
  * @swagger
- * /v1/authenticate:
+ * /v1/auth:
  *   post:
  *     summary: Verify user and get a token
  *     description: Login to the application and generate a token

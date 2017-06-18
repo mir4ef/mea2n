@@ -32,21 +32,19 @@
     "e2e": "ng e2e",
     "lint": "npm run lint:css && npm run lint:node && npm run lint:ts",
     "lint:css": "node ./node_modules/lesshint/bin/lesshint ./src/",
-    "lint:html": "node ./node_modules/htmlhint-ng2/bin/htmlhint --config ./.htmlhintrc --rulesdir ./custom-rules/ ./src/app/ ./src/index.html",
     "lint:node": "node ./node_modules/eslint/bin/eslint.js ./server cluster.js server.js",
     "lint:ts": "ng lint --type-check",
     "docs:app": "node ./node_modules/typedoc/bin/typedoc --out ./src/documentation/app/ --mode file --module \"node\" --target \"ES5\" ./src/app/",
     "docs:api": "node ./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js -d ./server/swagger.def.js -o ./src/documentation/api/swagger.json ./server/routes/v1/**/*.js",
     "docs:api:watch": "node ./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js -d ./server/swagger.def.js -o ./src/documentation/api/swagger.json ./server/routes/v1/**/*.js -w",
-    "security:scan": "node ./node_modules/nsp/bin/nsp check"
+    "security:scan": "node ./node_modules/nsp/bin/nsp check",
+    "pre-git": "npm run e2e && npm run build:prod"
   },
   "pre-commit": [
-    "e2e",
-    "build:prod"
+    "pre-git"
   ],
   "pre-push": [
-    "e2e",
-    "build:prod"
+    "pre-git"
   ],
   "dependencies": {
     "@angular/common": "~4.2.0",

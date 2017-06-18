@@ -77,8 +77,8 @@ describe('LazyService', () => {
       }
     );
 
-    service.getData().subscribe(data => {
-      expect(data).toEqual(res);
+    service.getData().subscribe(null, error => {
+      expect(error).toEqual(res);
     })
   }));
 });

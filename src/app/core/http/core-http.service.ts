@@ -87,7 +87,7 @@ export class CoreHttpService {
     }
 
     return Promise.reject(err.json());
-  }
+  };
 
   /**
    * @description Build the endpoint URL with a default URI or passed URL options like scheme, host, etc.

@@ -13,7 +13,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
 
-import { throwIfAlreadyLoaded } from './module-import-guard';
+import { throwIfAlreadyLoaded } from '../utils/module-import-guard';
 
 @NgModule({
   imports: [

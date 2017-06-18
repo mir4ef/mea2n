@@ -47,6 +47,7 @@ function apiRoutes(app, express) {
   /**
    * PROTECTED ROUTES
    */
+
   // api endpoint for testing protected api endpoints
   apiRouter.get('/protected', (req, res) => {
     res.json({ success: true, message: 'protected API is working!' });
@@ -61,22 +62,6 @@ function apiRoutes(app, express) {
   /**
    * *************************************************
    * END ROUTES DEFINITIONS
-   * *************************************************
-   */
-
-  /**
-   * *************************************************
-   */
-
-  /**
-   * *************************************************
-   * START ROUTES HANDLERS/METHODS
-   * *************************************************
-   */
-
-  /**
-   * *************************************************
-   * END ROUTES HANDLERS/METHODS
    * *************************************************
    */
 
@@ -114,6 +99,8 @@ function apiRoutes(app, express) {
    *     summary: Reach protected API endpoints
    *     description: An API endpoint for you to make sure you are reaching the server and its protected api endpoints (like /collaborators, etc.)
    *     tags: [Endpoints for Testing]
+   *     security:
+   *       - APIKey: []
    *     produces:
    *       - application/json
    *     responses:

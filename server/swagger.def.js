@@ -17,10 +17,18 @@ const def = {
   schemes: ['https'],
 
   // API base path (optional)
-  basePath: '/api'
+  basePath: '/api',
 
   // Host (optional)
   // host: config.host
+
+  securityDefinitions: {
+    APIKey: {
+      type: 'apiKey',
+      in: 'header',
+      name: 'x-access-token'
+    }
+  }
 };
 
 module.exports = def;
