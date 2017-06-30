@@ -1,6 +1,6 @@
 'use strict';
 
-const logger = require('../../../logger').logger;
+const logger = require('../../../utils/logger').logger;
 
 // defining some dummy data
 // ideally this should come from a database

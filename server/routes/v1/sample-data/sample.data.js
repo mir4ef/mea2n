@@ -1,6 +1,6 @@
 'use strict';
 
-const logger = require('../../../logger').logger;
+const logger = require('../../../utils/logger').logger;
 const sampleData = {
   id: 123,
   title: 'Title',

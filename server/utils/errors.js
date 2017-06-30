@@ -3,6 +3,7 @@
 const logger = require('./logger').logger;
 
 /**
+ * @method handleError
  * @description Handler for all application level errors and returns a json with the error message to the caller
  * @param {String} message The error message to be returned with the response
  * @param {Number} code The error code for the server response
@@ -23,33 +24,5 @@ function handleError({ message = 'An error occurred', code = 500 }, req, res, ne
   return res.status(code).json({ success: false, message });
 }
 
-/**
- * @description Handler for HTTP request to redirect them to HTTPS
- * @param {Object} req The request object
- * @param {Object} res The response object
- * @param {Function} next The call back function to allow the application to continue
- * @returns {void}
- */
-function redirectToHTTPS(req, res, next) {
-  if (!req.secure) {
-    // request was via http, so redirect to https
-    return res.redirect(`https://${req.headers.host}${req.url}`);
-  }
-
-  // request was via https, so do no special handling
-  next();
-}
-
-/**
- * @description Safely escape characters during replace or other RegEx methods
- * @param {String} str - The string that needs escaping
- * @returns {String} The string with safely escaped characters
- */
-function escapeRegExp(str) {
-  return str.replace(/([.*+?^=!:${}()|[\]/\\])/g, '\\$&');
-}
-
-// export the methods for consumption by other modules/files
+// export the method for consumption by other modules/files
 exports.handleErrors = handleError;
-exports.redirectToHTTPS = redirectToHTTPS;
-exports.escapeRegExp = escapeRegExp;

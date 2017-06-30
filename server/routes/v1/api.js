@@ -1,7 +1,7 @@
 'use strict';
 
 // import the route methods
-const common = require('./common');
+const token = require('../../middleware/validate.token');
 const auth = require('./auth/auth');
 const sampleData = require('./sample-data/sample.data');
 const sampleEntries = require('./sample-entries/sample.entries.js');
@@ -42,7 +42,7 @@ function apiRoutes(app, express) {
    * any route before it will NOT be protected by the middleware, so anybody CAN access it
    * any route after it will be protected by the middleware
    */
-  apiRouter.use(common.validateToken);
+  apiRouter.use(token.validateToken);
 
   /**
    * PROTECTED ROUTES
@@ -124,6 +124,45 @@ function apiRoutes(app, express) {
    *         schema:
    *           type: object
    *           $ref: '#/definitions/ServerError'
+   */
+
+  /**
+   * Below are some shared definitions to be used across all routes e.g. server errors, etc.
+   */
+
+  /**
+   * @swagger
+   * definitions:
+   *   FailedToken:
+   *     properties:
+   *       success:
+   *         type: boolean
+   *         example: false
+   *       message:
+   *         type: string
+   *         example: 'Token not valid or not provided!'
+   *
+   *   BadRequest:
+   *     properties:
+   *       success:
+   *         type: boolean
+   *         example: false
+   *       message:
+   *         type: string
+   *         example: 'Invalid request or parameter passed'
+   *
+   *   ServerError:
+   *     properties:
+   *       success:
+   *         type: boolean
+   *         example: false
+   *       message:
+   *         type: string
+   *         example: 'Server or database error!'
+   */
+
+  /**
+   * END shared definitions
    */
 
   // return the /api/v1 routes object

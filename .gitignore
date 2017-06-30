@@ -1,13 +1,19 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-server/certs
+server/certs/*
+#!server/certs/.gitkeep
 swagger.json
 
 # compiled output
 /dist
 /tmp
 /out-tsc
+/src/documentation/api/*
+!/src/documentation/api/*.png
+!/src/documentation/api/*.html
 /src/documentation/app
+
+!.gitkeep
 
 # Logs
 logs
@@ -29,11 +35,7 @@ npm-debug.log*
 /nbproject/private/
 
 # IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+.vscode/
 
 # misc
 /.sass-cache

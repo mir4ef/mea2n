@@ -4,6 +4,32 @@
 
 This is a starting point for (M)EAN stack applications (with Angular 2+ and `http/2`). MongoDB drivers are not setup as part of this boilerplate, but can easily be added (with `mongoose` or some other package). The idea is to have a setup to get you up and running quickly and to be database agnostic. You can easily add a database driver that fits your needs.
 
+## TL;DR
+
+You need:
+
+1. [NodeJS](https://nodejs.org/) v6.9.0+
+2. [Angular CLI](https://cli.angular.io) v1.0.0+
+
+Run the app:
+
+1. Generate certs and place them inside `/server/certs`. Generate certs by running this in your terminal `openssl req -x509 -newkey rsa:4096 -keyout ng2-development.key -out ng2-development.pem -days 365`. If the folder `certs` doesn't exist, create it.
+2. Run `npm install`
+3. Run `npm run build`
+4. Start the server with `NODE_ENV=development SECRET=supersecret CERTPHRASE=your.cert.password node server.js` *
+5. Navigate to `https://localhost:8080`
+
+*If you didn't setup a certificate password, you can omit `CERTPHRASE`.
+
+## Not TL;DR
+
+## What it has
+- Angular
+- NodeJS
+- JWT-based authentication (naive, but can be modified and scaled to fit your needs)
+- API Docs (thru [Swagger UI](http://swagger.io/swagger-ui/))
+- App Docs (thru [TypeDoc](http://typedoc.org))
+
 ## Setup
 
 #### Prerequisites

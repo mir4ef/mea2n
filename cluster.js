@@ -3,7 +3,7 @@
 // load the packages
 const cluster = require('cluster');
 const os = require('os');
-const logger = require('./server/logger').logger;
+const logger = require('./server/utils/logger').logger;
 
 if (cluster.isMaster) {
   const numCPUs = os.cpus().length;

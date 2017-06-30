@@ -3,7 +3,7 @@
 /* eslint no-console: ["error", { allow: ["log"] }] */
 
 const chalk = require('chalk');
-const config = require('./config');
+const config = require('../config');
 
 /**
  * @constructor

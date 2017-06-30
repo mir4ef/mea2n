@@ -143,6 +143,7 @@ export class CoreHttpService {
 
   /**
    * @description Get the headers for this request or an empty Headers object
+   * @param {Object} headers - An object with headers that need to be passed along with the request
    * @return {Headers} The Angular headers object
    */
   private getHeaders(headers): Headers {

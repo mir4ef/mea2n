@@ -13,8 +13,8 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const spdy = require('spdy');
 const config = require('./server/config');
-const helpers = require('./server/helpers');
-const logger = require('./server/logger').logger;
+const errors = require('./server/utils/errors');
+const logger = require('./server/utils/logger').logger;
 const apiRoutesV1 = require('./server/routes/v1/api').apiRoutes(app, express);
 const options = {
   key: fs.readFileSync(`server/certs/ng2-${config.env}.key`),
@@ -95,7 +95,7 @@ app.use(express.static('dist'));
 app.use('/api/v1', apiRoutesV1);
 
 // error handling
-app.use(helpers.handleErrors);
+app.use(errors.handleErrors);
 
 // catch all routes and send the user to the frontend
 // has to be registered after API ROUTES
