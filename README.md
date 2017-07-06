@@ -16,19 +16,26 @@ Run the app:
 1. Generate certs and place them inside `/server/certs`. Generate certs by running this in your terminal `openssl req -x509 -newkey rsa:4096 -keyout ng2-development.key -out ng2-development.pem -days 365`. If the folder `certs` doesn't exist, create it.
 2. Run `npm install`
 3. Run `npm run build`
-4. Start the server with `NODE_ENV=development SECRET=supersecret CERTPHRASE=your.cert.password node server.js` *
+4. Start the server with*:
+
+    ```bash
+    NODE_ENV="development" SECRET="supersecret" CERTPHRASE="your.cert.password" node server.js
+    ```
+    
+    *If you didn't setup a certificate password, you can omit `CERTPHRASE`.
+    
 5. Navigate to `https://localhost:8080`
 
-*If you didn't setup a certificate password, you can omit `CERTPHRASE`.
 
 ## Not TL;DR
 
 ## What it has
 - Angular
-- NodeJS
+- NodeJS (+ExpressJS)
 - JWT-based authentication (naive, but can be modified and scaled to fit your needs)
 - API Docs (thru [Swagger UI](http://swagger.io/swagger-ui/))
 - App Docs (thru [TypeDoc](http://typedoc.org))
+- git `pre-commit` and `pre-push` hooks (for more info see `Notes` below)
 
 ## Setup
 
@@ -44,7 +51,7 @@ Note: The `-g` flag will install it globally and requires admin (`sudo`) rights 
 
 #### Prod and Dev
 
-- you need the `build-essential`s installed on Ubuntu and RedHat
+- if you are using Ubuntu or RedHat, you need to install the `build-essential`s
 - clone the application (you need `git` installed to do it)
 - install all dependencies, including the development ones, by running `npm install` from the application folder
 
@@ -52,7 +59,7 @@ Note: The `-g` flag will install it globally and requires admin (`sudo`) rights 
 
 #### Node server
 
-To run the application with the node server during local development and build/consume APIs do the following:
+To run the application with the node server during local development and build/consume APIs and the app/UI do the following:
 
 - generate certificates and place them in the `certs` folder (`app-root-folder/server/certs`) for local development. Please note that the certificate name should match the application name and the current environment (e.g. `app-name-development`, `app-name-production`, etc.). If you don't know how to generate `.pem` and `.key` files, you can search the internet or [read this post](http://blog.mgechev.com/2014/02/19/create-https-tls-ssl-application-with-express-nodejs/) or run this in your terminal `openssl req -x509 -newkey rsa:4096 -keyout app-name-development.key -out app-name-development.pem -days 365` (please use 2048 encryption and above when generating the certs, e.g. `rsa:2048`). If you setup a password for your certs, you will need to provide it when you start the server with the environmental variable `CERTPHRASE`
 - if you use the default port configuration, the url will be `https://localhost:8080`. if you are using a different port (by setting the environmental variable `PORT` when you start the server), update the URL accordingly. Note that `http` won't open anything, **ONLY** `https` is allowed!
@@ -60,13 +67,13 @@ To run the application with the node server during local development and build/c
 - when you start the server, your final startup command should look something like this:
 
     ```bash
-    CERTPHRASE="myphrase" APP_DEBUG="true" node server.js
+    NODE_ENV="development" CERTPHRASE="myphrase" SECRET="somesecret" APP_DEBUG="true" node server.js
     ```
     
     or if using `nodemon`
     
     ```bash
-    CERTPHRASE="myphrase" nodemon server.js
+    NODE_ENV="development" CERTPHRASE="myphrase" SECRET="somesecret" nodemon server.js
     ```
     
     Available environmental variables:
@@ -131,10 +138,12 @@ Run `npm run lint` to lint your code. It will scan the CSS (`LESS`), the TypeScr
 ## Notes
 
  - The project is setup with Angular 4.2.x.
+ - There is one example of using reusable animation with Angular's `animation()` and `useAnimation()` new methods to do fade in effect on route change (only on the first three routes). Most projects have some sort of animation. However, if you plan on not using Angular animations, please remove `@angular/animations` from package.json, `BrowserAnimationsModule` from `app.module.ts`, `NoopAnimationsModule` from any unit test that `imports` it and delete `/src/app/shared/animations`. 
  - This project is pre-configured to work with `LESS`, because it is easier to setup and requires less dependencies than `SASS`. But if you prefer to use `SASS` or something else, please update the project accordingly to fit your needs.
  - The project has a `pre-commit` hook to perform certain tasks before the code is committed. The base setup only runs the production build and the e2e tests. Feel free to modify it to fit your needs or remove it completely.
  - The project has a `pre-push` hook to perform certain tasks before the code is pushed. The base setup only runs the production build and the e2e tests. Feel free to modify it to fit your needs or remove it completely. (The idea is that during rebasing mistakes might happen and end up in the repo, because rebasing skips `commit` and directly `push`es)
  - The project is setup with `@types/jasmine` v2.5.46+, which is a bit more strict, because `any` was replaced with an expected type (`Expected<T>`). If you are encountering problems, please downgrade to v2.4.45 ([more info](https://github.com/angular/angularfire2/issues/875))
+ - There are no CSS libraries (e.g. Boostrap, Material, etc.) to give freedom to add any external styling library based on project needs.
 
 ## Further help
 

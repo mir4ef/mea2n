@@ -4,13 +4,15 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
 import { LoadingIndicatorService } from '../core/loading-indicator/loading-indicator.service';
+import { fade } from '../shared/animations';
 
 import { LazyService } from './lazy.service';
 
 @Component({
   selector: 'app-lazy',
   templateUrl: './lazy.component.html',
-  styleUrls: ['./lazy.component.less']
+  styleUrls: [ './lazy.component.less' ],
+  animations: [ fade('2s', .3, .95) ]
 })
 
 export class LazyComponent implements OnInit, OnDestroy {

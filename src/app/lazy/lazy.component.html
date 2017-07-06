@@ -1,7 +1,9 @@
-<p>
-  lazy works!
-</p>
-<section *ngIf='data'>
-  <h3>{{ data.title }}</h3>
-  <p>{{ data.bodyText }}</p>
-</section>
+<article @fadeIn>
+  <p>
+    lazy works!
+  </p>
+  <section *ngIf='data'>
+    <h3>{{ data.title }}</h3>
+    <p>{{ data.bodyText }}</p>
+  </section>
+</article>
