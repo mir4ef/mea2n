@@ -29,6 +29,25 @@ Run the app:
 
 ## Not TL;DR
 
+## ToC
+1. [What it has](#what-it-has)
+2. [Setup](#setup)
+    1. [Prerequisites](#prerequisites)
+    2. [Prod and Dev](#prod-and-dev)
+3. [Development Server](#development-server)
+    1. [Node Server](#node-server)
+    2. [Lite Server](#lite-server)
+4. [Code Scaffolding](#code-scaffolding)
+5. [Application Documentation](#application-documentation)
+6. [API Documentation](#api-documentation)
+7. [Build](#build)
+8. [Running Unit Tests](#running-unit-tests)
+9. [Running end-to-end Tests](#running-end-to-end-tests)
+9. [Linting](#linting)
+10. [Notes](#notes)
+11. [Further help](#further-help)
+
+<a name="what-it-has"></a>
 ## What it has
 - Angular
 - NodeJS (+ExpressJS)
@@ -37,8 +56,10 @@ Run the app:
 - App Docs (thru [TypeDoc](http://typedoc.org))
 - git `pre-commit` and `pre-push` hooks (for more info see `Notes` below)
 
+<a name="setup"></a>
 ## Setup
 
+<a name="prerequisites"></a>
 #### Prerequisites
 
 - NodeJS is required (v >= **6.9.0**). It can be downloaded and installed from [here](https://nodejs.org/).
@@ -49,14 +70,17 @@ Note: The `-g` flag will install it globally and requires admin (`sudo`) rights 
 - Nodemon is optional. It is used to automatically restart/reload the server on changes to the backend. It can be downloaded and installed by running `npm install -g nodemon`. Then, you can just run the server by going to the application folder and typing `nodemon server.js`.
 Note: The `-g` flag will install it globally and requires admin (`sudo`) rights for the current user.
 
+<a name="prod-and-dev"></a>
 #### Prod and Dev
 
 - if you are using Ubuntu or RedHat, you need to install the `build-essential`s
 - clone the application (you need `git` installed to do it)
 - install all dependencies, including the development ones, by running `npm install` from the application folder
 
+<a name="development-server"></a>
 ## Development server
 
+<a name="node-server"></a>
 #### Node server
 
 To run the application with the node server during local development and build/consume APIs and the app/UI do the following:
@@ -91,22 +115,26 @@ To run the application with the node server during local development and build/c
 
 **Note 2**: The sever has a rate limiter. The default is 300 requests per 30 minutes. You can control these settings by setting the environmental variables `MAX_REQUESTS` (integer - e.g. `100` for 100 requests per window) and/or `WINDOW_MINUTES` (integer - e.g. `5` for 5 minutes windows) when you start your sever.
 
+<a name="lite-server"></a>
 #### Lite server
 
 If you want, you can run the client side separately from node with `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the client side source files. To run the app with a secure connection (`https`) please use the `--ssl` flag - `ng server --ssl` - and change the protocol to `https` - `https://localhost:4200/`. It is **recommended** to run it with the secure flag to be closer to the prod env, which uses the secure protocol.
 
 **Note**: If you want to listen for client side changes and auto build the client side and still use the node URL, you can use `npm run build:watch`, but this won't auto refresh the browser.
 
-## Code scaffolding
+<a name="code-scaffolding"></a>
+## Code Scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
 
+<a name="application-documentation"></a>
 ## Application Documentation
 
 Run `npm run docs:app` to generate the documentation. Start the server and navigate to `http://localhost:port/documentation/app`.
 
 The application documentation is generated using [TypeDoc](http://typedoc.org).
 
+<a name="api-documentation"></a>
 ## API Documentation
 
 Run `npm run docs:api` to generate the documentation. Start the server and navigate to `http://localhost:port/documentation/api`. Run `npm run docs:api:watch` to watch and automatically generate the documentation on changes. The swagger definitions can be set in the `swagger.def.js` file located under the `server` folder.
@@ -115,11 +143,13 @@ The API documentation is generated with [Swagger](http://swagger.io) (through `s
 
 **Note**: If you are using the `lite server` to view the documentation, the 'Try it out!' button will return errors (`404`s). If you want to use the button, it is recommended to view the docs using the node server URL.
 
+<a name="build"></a>
 ## Build
 
 Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory. Use `npm run build:prod` for a production build.
 
-## Running unit tests
+<a name="running-unit-tests"></a>
+## Running Unit Tests
 
 Run `npm run test:ng` to execute the client side unit tests via [Karma](https://karma-runner.github.io).
 
@@ -127,24 +157,28 @@ Run `npm run test:node` to execute server side unit tests via [Jasmine](https://
 
 Use `npm test` to run all unit tests at once.
 
-## Running end-to-end tests
+<a name="running-end-to-end-tests"></a>
+## Running end-to-end Tests
 
 Run `npm run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
+<a name="linting"></a>
 ## Linting
 
 Run `npm run lint` to lint your code. It will scan the CSS (`LESS`), the TypeScript (client side) and the JavaScript (server side) files.
 
+<a name="notes"></a>
 ## Notes
 
  - The project is setup with Angular 4.2.x.
  - There is one example of using reusable animation with Angular's `animation()` and `useAnimation()` new methods to do fade in effect on route change (only on the first three routes). Most projects have some sort of animation. However, if you plan on not using Angular animations, please remove `@angular/animations` from package.json, `BrowserAnimationsModule` from `app.module.ts`, `NoopAnimationsModule` from any unit test that `imports` it and delete `/src/app/shared/animations`. 
  - This project is pre-configured to work with `LESS`, because it is easier to setup and requires less dependencies than `SASS`. But if you prefer to use `SASS` or something else, please update the project accordingly to fit your needs.
  - The project has a `pre-commit` hook to perform certain tasks before the code is committed. The base setup only runs the production build and the e2e tests. Feel free to modify it to fit your needs or remove it completely.
- - The project has a `pre-push` hook to perform certain tasks before the code is pushed. The base setup only runs the production build and the e2e tests. Feel free to modify it to fit your needs or remove it completely. (The idea is that during rebasing mistakes might happen and end up in the repo, because rebasing skips `commit` and directly `push`es)
+ - The project has a `pre-push` hook to perform certain tasks before the code is pushed. The base setup only runs the production build and the e2e tests. Feel free to modify it to fit your needs or remove it completely. (The idea is that during merging or rebasing mistakes might happen and end up in the repo, because merging and rebasing skip `commit` and directly `push`)
  - The project is setup with `@types/jasmine` v2.5.46+, which is a bit more strict, because `any` was replaced with an expected type (`Expected<T>`). If you are encountering problems, please downgrade to v2.4.45 ([more info](https://github.com/angular/angularfire2/issues/875))
  - There are no CSS libraries (e.g. Boostrap, Material, etc.) to give freedom to add any external styling library based on project needs.
 
+<a name="further-help"></a>
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
