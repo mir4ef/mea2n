@@ -29,7 +29,7 @@ Run the app:
 
 ## Not TL;DR
 
-## ToC
+## Table of Contents
 1. [What it has](#what-it-has)
 2. [Setup](#setup)
     1. [Prerequisites](#prerequisites)
