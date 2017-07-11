@@ -53,7 +53,7 @@ if (config.debug) {
 // enable when you're behind a reverse proxy (Heroku, Bluemix, AWS if you use an ELB, custom Nginx setup, etc)
 if (config.trustProxy) {
   app.enable('trust proxy');
-  logger('info', `trust proxy' enabled!`);
+  logger('info', `trust proxy enabled!`);
 }
 
 // protect the app from some well-known web vulnerabilities by setting HTTP headers appropriately

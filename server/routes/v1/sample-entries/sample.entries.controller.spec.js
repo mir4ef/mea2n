@@ -2,7 +2,7 @@
 
 'use strict';
 
-const sampleEntriesGET = require('./sample.entries').sampleEntriesGET;
+const sampleEntriesGET = require('./sample.entries.controller').sampleEntriesGET;
 
 describe('/sampleEntries Endpoint', () => {
   describe('GET', () => {

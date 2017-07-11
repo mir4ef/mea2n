@@ -2,10 +2,10 @@
 
 // import the route methods
 const token = require('../../middleware/validate.token');
-const auth = require('./auth/auth');
-const sampleData = require('./sample-data/sample.data');
-const sampleEntries = require('./sample-entries/sample.entries.js');
-const data = require('./data/data');
+const authRoutes = require('./auth/auth.routes').authRoutes();
+const sampleDataRoutes = require('./sample-data/sample.data.routes').sampleDataRoutes();
+const sampleEntriesRoutes = require('./sample-entries/sample.entries.routes').sampleEntriesRoutes();
+const dataRoutes = require('./data/data.routes').dataRoutes();
 
 function apiRoutes(app, express) {
   // get an instance of the express router
@@ -20,20 +20,28 @@ function apiRoutes(app, express) {
   /**
    * UNPROTECTED ROUTES
    */
+
   // api endpoint for testing
   apiRouter.get('/', (req, res) => res.json({ success: true, message: 'API is working!' }));
 
-  // sample api endpoint to return sample data to the client
-  apiRouter.route('/sampleData').get(sampleData.sampleDataGET);
+  // sample data api endpoint routes
+  apiRouter.use('/sampleData', sampleDataRoutes);
 
-  // sample api endpoint to return sample array of data ot the client
-  apiRouter.route('/sampleEntries').get(sampleEntries.sampleEntriesGET);
-
-  // return only one entry
-  apiRouter.route('/sampleEntries/:id').get(sampleEntries.sampleEntryGET);
+  // sample entries api endpoint routes
+  apiRouter.use('/sampleEntries', sampleEntriesRoutes);
 
   // authentication endpoint
-  apiRouter.route('/auth').post(auth.authPOST);
+  apiRouter.use('/auth', authRoutes);
+
+  // PROTECTED data endpoint
+  // Although this endpoint definition is before the validateToken middleware,
+  // it has the middleware imported into the dataRoutes routes definitions
+  // and it handles the token validation. The idea is to demonstrate a different
+  // way of defining and protecting routes. Also, this allows for certain routes
+  // not to be protected and others to be protected within the same definition file.
+  // Also, this gives more flexibility to the order of routes definition.
+  // See './data/data.routes.js' for more info.
+  apiRouter.use('/data', dataRoutes);
 
   /**
    * route middleware to verify a token
@@ -49,12 +57,7 @@ function apiRoutes(app, express) {
    */
 
   // api endpoint for testing protected api endpoints
-  apiRouter.get('/protected', (req, res) => {
-    res.json({ success: true, message: 'protected API is working!' });
-  });
-
-  // protected data endpoint
-  apiRouter.get('/data/:id', data.dataGET);
+  apiRouter.get('/protected', (req, res) => res.json({ success: true, message: 'protected API is working!' }));
 
   // api endpoint to get user information
   apiRouter.get('/me', (req, res) => res.send(req.decoded));

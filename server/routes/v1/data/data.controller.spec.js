@@ -2,7 +2,7 @@
 
 'use strict';
 
-const dataGET = require('./data').dataGET;
+const dataGET = require('./data.controller').dataGET;
 
 describe('/data Endpoint', () => {
   describe('GET', () => {
