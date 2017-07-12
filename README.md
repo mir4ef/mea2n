@@ -52,8 +52,9 @@ Run the app:
 - Angular
 - NodeJS (+ExpressJS)
 - JWT-based authentication (naive, but can be modified and scaled to fit your needs)
-- API Docs (thru [Swagger UI](http://swagger.io/swagger-ui/))
-- App Docs (thru [TypeDoc](http://typedoc.org))
+- HTTP/2
+- API Docs (thru [Swagger UI](http://swagger.io/swagger-ui/), for more info see [API Documentation](#api-documentation) below)
+- App Docs (thru [TypeDoc](http://typedoc.org), for more info see [Application Documentation](#application-documentation) below)
 - git `pre-commit` and `pre-push` hooks (for more info see [Notes](#notes) below)
 
 <a name="setup"></a>
