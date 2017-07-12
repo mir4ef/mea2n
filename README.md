@@ -54,7 +54,7 @@ Run the app:
 - JWT-based authentication (naive, but can be modified and scaled to fit your needs)
 - API Docs (thru [Swagger UI](http://swagger.io/swagger-ui/))
 - App Docs (thru [TypeDoc](http://typedoc.org))
-- git `pre-commit` and `pre-push` hooks (for more info see `Notes` below)
+- git `pre-commit` and `pre-push` hooks (for more info see [Notes](#notes) below)
 
 <a name="setup"></a>
 ## Setup
@@ -118,7 +118,7 @@ To run the application with the node server during local development and build/c
 <a name="lite-server"></a>
 #### Lite server
 
-If you want, you can run the client side separately from node with `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the client side source files. To run the app with a secure connection (`https`) please use the `--ssl` flag - `ng server --ssl` - and change the protocol to `https` - `https://localhost:4200/`. It is **recommended** to run it with the secure flag to be closer to the prod env, which uses the secure protocol.
+If you want, you can run the client side separately from node with `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the client side source files. To run the app with a secure connection (`https`) please use the `--ssl` flag - `ng server --ssl` (or simply run `npm start`) - and change the protocol to `https` - `https://localhost:4200/`. It is **recommended** to run it with the secure flag to be closer to the prod env, which uses the secure protocol.
 
 **Note**: If you want to listen for client side changes and auto build the client side and still use the node URL, you can use `npm run build:watch`, but this won't auto refresh the browser.
 

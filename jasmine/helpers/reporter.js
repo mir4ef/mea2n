@@ -22,10 +22,18 @@ const specReporter = new SpecReporter({
 });
 
 // load the jasmine config file
-jasmine.loadConfigFile('spec/support/jasmine.json');
+jasmine.loadConfigFile('jasmine/support/jasmine.json');
 
 // clear any reporters (including the default one)
 jasmine.clearReporters();
+
+jasmine.onComplete(function(passed) {
+  if (passed) {
+    console.log('All specs have passed');
+  } else {
+    console.log('At least one spec has failed');
+  }
+});
 
 // add/load the spec reporter
 jasmine.addReporter(specReporter);
