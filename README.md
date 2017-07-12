@@ -53,6 +53,7 @@ Run the app:
 - NodeJS (+ExpressJS)
 - JWT-based authentication (naive, but can be modified and scaled to fit your needs)
 - HTTP/2
+- gzip compression of served files (for more info see [Notes](#notes) below)
 - API Docs (thru [Swagger UI](http://swagger.io/swagger-ui/), for more info see [API Documentation](#api-documentation) below)
 - App Docs (thru [TypeDoc](http://typedoc.org), for more info see [Application Documentation](#application-documentation) below)
 - git `pre-commit` and `pre-push` hooks (for more info see [Notes](#notes) below)
@@ -174,6 +175,7 @@ Run `npm run lint` to lint your code. It will scan the CSS (`LESS`), the TypeScr
  - The project is setup with Angular 4.2.x.
  - There is one example of using reusable animation with Angular's `animation()` and `useAnimation()` new methods to do fade in effect on route change (only on the first three routes). Most projects have some sort of animation. However, if you plan on not using Angular animations, please remove `@angular/animations` from package.json, `BrowserAnimationsModule` from `app.module.ts`, `NoopAnimationsModule` from any unit test that `imports` it and delete `/src/app/shared/animations`. 
  - This project is pre-configured to work with `LESS`, because it is easier to setup and requires less dependencies than `SASS`. But if you prefer to use `SASS` or something else, please update the project accordingly to fit your needs.
+ - The Node server is configured to gzip each file that it servers to compatible browsers to reduce the file size and save traffic (especially important for mobile devices and slow networks).
  - The project has a `pre-commit` hook to perform certain tasks before the code is committed. The base setup only runs the production build and the e2e tests. Feel free to modify it to fit your needs or remove it completely.
  - The project has a `pre-push` hook to perform certain tasks before the code is pushed. The base setup only runs the production build and the e2e tests. Feel free to modify it to fit your needs or remove it completely. (The idea is that during merging or rebasing mistakes might happen and end up in the repo, because merging and rebasing skip `commit` and directly `push`)
  - The project is setup with `@types/jasmine` v2.5.46+, which is a bit more strict, because `any` was replaced with an expected type (`Expected<T>`). If you are encountering problems, please downgrade to v2.4.45 ([more info](https://github.com/angular/angularfire2/issues/875))
