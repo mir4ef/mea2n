@@ -29,7 +29,7 @@
     "build:watch": "ng build -w",
     "test": "npm run test:node:coverage && npm run test:ng -- --single-run --code-coverage",
     "test:ng": "ng test",
-    "test:node": "node jasmine/helpers/reporter.js",
+    "test:node": "node server/jasmine/helpers/reporter.js",
     "test:node:coverage": "node ./node_modules/nyc/bin/nyc.js npm run test:node",
     "e2e": "ng e2e",
     "lint": "npm run lint:css && npm run lint:node && npm run lint:ts",

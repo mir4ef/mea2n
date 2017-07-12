@@ -7,7 +7,8 @@
     "server/*.js",
     "server/routes/**/api.js",
     "server/utils/logger.js",
-    "server/certs/*"
+    "server/certs/*",
+    "server/jasmine/*"
   ],
   "reporter": [
     "lcov",

@@ -22,7 +22,7 @@ const specReporter = new SpecReporter({
 });
 
 // load the jasmine config file
-jasmine.loadConfigFile('jasmine/support/jasmine.json');
+jasmine.loadConfigFile('server/jasmine/support/jasmine.json');
 
 // clear any reporters (including the default one)
 jasmine.clearReporters();
