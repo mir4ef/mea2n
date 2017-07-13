@@ -9,7 +9,7 @@ This is a starting point for (M)EAN stack applications (with Angular 2+ and `htt
 You need:
 
 1. [NodeJS](https://nodejs.org/) v6.9.0+
-2. [Angular CLI](https://cli.angular.io) v1.0.0+
+2. [Angular CLI](https://cli.angular.io) v1.0.0+ (`npm install -g @angular/cli`)
 
 Run the app:
 
@@ -57,6 +57,7 @@ Run the app:
 - API Docs (thru [Swagger UI](http://swagger.io/swagger-ui/), for more info see [API Documentation](#api-documentation) below)
 - App Docs (thru [TypeDoc](http://typedoc.org), for more info see [Application Documentation](#application-documentation) below)
 - git `pre-commit` and `pre-push` hooks (for more info see [Notes](#notes) below)
+- secured with [helmet](https://helmetjs.github.io) and rate limiter (for more info see [Node Server](#node-server) below)
 
 <a name="setup"></a>
 ## Setup
@@ -115,7 +116,7 @@ To run the application with the node server during local development and build/c
 
 **Note 1**: You need to build the application before trying to open it in a browser. To do so you can run `npm run build`. 
 
-**Note 2**: The sever has a rate limiter. The default is 300 requests per 30 minutes. You can control these settings by setting the environmental variables `MAX_REQUESTS` (integer - e.g. `100` for 100 requests per window) and/or `WINDOW_MINUTES` (integer - e.g. `5` for 5 minutes windows) when you start your sever.
+**Note 2**: The sever has a rate limiter. The default is 300 requests per 30 minutes per user. You can control these settings by setting the environmental variables `MAX_REQUESTS` (integer - e.g. `100` for 100 requests per window) and/or `WINDOW_MINUTES` (integer - e.g. `5` for 5 minutes windows) when you start your sever.
 
 <a name="lite-server"></a>
 #### Lite server
