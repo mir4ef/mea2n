@@ -139,7 +139,7 @@ describe('AuthService', () => {
     service.getUser().subscribe(data => expect(data).toEqual(sampleData));
   }));
 
-  it('should logout the user', inject([ AuthService, TokenService ], (service: AuthService, tokenService: TokenService) => {
+  it('should logout the user', inject([ AuthService ], (service: AuthService) => {
     spyOn(service, 'updateLoggedInState').and.callThrough();
 
     service.logout();
@@ -147,6 +147,6 @@ describe('AuthService', () => {
     expect(service.updateLoggedInState).toHaveBeenCalled();
     expect(service.updateLoggedInState).toHaveBeenCalledTimes(1);
     expect(service.updateLoggedInState).toHaveBeenCalledWith();
-    expect(tokenService.token).toBeNull();
+    expect(service.isLoggedIn).toBeFalsy();
   }));
 });
