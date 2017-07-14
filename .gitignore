@@ -45,6 +45,7 @@ npm-debug.log*
 npm-debug.log
 testem.log
 /typings
+/.scannerwork
 
 # e2e
 /e2e/*.js
