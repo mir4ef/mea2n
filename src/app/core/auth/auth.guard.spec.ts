@@ -55,7 +55,7 @@ describe('AuthGuard', () => {
         spyOn(router, 'navigate');
 
         expect(authGuard.canActivate(route, state)).toBe(true);
-        expect(router.navigate).toHaveBeenCalledTimes(0);
+        expect(router.navigate).not.toHaveBeenCalled();
       }),
     );
   });
@@ -85,7 +85,7 @@ describe('AuthGuard', () => {
         spyOn(router, 'navigate');
 
         expect(authGuard.canActivateChild(route, state)).toBe(true);
-        expect(router.navigate).toHaveBeenCalledTimes(0);
+        expect(router.navigate).not.toHaveBeenCalled();
       }),
     );
   });
@@ -113,7 +113,7 @@ describe('AuthGuard', () => {
         spyOn(router, 'navigate');
 
         expect(authGuard.canLoad(route)).toBe(true);
-        expect(router.navigate).toHaveBeenCalledTimes(0);
+        expect(router.navigate).not.toHaveBeenCalled();
       }),
     );
   });

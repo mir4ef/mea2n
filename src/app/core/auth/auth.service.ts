@@ -9,7 +9,7 @@ import { TokenService } from './token.service';
 export class AuthService {
   // property to hold the url the user came from
   private fromURL: string = '/';
-  private loggedInState = new BehaviorSubject<boolean>(this.isLoggedIn());
+  private loggedInState = new BehaviorSubject<boolean>(this.isLoggedIn);
 
   constructor(private http: CoreHttpService, private tokenService: TokenService) { }
 
@@ -55,7 +55,7 @@ export class AuthService {
    * @description Check if the user has a valid token
    * @return {Boolean} Whether the token is valid or not
    */
-  public isLoggedIn(): boolean {
+  public get isLoggedIn(): boolean {
     return !!this.tokenService.token;
   }
 
@@ -63,7 +63,7 @@ export class AuthService {
    * @description Update the user logged in state
    */
   public updateLoggedInState() {
-    this.loggedInState.next(this.isLoggedIn());
+    this.loggedInState.next(this.isLoggedIn);
   }
 
   /**

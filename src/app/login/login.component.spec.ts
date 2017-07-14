@@ -42,7 +42,7 @@ describe('LoginComponent', () => {
   });
 
   it('should login user successfully and redirect to /', async(
-    inject([Router, AuthService], (router: Router, authService: AuthService) => {
+    inject([ Router, AuthService ], (router: Router, authService: AuthService) => {
       const user = { username: 'tester', password: 'pass' };
       const response = { success: true, message: 'logged in', token: 'string' };
       const fixture: ComponentFixture<LoginComponent> = TestBed.createComponent(LoginComponent);
@@ -72,7 +72,7 @@ describe('LoginComponent', () => {
   ));
 
   it('should login user successfully and redirect to /someRoute', async(
-    inject([Router, AuthService], (router: Router, authService: AuthService) => {
+    inject([ Router, AuthService ], (router: Router, authService: AuthService) => {
       const url = '/someRoute';
       const user = { username: 'tester', password: 'pass' };
       const response = { success: true, message: 'logged in', token: 'string' };
@@ -103,7 +103,7 @@ describe('LoginComponent', () => {
   ));
 
   it('should fail to login the user and display err message', async(
-    inject([Router, AuthService], (router: Router, authService: AuthService) => {
+    inject([ Router, AuthService ], (router: Router, authService: AuthService) => {
       const user = { username: 'tester', password: 'wrong' };
       const response = { success: false, message: 'wrong credentials' };
       const fixture: ComponentFixture<LoginComponent> = TestBed.createComponent(LoginComponent);
@@ -125,7 +125,7 @@ describe('LoginComponent', () => {
       expect(authService.login).toHaveBeenCalledWith(user);
 
       fixture.whenStable().then(() => {
-        expect(router.navigate).toHaveBeenCalledTimes(0);
+        expect(router.navigate).not.toHaveBeenCalled();
         expect(component.errMsg).toEqual('wrong credentials');
       });
     })

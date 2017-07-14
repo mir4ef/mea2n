@@ -60,7 +60,7 @@ function apiRoutes(app, express) {
   apiRouter.get('/protected', (req, res) => res.json({ success: true, message: 'protected API is working!' }));
 
   // api endpoint to get user information
-  apiRouter.get('/me', (req, res) => res.send(req.decoded));
+  apiRouter.get('/me', (req, res) => res.json({ success: true, message: req.decoded }));
 
   /**
    * *************************************************
