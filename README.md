@@ -1,7 +1,5 @@
 # (M)EAN Stack with Angular 2+ Starter
 
-### Current version: 0.0.1
-
 This is a starting point for (M)EAN stack applications (with Angular 2+ and `http/2`). MongoDB drivers are not setup as part of this boilerplate, but can easily be added (with `mongoose` or some other package). The idea is to have a setup to get you up and running quickly and to be database agnostic. You can easily add a database driver that fits your needs.
 
 ## TL;DR
@@ -53,11 +51,11 @@ Run the app:
 - NodeJS (+ExpressJS)
 - JWT-based authentication (naive, but can be modified and scaled to fit your needs)
 - HTTP/2
-- gzip compression of served files (for more info see [Notes](#notes) below)
+- gzip compression of served files/data (for more info see [Notes](#notes) below)
 - API Docs (thru [Swagger UI](http://swagger.io/swagger-ui/), for more info see [API Documentation](#api-documentation) below)
 - App Docs (thru [TypeDoc](http://typedoc.org), for more info see [Application Documentation](#application-documentation) below)
 - git `pre-commit` and `pre-push` hooks (for more info see [Notes](#notes) below)
-- secured with [helmet](https://helmetjs.github.io) and rate limiter (for more info see [Node Server](#node-server) below)
+- secured with [helmet](https://helmetjs.github.io) and [express-rate-limit](https://www.npmjs.com/package/express-rate-limit) (for more info see [Node Server](#node-server) below)
 
 <a name="setup"></a>
 ## Setup
@@ -104,15 +102,15 @@ To run the application with the node server during local development and build/c
     ```
     
     Available environmental variables:
-    - PORT - `integer` - the port the node server will be listening on (default: `8080`)
-    - NODE_ENV - `string` - the server environment (default: `development`)
-    - CERTPHRASE - `string` - the certificate password if there is one (default: `undefined`)
-    - SECRET - `string` - the secret to encode/decode the generated token (default: `undefined`)
-    - APP_DEBUG - `"true"` (`string`) - prints verbose output in the console (default: `false`)
-    - MAX_REQUESTS - `integer` - how many requests are allowed per window from a single IP address before it is blocked (default: `300` requests)
-    - WINDOW_MINUTES - `integer` - how many minutes should the requests window be (default: `30` minutes)
-    - TRUST_PROXY - `"true"` (`string`) - set to `true` if the server will be running behind a load balancer or reverse proxy (important for the rate limiter, default: `false`)
-    - ALLOW_CORS - `"true"` (`string`) - set to `true` if you want to allow `Cross Origin` requests to the server (default: `false`)
+    - `PORT` - `integer` - the port the node server will be listening on (default: `8080`)
+    - `NODE_ENV` - `string` - the server environment (default: `development`)
+    - `CERTPHRASE` - `string` - the certificate password if there is one (default: `undefined`)
+    - `SECRET` - `string` - the secret to encode/decode the generated token (default: `undefined`)
+    - `APP_DEBUG` - `"true"` (`string`) - prints verbose output in the console (default: `false`)
+    - `MAX_REQUESTS` - `integer` - how many requests are allowed per window from a single IP address before it is blocked (default: `300` requests)
+    - `WINDOW_MINUTES` - `integer` - how many minutes should the requests window be (default: `30` minutes)
+    - `TRUST_PROXY` - `"true"` (`string`) - set to `true` if the server will be running behind a load balancer or reverse proxy (important for the rate limiter, default: `false`)
+    - `ALLOW_CORS` - `"true"` (`string`) - set to `true` if you want to allow `Cross Origin` requests to the server (default: `false`)
 
 **Note 1**: You need to build the application before trying to open it in a browser. To do so you can run `npm run build`. 
 
@@ -158,7 +156,7 @@ Run `npm run test:ng` to execute the client side unit tests via [Karma](https://
 
 Run `npm run test:node` to execute server side unit tests via [Jasmine](https://jasmine.github.io).
 
-Use `npm test` to run all unit tests at once.
+Use `npm test` to run all unit tests at once and generate code coverage reports for both.
 
 <a name="running-end-to-end-tests"></a>
 ## Running end-to-end Tests
@@ -176,7 +174,7 @@ Run `npm run lint` to lint your code. It will scan the CSS (`LESS`), the TypeScr
  - The project is setup with Angular 4.2.x.
  - There is one example of using reusable animation with Angular's `animation()` and `useAnimation()` new methods to do fade in effect on route change (only on the first three routes). Most projects have some sort of animation. However, if you plan on not using Angular animations, please remove `@angular/animations` from package.json, `BrowserAnimationsModule` from `app.module.ts`, `NoopAnimationsModule` from any unit test that `imports` it and delete `/src/app/shared/animations`. 
  - This project is pre-configured to work with `LESS`, because it is easier to setup and requires less dependencies than `SASS`. But if you prefer to use `SASS` or something else, please update the project accordingly to fit your needs.
- - The Node server is configured to gzip each file that it servers to compatible browsers to reduce the file size and save traffic (especially important for mobile devices and slow networks).
+ - The Node server is configured to gzip each file and api response that it servers to compatible browsers to reduce the file size and save traffic (especially important for mobile devices and slow networks).
  - The project has a `pre-commit` hook to perform certain tasks before the code is committed. The base setup only runs the production build and the e2e tests. Feel free to modify it to fit your needs or remove it completely.
  - The project has a `pre-push` hook to perform certain tasks before the code is pushed. The base setup only runs the production build and the e2e tests. Feel free to modify it to fit your needs or remove it completely. (The idea is that during merging or rebasing mistakes might happen and end up in the repo, because merging and rebasing skip `commit` and directly `push`)
  - The project is setup with `@types/jasmine` v2.5.46+, which is a bit more strict, because `any` was replaced with an expected type (`Expected<T>`). If you are encountering problems, please downgrade to v2.4.45 ([more info](https://github.com/angular/angularfire2/issues/875))
