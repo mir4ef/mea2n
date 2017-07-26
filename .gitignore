@@ -12,6 +12,8 @@ swagger.json
 !/src/documentation/api/*.png
 !/src/documentation/api/*.html
 /src/documentation/app
+/src/documentation/css/*
+!/src/documentation/css/homepage.md
 
 !.gitkeep
 

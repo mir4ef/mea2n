@@ -29,21 +29,23 @@ Run the app:
 
 ## Table of Contents
 1. [What it has](#what-it-has)
-2. [Setup](#setup)
+1. [Setup](#setup)
     1. [Prerequisites](#prerequisites)
-    2. [Prod and Dev](#prod-and-dev)
-3. [Development Server](#development-server)
+    1. [Prod and Dev](#prod-and-dev)
+1. [Development Server](#development-server)
     1. [Node Server](#node-server)
-    2. [Lite Server](#lite-server)
-4. [Code Scaffolding](#code-scaffolding)
-5. [Application Documentation](#application-documentation)
-6. [API Documentation](#api-documentation)
-7. [Build](#build)
-8. [Running Unit Tests](#running-unit-tests)
-9. [Running end-to-end Tests](#running-end-to-end-tests)
-9. [Linting](#linting)
-10. [Notes](#notes)
-11. [Further help](#further-help)
+    1. [Lite Server](#lite-server)
+1. [Code Scaffolding](#code-scaffolding)
+1. [Documentation](#documentation)
+    1. [Application Documentation](#application-documentation)
+    1. [API Documentation](#api-documentation)
+    1. [CSS Documentation/Living Style Guide](#css-documentation)
+1. [Build](#build)
+1. [Running Unit Tests](#running-unit-tests)
+1. [Running end-to-end Tests](#running-end-to-end-tests)
+1. [Linting](#linting)
+1. [Notes](#notes)
+1. [Further help](#further-help)
 
 <a name="what-it-has"></a>
 ## What it has
@@ -51,9 +53,10 @@ Run the app:
 - NodeJS (+ExpressJS)
 - JWT-based authentication (naive, but can be modified and scaled to fit your needs)
 - HTTP/2
-- gzip compression of served files/data (for more info see [Notes](#notes) below)
-- API Docs (thru [Swagger UI](http://swagger.io/swagger-ui/), for more info see [API Documentation](#api-documentation) below)
+- gzip compression of served files/data (thru [compression](https://github.com/expressjs/compression), for more info see [Notes](#notes) below)
+- API Docs (thru [swagger-jsdoc](https://github.com/Surnet/swagger-jsdoc) and [Swagger UI](http://swagger.io/swagger-ui/), for more info see [API Documentation](#api-documentation) below)
 - App Docs (thru [TypeDoc](http://typedoc.org), for more info see [Application Documentation](#application-documentation) below)
+- CSS Docs/Style Guide (thru [kss-node](https://github.com/kss-node/kss-node), for more info see [CSS Documentation/Living Style Guide](#css-documentation) below)
 - git `pre-commit` and `pre-push` hooks (for more info see [Notes](#notes) below)
 - secured with [helmet](https://helmetjs.github.io) and [express-rate-limit](https://www.npmjs.com/package/express-rate-limit) (for more info see [Node Server](#node-server) below)
 
@@ -101,16 +104,24 @@ To run the application with the node server during local development and build/c
     NODE_ENV="development" CERTPHRASE="myphrase" SECRET="somesecret" nodemon server.js
     ```
     
-    Available environmental variables:
-    - `PORT` - `integer` - the port the node server will be listening on (default: `8080`)
-    - `NODE_ENV` - `string` - the server environment (default: `development`)
-    - `CERTPHRASE` - `string` - the certificate password if there is one (default: `undefined`)
-    - `SECRET` - `string` - the secret to encode/decode the generated token (default: `undefined`)
-    - `APP_DEBUG` - `"true"` (`string`) - prints verbose output in the console (default: `false`)
-    - `MAX_REQUESTS` - `integer` - how many requests are allowed per window from a single IP address before it is blocked (default: `300` requests)
-    - `WINDOW_MINUTES` - `integer` - how many minutes should the requests window be (default: `30` minutes)
-    - `TRUST_PROXY` - `"true"` (`string`) - set to `true` if the server will be running behind a load balancer or reverse proxy (important for the rate limiter, default: `false`)
-    - `ALLOW_CORS` - `"true"` (`string`) - set to `true` if you want to allow `Cross Origin` requests to the server (default: `false`)
+    Available environmental variables
+    
+    | Env Variable     | Type                | Description                                                                                                          | Default       |
+    | ---------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------- | ------------- |
+    | `PORT`           | `integer`           | the port the node server will be listening on                                                                        | `8080`        |
+    | `NODE_ENV`       | `string`            | the server environment                                                                                               | `development` |
+    | `CERTPHRASE`     | `string`            | the certificate password if there is one                                                                             | `undefined`   |
+    | `SECRET`         | `string`            | the secret to encode/decode the generated token                                                                      | `undefined`   |
+    | `APP_DEBUG`      | `"true"` (`string`) | prints verbose output in the console                                                                                 | `false`       |
+    | `MAX_REQUESTS`   | `integer`           | how many requests are allowed per window from a single IP address before it is blocked                               | `300`         |
+    | `WINDOW_MINUTES` | `integer`           | how many minutes should the requests window be                                                                       | `30`          |
+    | `TRUST_PROXY`    | `"true"` (`string`) | set to `true` if the server will be running behind a load balancer or reverse proxy (important for the rate limiter) | `false`       |
+    | `ALLOW_CORS`     | `"true"` (`string`) | set to `true` if you want to allow `Cross Origin` requests to the server                                             | `false`       |
+    | `DBURL`          | `string`            | the database url/host                                                                                                | `undefined`   |
+    | `DBPORT`         | `string`            | the database port                                                                                                    | `undefined`   |
+    | `DBUSER`         | `string`            | the database username                                                                                                | `undefined`   |
+    | `DBPASS`         | `string`            | the database password associated with the username specified for `DBUSER`                                            | `undefined`   |
+
 
 **Note 1**: You need to build the application before trying to open it in a browser. To do so you can run `npm run build`. 
 
@@ -128,21 +139,31 @@ If you want, you can run the client side separately from node with `ng serve` fo
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
 
+<a name="documentation"></a>
+## Documentation
+
 <a name="application-documentation"></a>
-## Application Documentation
+#### Application Documentation
 
 Run `npm run docs:app` to generate the documentation. Start the server and navigate to `http://localhost:port/documentation/app`.
 
 The application documentation is generated using [TypeDoc](http://typedoc.org).
 
 <a name="api-documentation"></a>
-## API Documentation
+#### API Documentation
 
 Run `npm run docs:api` to generate the documentation. Start the server and navigate to `http://localhost:port/documentation/api`. Run `npm run docs:api:watch` to watch and automatically generate the documentation on changes. The swagger definitions can be set in the `swagger.def.js` file located under the `server` folder.
 
-The API documentation is generated with [Swagger](http://swagger.io) (through `swagger-jsdoc`) and visualized with [Swagger UI](http://swagger.io/swagger-ui/).
+The API documentation is generated with [swagger-jsdoc](https://github.com/Surnet/swagger-jsdoc) and visualized with [Swagger UI](http://swagger.io/swagger-ui/).
 
 **Note**: If you are using the `lite server` to view the documentation, the 'Try it out!' button will return errors (`404`s). If you want to use the button, it is recommended to view the docs using the node server URL.
+
+<a name="css-documentation"></a>
+#### CSS Documentation/Living Style Guide
+
+Run `npm run docs:css` to generate the documentation. Start the server and navigate to `http://localhost:port/documentation/css`.
+
+The CSS documentation is generated using [kss-node](https://github.com/kss-node/kss-node).
 
 <a name="build"></a>
 ## Build
@@ -171,7 +192,7 @@ Run `npm run lint` to lint your code. It will scan the CSS (`LESS`), the TypeScr
 <a name="notes"></a>
 ## Notes
 
- - The project is setup with Angular 4.2.x.
+ - The project is setup with Angular 4.3.x.
  - There is one example of using reusable animation with Angular's `animation()` and `useAnimation()` new methods to do fade in effect on route change (only on the first three routes). Most projects have some sort of animation. However, if you plan on not using Angular animations, please remove `@angular/animations` from package.json, `BrowserAnimationsModule` from `app.module.ts`, `NoopAnimationsModule` from any unit test that `imports` it and delete `/src/app/shared/animations`. 
  - This project is pre-configured to work with `LESS`, because it is easier to setup and requires less dependencies than `SASS`. But if you prefer to use `SASS` or something else, please update the project accordingly to fit your needs.
  - The Node server is configured to gzip each file and api response that it servers to compatible browsers to reduce the file size and save traffic (especially important for mobile devices and slow networks).
@@ -180,9 +201,44 @@ Run `npm run lint` to lint your code. It will scan the CSS (`LESS`), the TypeScr
  - The project is setup with `@types/jasmine` v2.5.46+, which is a bit more strict, because `any` was replaced with an expected type (`Expected<T>`). If you are encountering problems, please downgrade to v2.4.45 ([more info](https://github.com/angular/angularfire2/issues/875))
  - There are no CSS libraries (e.g. Boostrap, Material, etc.) to give freedom to add any external styling library based on project needs.
 
+<a name="package-scripts"></a>
+## Available Scripts
+
+List of available scripts
+
+| Script               | Description                                                                                                                         |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `postinstall`        | runs tasks after `npm install` is completed                                                                                         |
+| `start`              | builds the documentations and starts the lite server                                                                                |
+| `build`              | builds the documentations and the application                                                                                       |
+| `build:prod`         | builds the application for production                                                                                               |
+| `build:watch`        | watches for changes to the client side and builds the application                                                                   |
+| `test`               | runs all the unit tests (server and client)                                                                                         |
+| `test:ng`            | runs the client side unit tests                                                                                                     |
+| `test:ng:coverage`   | runs the client side unit tests and produces code coverage report                                                                   |
+| `test:node`          | runs the server side unit tests                                                                                                     |
+| `test:node:coverage` | runs the server side unit tests and produces code coverage report                                                                   |
+| `e2e`                | runs the end-to-end tests                                                                                                           |
+| `lint`               | runs all the linting rules (css, javascript, typescript)                                                                            |
+| `lint:css`           | runs the css linting rules                                                                                                          |
+| `lint:node`          | runs the javascript (server side) linting rules                                                                                     |
+| `lint:ts`            | runs the typescript (client side) linting rules                                                                                     |
+| `docs`               | creates all the documentation (css, api, app)                                                                                       |
+| `docs:app`           | creates the app documentation                                                                                                       |
+| `docs:api`           | creates the api documentation                                                                                                       |
+| `docs:api:watch`     | watches for changes to the server side and creates the api documentation                                                            |
+| `docs:css`           | creates the css documentation                                                                                                       |
+| `copy:swagger`       | copy the javascript and css files for the api documentation from the swagger ui dist project                                        |
+| `security:scan`      | checks the dependencies in `packages.json` for known vulnerabilities against the [nsp database](https://nodesecurity.io/advisories) |
+| `pre-git`            | script run by the git hooks                                                                                                         |
+
 <a name="further-help"></a>
-## Further help
+## Further Help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 To get more help on the `swagger-jsdoc` use `./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js -h` or go check out the [swagger-jsdoc README](https://github.com/Surnet/swagger-jsdoc/blob/master/README.md).
+
+To get more help on the `typedoc` use `./node_modules/typedoc/bin/typedoc -h` or go check out the [typedoc README](https://github.com/TypeStrong/typedoc/blob/master/README.md).
+
+To get more help on the `kss-node` use `./node_modules/.bin/kss -h` or go check out the [kss-node README](https://github.com/kss-node/kss-node/blob/master/README.md).
