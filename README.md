@@ -1,20 +1,20 @@
 # (M)EAN Stack with Angular 2+ Starter
 
-This is a starting point for (M)EAN stack applications (with Angular 2+ and `http/2`). MongoDB drivers are not setup as part of this boilerplate, but can easily be added (with `mongoose` or some other package). The idea is to have a setup to get you up and running quickly and to be database agnostic. You can easily add a database driver that fits your needs.
+This is a starting point for (M)EAN stack applications (with Angular 2+). MongoDB drivers are not setup as part of this boilerplate, but can easily be added (with `mongoose` or some other package). The idea is to have a setup to get you up and running quickly and to be database agnostic. You can easily add a database driver that fits your needs.
 
 ## TL;DR
 
 You need:
 
 1. [NodeJS](https://nodejs.org/) v6.9.0+
-2. [Angular CLI](https://cli.angular.io) v1.0.0+ (`npm install -g @angular/cli`)
+1. [Angular CLI](https://cli.angular.io) v1.0.0+ (`npm install -g @angular/cli`)
 
 Run the app:
 
 1. Generate certs and place them inside `/server/certs`. Generate certs by running this in your terminal `openssl req -x509 -newkey rsa:4096 -keyout ng2-development.key -out ng2-development.pem -days 365`. If the folder `certs` doesn't exist, create it.
-2. Run `npm install`
-3. Run `npm run build`
-4. Start the server with*:
+1. Run `npm install`
+1. Run `npm run build`
+1. Start the server with*:
 
     ```bash
     NODE_ENV="development" SECRET="supersecret" CERTPHRASE="your.cert.password" node server.js
@@ -22,7 +22,7 @@ Run the app:
     
     *If you didn't setup a certificate password, you can omit `CERTPHRASE`.
     
-5. Navigate to `https://localhost:8080`
+1. Navigate to `https://localhost:8080`
 
 
 ## Not TL;DR
@@ -52,7 +52,7 @@ Run the app:
 - Angular
 - NodeJS (+ExpressJS)
 - JWT-based authentication (naive, but can be modified and scaled to fit your needs)
-- HTTP/2
+- HTTP/2 (thru [spdy](https://github.com/spdy-http2/node-spdy))
 - gzip compression of served files/data (thru [compression](https://github.com/expressjs/compression), for more info see [Notes](#notes) below)
 - API Docs (thru [swagger-jsdoc](https://github.com/Surnet/swagger-jsdoc) and [Swagger UI](http://swagger.io/swagger-ui/), for more info see [API Documentation](#api-documentation) below)
 - App Docs (thru [TypeDoc](http://typedoc.org), for more info see [Application Documentation](#application-documentation) below)
@@ -104,7 +104,7 @@ To run the application with the node server during local development and build/c
     NODE_ENV="development" CERTPHRASE="myphrase" SECRET="somesecret" nodemon server.js
     ```
     
-    Available environmental variables
+    Available environmental variables (feel free to add/modify/remove to fit your needs)
     
     | Env Variable     | Type                | Description                                                                                                          | Default       |
     | ---------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------- | ------------- |
@@ -204,7 +204,7 @@ Run `npm run lint` to lint your code. It will scan the CSS (`LESS`), the TypeScr
 <a name="package-scripts"></a>
 ## Available Scripts
 
-List of available scripts
+List of available scripts (feel free to add/modify/remove to fit your needs)
 
 | Script               | Description                                                                                                                         |
 | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |

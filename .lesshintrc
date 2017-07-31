@@ -21,10 +21,14 @@
     ]
   },
   "emptyRule": true,
-  "finalNewline": true,
+  "finalNewline": {
+    "enabled": true,
+    "severity": "error"
+  },
   "hexLength": {
     "enabled": true,
-    "style": "long"
+    "severity": "error",
+    "style": "short"
   },
   "hexNotation": {
     "enabled": true,
@@ -40,21 +44,27 @@
     "enabled": true,
     "limit": 300
   },
-  "newlineAfterBlock": true,
+  "newlineAfterBlock": {
+    "enabled": true,
+    "severity": "error"
+  },
   "propertyOrdering": {
     "enabled": true,
+    "severity": "error",
     "style": "alpha"
   },
   "qualifyingElement": {
     "allowWithAttribute": true,
     "allowWithClass": false,
-    "allowWithId": false
+    "allowWithId": false,
+    "severity": "error"
   },
   "selectorNaming": {
     "disallowUppercase": true,
     "disallowUnderscore": true,
     "disallowDash": false,
-    "exclude": []
+    "exclude": [],
+    "severity": "error"
   },
   "singleLinePerProperty": {
     "allowSingleLineRules": true
