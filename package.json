@@ -42,7 +42,7 @@
     "docs:api": "node ./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js -d ./server/swagger.def.js -o ./src/documentation/api/swagger.json ./server/routes/v1/*.js ./server/routes/v1/**/*.js",
     "docs:api:watch": "npm run docs:api -- -w",
     "docs:css": "node ./node_modules/del-cli/cli.js \"./src/documentation/css/*.html\" && node ./node_modules/less/bin/lessc ./src/styles.less ./src/documentation/css/styles.css && node ./node_modules/.bin/kss --config kss-config.json",
-    "copy:swagger": "node ./node_modules/copyfiles/copyfiles -f \"./node_modules/swagger-ui-dist/sw*.js*\" \"./node_modules/swagger-ui-dist/sw*.css*\" ./src/documentation/api",
+    "copy:swagger": "node ./node_modules/copyfiles/copyfiles -f \"./node_modules/swagger-ui-dist/sw*.js*\" \"./node_modules/swagger-ui-dist/sw*.css*\" \"./node_modules/swagger-ui-dist/oauth2-redirect.html\" ./src/documentation/api",
     "security:scan": "node ./node_modules/nsp/bin/nsp check",
     "pre-git": "npm run e2e && npm run build:prod"
   },

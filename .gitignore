@@ -10,7 +10,7 @@ swagger.json
 /out-tsc
 /src/documentation/api/*
 !/src/documentation/api/*.png
-!/src/documentation/api/*.html
+!/src/documentation/api/index.html
 /src/documentation/app
 /src/documentation/css/*
 !/src/documentation/css/homepage.md
