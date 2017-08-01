@@ -59,6 +59,7 @@ Run the app:
 - CSS Docs/Style Guide (thru [kss-node](https://github.com/kss-node/kss-node), for more info see [CSS Documentation/Living Style Guide](#css-documentation) below)
 - git `pre-commit` and `pre-push` hooks (for more info see [Notes](#notes) below)
 - secured with [helmet](https://helmetjs.github.io) and [express-rate-limit](https://www.npmjs.com/package/express-rate-limit) (for more info see [Node Server](#node-server) below)
+- lazy loading of modules with selective preloading strategy to allow you to preload any module you or your app will need (for more info see [Notes](#notes) below) 
 
 <a name="setup"></a>
 ## Setup
@@ -194,7 +195,7 @@ Run `npm run lint` to lint your code. It will scan the CSS (`LESS`), the TypeScr
 
  - The project is setup with Angular 4.3.x.
  - There is one example of using reusable animation with Angular's `animation()` and `useAnimation()` new methods to do fade in effect on route change (only on the first three routes). Most projects have some sort of animation. However, if you plan on not using Angular animations, please remove `@angular/animations` from package.json, `BrowserAnimationsModule` from `app.module.ts`, `NoopAnimationsModule` from any unit test that `imports` it and delete `/src/app/shared/animations`.
- - There is selective preloading strategy to load lazy loaded modules after the initial app download is complete. Right now, it preloads the `lazy` module (see `src/app/app-routing.module.ts`).
+ - There is selective preloading strategy to lazy load modules after the initial app download is complete. Any preloaded lazy module will be available when need it. Right now, it preloads the `lazy` module for showcase (see `src/app/app-routing.module.ts`). To have a lazy module preloaded, just add `data: { preload: true }` to the module definition in the `app-routing.module.ts` file.
  - This project is pre-configured to work with `LESS`, because it is easier to setup and requires less dependencies than `SASS`. But if you prefer to use `SASS` or something else, please update the project accordingly to fit your needs.
  - The Node server is configured to gzip each file and api response that it servers to compatible browsers to reduce the file size and save traffic (especially important for mobile devices and slow networks).
  - The Node server has a rate limiter, which uses a simple in-memory store. If you need something more advanced, please use something else like [strict-rate-limiter](https://www.npmjs.com/package/strict-rate-limiter), [express-brute](https://www.npmjs.com/package/express-brute), [express-limiter](https://www.npmjs.com/package/express-limiter).
