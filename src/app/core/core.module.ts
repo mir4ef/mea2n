@@ -8,6 +8,7 @@ import { AuthService } from './auth/auth.service';
 import { TokenService } from './auth/token.service';
 import { CoreHttpService } from './http/core-http.service';
 import { LoadingIndicatorService } from './loading-indicator/loading-indicator.service';
+import { SelectivePreloadingStrategy } from './preloading-strategy/preloading-strategy';
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -35,7 +36,8 @@ import { throwIfAlreadyLoaded } from '../utils/module-import-guard';
     AuthService,
     TokenService,
     CoreHttpService,
-    LoadingIndicatorService
+    LoadingIndicatorService,
+    SelectivePreloadingStrategy
   ]
 })
 

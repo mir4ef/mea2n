@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { SelectivePreloadingStrategy } from './core/preloading-strategy/preloading-strategy';
+
 const routes: Routes = [
   {
     path: 'login',
@@ -8,7 +10,8 @@ const routes: Routes = [
   },
   {
     path: 'lazy',
-    loadChildren: 'app/lazy/lazy.module#LazyModule'
+    loadChildren: 'app/lazy/lazy.module#LazyModule',
+    data: { preload: true }
   },
   {
     path: 'lazy2',
@@ -31,7 +34,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
+  imports: [ RouterModule.forRoot(routes, { preloadingStrategy: SelectivePreloadingStrategy }) ],
   exports: [ RouterModule ],
   providers: []
 })
