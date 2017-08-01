@@ -94,7 +94,7 @@ export class CoreHttpService {
    * @param {IRequestOptions} options - The request options
    * @returns {String} Completed URL to an endpoint
    */
-  private getURL(options): string {
+  private getURL(options: IRequestOptions<{}>): string {
     // set the url to the default api URI
     let url: string = this.apiURI;
 
@@ -146,7 +146,7 @@ export class CoreHttpService {
    * @param {Object} headers - An object with headers that need to be passed along with the request
    * @return {Headers} The Angular headers object
    */
-  private getHeaders(headers): Headers {
+  private getHeaders(headers: {} | undefined): Headers {
     const token = this.tokenService.token;
     let headerOptions = new Headers({});
 
@@ -167,7 +167,7 @@ export class CoreHttpService {
    * @description Get the request body or an empty/null body object
    * @return {Object} The request body or null object
    */
-  private getBody(body) {
+  private getBody(body: {} | undefined): {} | null {
     if (!body) {
       return null;
     }

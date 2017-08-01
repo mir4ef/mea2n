@@ -28,7 +28,7 @@ export class AuthService {
    * @param {Object} user - The username and password of the user
    * @returns {Observable<IResponse>} Session details
    */
-  public login(user): Observable<IResponse> {
+  public login(user: {}): Observable<IResponse> {
     const opt = {
       body: user,
       path: 'auth'

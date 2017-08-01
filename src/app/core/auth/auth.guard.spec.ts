@@ -32,7 +32,7 @@ describe('AuthGuard', () => {
 
   describe('CanActivate', () => {
     it('should navigate to a login page if a user is not logged in',
-      inject([ AuthGuard, Router, TokenService, AuthService ], (authGuard, router, tokenService) => {
+      inject([ AuthGuard, Router, TokenService, AuthService ], (authGuard: AuthGuard, router: Router, tokenService: TokenService) => {
         const route: ActivatedRouteSnapshot = new ActivatedRouteSnapshot();
         const state: RouterStateSnapshot = router.routerState.snapshot;
         tokenService.token = '';
@@ -47,7 +47,7 @@ describe('AuthGuard', () => {
     );
 
     it('should allow a logged in user to continue',
-      inject([ AuthGuard, Router, TokenService ], (authGuard, router, tokenService) => {
+      inject([ AuthGuard, Router, TokenService ], (authGuard: AuthGuard, router: Router, tokenService: TokenService) => {
         const route: ActivatedRouteSnapshot = new ActivatedRouteSnapshot();
         const state: RouterStateSnapshot = router.routerState.snapshot;
         tokenService.token = 'token string';
@@ -62,7 +62,7 @@ describe('AuthGuard', () => {
 
   describe('CanActivateChild', () => {
     it('should navigate to a login page if a user is not logged in and tries to go to a protected child route/component',
-      inject([ AuthGuard, Router, TokenService ], (authGuard, router, tokenService) => {
+      inject([ AuthGuard, Router, TokenService ], (authGuard: AuthGuard, router: Router, tokenService: TokenService) => {
         const route: ActivatedRouteSnapshot = new ActivatedRouteSnapshot();
         const state: RouterStateSnapshot = router.routerState.snapshot;
         tokenService.token = '';
@@ -77,7 +77,7 @@ describe('AuthGuard', () => {
     );
 
     it('should allow a logged in user to continue to a child route/component',
-      inject([ AuthGuard, Router, TokenService ], (authGuard, router, tokenService) => {
+      inject([ AuthGuard, Router, TokenService ], (authGuard: AuthGuard, router: Router, tokenService: TokenService) => {
         const route: ActivatedRouteSnapshot = new ActivatedRouteSnapshot();
         const state: RouterStateSnapshot = router.routerState.snapshot;
         tokenService.token = 'token string';
@@ -92,7 +92,7 @@ describe('AuthGuard', () => {
 
   describe('CanLoad', () => {
     it('should not load a lazy loaded route/component, but navigate to a login page if a user is not logged in',
-      inject([ AuthGuard, Router, TokenService ], (authGuard, router, tokenService) => {
+      inject([ AuthGuard, Router, TokenService ], (authGuard: AuthGuard, router: Router, tokenService: TokenService) => {
         const route: Route = { path: 'someUrl' };
         tokenService.token = '';
 
@@ -106,7 +106,7 @@ describe('AuthGuard', () => {
     );
 
     it('should load and navigate to a lazy loaded module if the user is logged in user',
-      inject([ AuthGuard, Router, TokenService ], (authGuard, router, tokenService) => {
+      inject([ AuthGuard, Router, TokenService ], (authGuard: AuthGuard, router: Router, tokenService: TokenService) => {
         const route: Route = { path: 'someUrl' };
         tokenService.token = 'token string';
 

@@ -92,7 +92,7 @@ describe('DataComponent', () => {
   ));
 
   it('should logout the user and navigate to a login page when logout clicked',
-    inject([ Router, DataService ], (router, dataService) => {
+    inject([ Router, DataService ], (router: Router, dataService: DataService) => {
       const fixture: ComponentFixture<DataComponent> = TestBed.createComponent(DataComponent);
       const component: DataComponent = fixture.componentInstance;
 

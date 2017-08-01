@@ -17,8 +17,8 @@ import { LazyService } from './lazy.service';
 
 export class LazyComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  data;
-  err;
+  data: {};
+  err: string;
 
   constructor(private loaderIndicator: LoadingIndicatorService, private dataService: LazyService) { }
 

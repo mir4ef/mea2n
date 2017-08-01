@@ -14,7 +14,7 @@ import { DataService } from './data.service';
 })
 export class DataComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  userData;
+  userData: {};
   errMsg: string;
 
   constructor(

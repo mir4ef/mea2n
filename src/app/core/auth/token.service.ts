@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class TokenService {
   private tokenKey: string = 'token';
 
-  public set token(token: string) {
+  public set token(token: string | null) {
     if (token) {
       localStorage.setItem(this.tokenKey, token);
     } else {
@@ -12,7 +12,7 @@ export class TokenService {
     }
   }
 
-  public get token(): string {
+  public get token(): string | null {
     return localStorage.getItem(this.tokenKey);
   }
 }

@@ -9,7 +9,7 @@ import { IEntry, Lazy2Service } from '../lazy2.service';
   styleUrls: ['./detail.component.less']
 })
 export class DetailComponent implements OnInit {
-  entry: IEntry;
+  entry: IEntry | undefined;
 
   constructor(private route: ActivatedRoute, private entryService: Lazy2Service) {
 
