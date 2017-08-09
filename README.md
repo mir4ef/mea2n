@@ -60,6 +60,7 @@ Run the app:
 - git `pre-commit` and `pre-push` hooks (for more info see [Notes](#notes) below)
 - secured with [helmet](https://helmetjs.github.io) and [express-rate-limit](https://www.npmjs.com/package/express-rate-limit) (for more info see [Node Server](#node-server) below)
 - lazy loading of modules with selective preloading strategy to allow you to preload any module you or your app will need (for more info see [Notes](#notes) below) 
+- taking advantage of the new `HttpClientModule` and `HttpInterceptor` introduced in Angular 4.3.x (for more info see [Notes](#notes) below) 
 
 <a name="setup"></a>
 ## Setup
@@ -196,7 +197,8 @@ Run `npm run lint` to lint your code. It will scan the CSS (`LESS`), the TypeScr
  - The project is setup with Angular 4.3.x.
  - There is one example of using reusable animation with Angular's `animation()` and `useAnimation()` new methods to do fade in effect on route change (only on the first three routes). Most projects have some sort of animation. However, if you plan on not using Angular animations, please remove `@angular/animations` from package.json, `BrowserAnimationsModule` from `app.module.ts`, `NoopAnimationsModule` from any unit test that `imports` it and delete `/src/app/shared/animations`.
  - There is selective preloading strategy to lazy load modules after the initial app download is complete. Any preloaded lazy module will be available when needed. Right now, it preloads the `lazy` module for showcase (see `src/app/app-routing.module.ts`). To have a lazy module preloaded, just add `data: { preload: true }` to the module definition in the `app-routing.module.ts` file.
- - This project is pre-configured to work with `LESS`, because it is easier to setup and requires less dependencies than `SASS`. But if you prefer to use `SASS` or something else, please update the project accordingly to fit your needs.
+ - The project has a helper service to make http requests easier and more flexible to use. It takes advantage of the new simplified and improved `HttpClientModule` introduced in Angular 4.3.x (see file `app/core/http/core-http.service.ts`, the file is prefixed with `core` to avoid any confusion/name collision with the Angular http library). It also uses the newly (re)introduced `HttpInterceptor`, which was available in AngularJS 1.x. This project has one interceptor setup to attach the jwt token to the request headers to each api request (see file `app/core/interceptors/token.interceptor.ts`).
+ - The project is pre-configured to work with `LESS`, because it is easier to setup and requires less dependencies than `SASS`. But if you prefer to use `SASS` or something else, please update the project accordingly to fit your needs.
  - The Node server is configured to gzip each file and api response that it servers to compatible browsers to reduce the file size and save traffic (especially important for mobile devices and slow networks).
  - The Node server has a rate limiter, which uses a simple in-memory store. If you need something more advanced, please use something else like [strict-rate-limiter](https://www.npmjs.com/package/strict-rate-limiter), [express-brute](https://www.npmjs.com/package/express-brute), [express-limiter](https://www.npmjs.com/package/express-limiter).
  - The project has a `pre-commit` hook to perform certain tasks before the code is committed. The base setup only runs the production build and the e2e tests. Feel free to modify it to fit your needs or remove it completely.

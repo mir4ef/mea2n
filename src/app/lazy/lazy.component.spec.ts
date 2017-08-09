@@ -1,10 +1,11 @@
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpModule } from '@angular/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/throw';
 
 import { CoreHttpService } from '../core/http/core-http.service';
 import { LoadingIndicatorService } from '../core/loading-indicator/loading-indicator.service';
@@ -19,7 +20,7 @@ describe('LazyComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
-        HttpModule,
+        HttpClientTestingModule,
         RouterTestingModule
       ],
       declarations: [ LazyComponent ],

@@ -1,14 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
-import {
-  HttpModule,
-  Http,
-  BaseRequestOptions,
-  RequestMethod,
-  Response,
-  ResponseOptions,
-  ResponseType
-} from '@angular/http';
-import { MockBackend, MockConnection } from '@angular/http/testing';
+import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { TokenService } from '../core/auth/token.service';
@@ -19,66 +11,70 @@ import { LazyService } from './lazy.service';
 describe('LazyService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpModule, RouterTestingModule ],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule
+      ],
       providers: [
         CoreHttpService,
         LazyService,
         TokenService,
-        MockBackend,
-        BaseRequestOptions,
-        {
-          provide: Http,
-          useFactory: (backend: MockBackend, defaultOptions: BaseRequestOptions) => {
-            return new Http(backend, defaultOptions);
-          },
-          deps: [
-            MockBackend,
-            BaseRequestOptions
-          ]
-        }
       ]
     });
   });
+
+  afterEach(inject([ HttpTestingController ], (httpMock: HttpTestingController) => {
+    httpMock.verify();
+  }));
 
   it('should exist', inject([LazyService], (service: LazyService) => {
     expect(service).toBeTruthy();
   }));
 
-  it('should return data details', inject([LazyService, MockBackend], (service: LazyService, backend: MockBackend) => {
-    const sampleData: IResponse = { success: true, message: { id: 123, title: 'Title', bodyText: 'Body text.' }};
-    const response: ResponseOptions = new ResponseOptions({ body: JSON.stringify(sampleData) });
-    const baseResponse: Response = new Response(response);
+  it('should return data details',
+    inject([LazyService, HttpTestingController], (service: LazyService, httpMock: HttpTestingController) => {
+      const res: IResponse = { success: true, message: { id: 123, title: 'Title', bodyText: 'Body text.' }};
+      let actualRes: IResponse;
 
-    backend.connections.subscribe(
-      (c: MockConnection) => {
-        c.mockRespond(baseResponse);
+      service.getData().subscribe((data: IResponse) => {
+        actualRes = data;
+      });
 
-        expect(c.request.method).toBe(RequestMethod.Get);
-        expect(c.request.url).toBe('/api/v1/sampleData');
-      }
-    );
+      const req: TestRequest = httpMock.expectOne('/api/v1/sampleData');
 
-    service.getData().subscribe(data => {
-      expect(data).toEqual(sampleData);
-    })
+      req.flush(res);
+
+      expect(req.request.method).toEqual('GET');
+      expect(actualRes).toEqual(res);
   }));
 
-  it('should return a server error if something went wrong on the server side', inject([LazyService, MockBackend], (service: LazyService, backend: MockBackend) => {
-    const res: IResponse = { success: false, message: 'server error' };
-    const response: ResponseOptions = new ResponseOptions({ type: ResponseType.Error, status: 500, body: JSON.stringify(res) });
-    const baseResponse: Response = new Response(response);
+  it('should return a server error if something went wrong on the server side',
+    inject([LazyService, HttpTestingController], (service: LazyService, httpMock: HttpTestingController) => {
+      const res: HttpErrorResponse = {
+        error: { success: false, message: 'server error message' },
+        message: 'error message',
+        name: 'HttpErrorResponse',
+        ok: false,
+        headers: null,
+        status: 500,
+        statusText: 'OK',
+        url: '/api/v1/endpoint',
+        type: null
+      };
+      let actualRes: IResponse;
 
-    backend.connections.subscribe(
-      (c: MockConnection) => {
-        c.mockRespond(baseResponse);
+      service.getData().subscribe(null, (error: HttpErrorResponse) => {
+        actualRes = error.error;
 
-        expect(c.request.method).toBe(RequestMethod.Get);
-        expect(c.request.url).toBe('/api/v1/sampleData');
-      }
-    );
+        expect(error.status).toBe(500);
+        expect(actualRes).toEqual(res.error);
+        expect(actualRes.success).toBeFalsy();
+      });
 
-    service.getData().subscribe(null, error => {
-      expect(error).toEqual(res);
-    })
+      const req: TestRequest = httpMock.expectOne('/api/v1/sampleData');
+
+      req.flush(res, { status: 500, statusText: 'OK' });
+
+      expect(req.request.method).toEqual('GET');
   }));
 });

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+
+import { SharedModule } from '../shared/shared.module';
 
 import { Lazy2RoutingModule } from './lazy2-routing.module';
 import { Lazy2Service } from './lazy2.service';
@@ -10,8 +10,7 @@ import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
+    SharedModule,
     Lazy2RoutingModule
   ],
   declarations: [

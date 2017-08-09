@@ -78,7 +78,7 @@ export class AuthService {
    * @description Get the user info from the token
    * @return {Observable<IResponse>} User details response
    */
-  public getUser(): Observable<IResponse> {
+  public getUser(): Observable<{}> {
     return this.http.apiGet({ path: 'me' });
   }
 }

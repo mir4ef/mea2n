@@ -1,10 +1,11 @@
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { HttpModule } from '@angular/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/throw';
 
 import { SharedModule } from '../shared/shared.module';
 
@@ -19,7 +20,7 @@ describe('LoginComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        HttpModule,
+        HttpClientTestingModule,
         SharedModule,
         RouterTestingModule
       ],

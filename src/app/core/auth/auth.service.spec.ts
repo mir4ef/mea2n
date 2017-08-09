@@ -1,13 +1,5 @@
 import { TestBed, inject } from '@angular/core/testing';
-import {
-  HttpModule,
-  Http,
-  BaseRequestOptions,
-  RequestMethod,
-  Response,
-  ResponseOptions
-} from '@angular/http';
-import { MockBackend, MockConnection } from '@angular/http/testing';
+import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { TokenService } from './token.service';
@@ -18,46 +10,35 @@ import { AuthService } from './auth.service';
 describe('AuthService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpModule, RouterTestingModule ],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule
+      ],
       providers: [
         CoreHttpService,
         AuthService,
         TokenService,
-        MockBackend,
-        BaseRequestOptions,
-        {
-          provide: Http,
-          useFactory: (backend: MockBackend, defaultOptions: BaseRequestOptions) => {
-            return new Http(backend, defaultOptions);
-          },
-          deps: [
-            MockBackend,
-            BaseRequestOptions
-          ]
-        }
       ]
     });
   });
 
-  beforeEach(() => {
-    // reset the requestURL before each unit test
-    const authService = TestBed.get(AuthService);
+  beforeEach(inject([ AuthService, TokenService ], (authService: AuthService, tokenService: TokenService ) => {
+    // reset the requestURL before each unit test in this file
     authService.requestedURL = '';
 
-    // reset the token before each unit test
-    const tokenService = TestBed.get(TokenService);
+    // reset the token before each unit test in this file
     tokenService.token = '';
-  });
+  }));
 
-  afterAll(() => {
-    // reset the requestURL after done with this unit test
-    const authService = TestBed.get(AuthService);
+  afterEach(inject([ AuthService, TokenService, HttpTestingController ], (authService: AuthService, tokenService: TokenService, httpMock: HttpTestingController) => {
+    // reset the requestURL after done with all unit tests in this file
     authService.requestedURL = '';
 
-    // reset the token after done with this unit test
-    const tokenService = TestBed.get(TokenService);
+    // reset the token after done with all unit tests in this file
     tokenService.token = '';
-  });
+
+    httpMock.verify();
+  }));
 
   it('should exist', inject([ AuthService ], (service: AuthService) => {
     expect(service).toBeTruthy();
@@ -73,34 +54,30 @@ describe('AuthService', () => {
     expect(service.requestedURL).toEqual('/route');
   }));
 
-  it('should login user', inject([ AuthService, TokenService, MockBackend ], (service: AuthService, tokenService: TokenService, backend: MockBackend) => {
+  it('should login user', inject([ AuthService, TokenService, HttpTestingController ], (service: AuthService, tokenService: TokenService, httpMock: HttpTestingController) => {
     const user = {
       username: 'user.name',
       password: 'password'
     };
-    const sampleData: IResponse = { success: true, message: 'logged in', token: 'jwt.token.string' };
-    const response: ResponseOptions = new ResponseOptions({ body: JSON.stringify(sampleData) });
-    const baseResponse: Response = new Response(response);
+    const res: IResponse = { success: true, message: 'logged in', token: 'jwt.token.string' };
+    let actualRes: IResponse;
 
     spyOn(service, 'updateLoggedInState').and.callThrough();
 
-    backend.connections.subscribe(
-      (c: MockConnection) => {
-        c.mockRespond(baseResponse);
+    service.login(user).subscribe((data: IResponse) => {
+      actualRes = data;
+    });
 
-        expect(c.request.method).toBe(RequestMethod.Post);
-        expect(c.request.url).toBe('/api/v1/auth');
-      }
-    );
+    const req: TestRequest = httpMock.expectOne('/api/v1/auth');
 
-    service.login(user).subscribe(data => {
-      expect(data).toEqual(sampleData);
-      expect(data.success).toBeTruthy();
-      expect(service.updateLoggedInState).toHaveBeenCalled();
-      expect(service.updateLoggedInState).toHaveBeenCalledTimes(1);
-      expect(service.updateLoggedInState).toHaveBeenCalledWith();
-      expect(tokenService.token).toBe(data.token);
-    })
+    req.flush(res);
+
+    expect(req.request.method).toEqual('POST');
+    expect(req.request.body).toEqual(user);
+    expect(actualRes).toEqual(res);
+    expect(service.updateLoggedInState).toHaveBeenCalledTimes(1);
+    expect(service.updateLoggedInState).toHaveBeenCalledWith();
+    expect(tokenService.token).toBe(actualRes.token);
   }));
 
   it('should get the logged in state of the user', inject([ AuthService, TokenService ], (service: AuthService, tokenService: TokenService) => {
@@ -122,21 +99,18 @@ describe('AuthService', () => {
     expect(service.isLoggedIn).toBeTruthy();
   }));
 
-  it('should get user details', inject([ AuthService, MockBackend ], (service: AuthService, backend: MockBackend) => {
-    const sampleData: IResponse = { success: true, message: 'decoded token info' };
-    const response: ResponseOptions = new ResponseOptions({ body: JSON.stringify(sampleData) });
-    const baseResponse: Response = new Response(response);
+  it('should get user details', inject([ AuthService, HttpTestingController ], (service: AuthService, httpMock: HttpTestingController) => {
+    const res: IResponse = { success: true, message: 'decoded token info' };
+    let actualRes: IResponse;
 
-    backend.connections.subscribe(
-      (c: MockConnection) => {
-        c.mockRespond(baseResponse);
+    service.getUser().subscribe((data: IResponse) => actualRes = data);
 
-        expect(c.request.method).toBe(RequestMethod.Get);
-        expect(c.request.url).toBe('/api/v1/me');
-      }
-    );
+    const req: TestRequest = httpMock.expectOne('/api/v1/me');
 
-    service.getUser().subscribe(data => expect(data).toEqual(sampleData));
+    req.flush(res);
+
+    expect(req.request.method).toEqual('GET');
+    expect(actualRes).toEqual(res);
   }));
 
   it('should logout the user', inject([ AuthService ], (service: AuthService) => {

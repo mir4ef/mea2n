@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -19,7 +19,7 @@ export class Lazy2Service {
   // however, if you are dealing with data that could change (i.e user data, shopping card), you should have an endpoint which returns a single entry (recommended)
   private dataArray: IEntry[];
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   // example with Promise
   // for an example with Observable, view lazy component/service
@@ -37,14 +37,14 @@ export class Lazy2Service {
 
   // if you are not going to reference/call any Class properties/methods, you can just define a regular function if that suites your style (please see lazy/lazy.service)
   // however, if you are going to reference/call any Class properties/methods, you will need to define it as an arrow function, because 'this' will be a different context, not the Class!
-  private handleResponse = (res: Response) => {
-    const response = res.json();
+  private handleResponse = (res: IResponse): IResponse => {
+    const response = res;
     this.dataArray = response.message;
 
     return response;
   };
 
-  private handleError(err: Response) {
-    return Promise.reject(err.json());
+  private handleError(err: HttpErrorResponse): Promise<never> {
+    return Promise.reject(err);
   }
 }

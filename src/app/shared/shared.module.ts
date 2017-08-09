@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
 import { CheckmarkPipe } from './checkmark/checkmark.pipe';
@@ -12,7 +11,6 @@ import { CheckmarkPipe } from './checkmark/checkmark.pipe';
   exports: [
     CommonModule,
     FormsModule,
-    HttpModule,
     CheckmarkPipe
   ],
   declarations: [
