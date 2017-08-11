@@ -40,7 +40,7 @@ describe('DataService', () => {
       let actualRes: IResponse;
 
       service.getUser(id).subscribe((data: IResponse) => {
-        actualRes = data
+        actualRes = data;
       });
 
       const req: TestRequest = httpMock.expectOne(`/api/v1/data/${id}`);

@@ -8,6 +8,11 @@ import { fade } from '../shared/animations';
 
 import { LazyService } from './lazy.service';
 
+interface IData {
+  bodyText: string;
+  title: string;
+}
+
 @Component({
   selector: 'app-lazy',
   templateUrl: './lazy.component.html',
@@ -17,8 +22,9 @@ import { LazyService } from './lazy.service';
 
 export class LazyComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  data: {};
-  err: string;
+
+  public data: IData;
+  public err: string;
 
   constructor(private loaderIndicator: LoadingIndicatorService, private dataService: LazyService) { }
 

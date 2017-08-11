@@ -42,7 +42,7 @@ export class Lazy2Service {
     this.dataArray = response.message;
 
     return response;
-  };
+  }
 
   private handleError(err: HttpErrorResponse): Promise<never> {
     return Promise.reject(err);

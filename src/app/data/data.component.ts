@@ -8,14 +8,21 @@ import { LoadingIndicatorService } from '../core/loading-indicator/loading-indic
 
 import { DataService } from './data.service';
 
+interface IUserData {
+  id: number;
+  name: string;
+  username: string;
+}
+
 @Component({
   templateUrl: './data.component.html',
   styleUrls: ['./data.component.less']
 })
 export class DataComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  userData: {};
-  errMsg: string;
+
+  public userData: IUserData;
+  public errMsg: string;
 
   constructor(
     private router: Router,
@@ -35,7 +42,7 @@ export class DataComponent implements OnInit, OnDestroy {
       .subscribe(
         data => {
           this.loadingIndicator.setIndicatorState(false);
-          this.userData = data.message
+          this.userData = data.message;
         },
         err => {
           this.loadingIndicator.setIndicatorState(false);

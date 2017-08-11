@@ -259,7 +259,7 @@ describe('CoreHttpService', () => {
         let actualRes: IResponse;
 
         service.apiPost({ path: 'endpoint', body }).subscribe((data: IResponse) => {
-          actualRes = data
+          actualRes = data;
         });
 
         const req: TestRequest = httpMock.expectOne('/api/v1/endpoint');

@@ -102,7 +102,7 @@ export class CoreHttpService {
 
     // A client-side or network error occurred
     return Promise.reject(err);
-  };
+  }
 
   /**
    * @description Build the endpoint URL with a default URI or passed URL options like scheme, host, etc.

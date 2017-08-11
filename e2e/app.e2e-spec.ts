@@ -9,8 +9,7 @@ describe('mea2n App', () => {
 
   it('should display message saying app works', () => {
     page.navigateTo();
-    page.getParagraphText().then((text) => {
-      expect(text).toEqual('app works!');
-    })
+
+    expect(page.getParagraphText()).toEqual('app works!');
   });
 });
