@@ -370,6 +370,7 @@
       "error",
       "never"
     ],
-    "template-curly-spacing": "error"
+    "template-curly-spacing": "error",
+    "getter-return": "error"
   }
 }
