@@ -8,7 +8,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 
 import { CoreHttpService } from '../core/http/core-http.service';
-import { LoadingIndicatorService } from '../core/loading-indicator/loading-indicator.service';
+import { LoadingIndicatorService } from '../components/loading-indicator/loading-indicator.service';
 import { TokenService } from '../core/auth/token.service';
 
 import { LazyComponent } from './lazy.component';
@@ -42,7 +42,7 @@ describe('LazyComponent', () => {
   });
 
   it('should get data by calling getData observable', async(
-    inject([LazyService], (lazyService: LazyService) => {
+    inject([ LazyService ], (lazyService: LazyService) => {
       const sampleData = {
         id: 123,
         title: 'Title',
@@ -67,7 +67,7 @@ describe('LazyComponent', () => {
   ));
 
   it('should get a server error', async(
-    inject([LazyService], (lazyService: LazyService) => {
+    inject([ LazyService ], (lazyService: LazyService) => {
       const response = 'an error occurred.';
       const fixture: ComponentFixture<LazyComponent> = TestBed.createComponent(LazyComponent);
       const component: LazyComponent = fixture.componentInstance;

@@ -13,7 +13,7 @@ export class DataService {
     return this.http.apiGet({ path: `data/${id}` });
   }
 
-  public logout() {
+  public logout(): void {
     this.autService.logout();
   }
 }

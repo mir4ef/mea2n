@@ -8,6 +8,4 @@ import { fade } from '../shared/animations';
   styleUrls: [ './home.component.less' ],
   animations: [ fade('1.5s') ]
 })
-export class HomeComponent {
-
-}
+export class HomeComponent { }

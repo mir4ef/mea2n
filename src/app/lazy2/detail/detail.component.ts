@@ -11,11 +11,9 @@ import { IEntry, Lazy2Service } from '../lazy2.service';
 export class DetailComponent implements OnInit {
   entry: IEntry | undefined;
 
-  constructor(private route: ActivatedRoute, private entryService: Lazy2Service) {
+  constructor(private route: ActivatedRoute, private entryService: Lazy2Service) { }
 
-  }
-
-  ngOnInit() {
+  ngOnInit(): void {
     const id = Number.parseInt(this.route.snapshot.params['id'], 10);
     this.entry = this.entryService.getEntry(id);
   }

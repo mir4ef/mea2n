@@ -10,7 +10,7 @@ import 'rxjs/add/observable/throw';
 import { CoreHttpService } from '../core/http/core-http.service';
 import { AuthService } from '../core/auth/auth.service';
 import { TokenService } from '../core/auth/token.service';
-import { LoadingIndicatorService } from '../core/loading-indicator/loading-indicator.service';
+import { LoadingIndicatorService } from '../components/loading-indicator/loading-indicator.service';
 
 import { DataService } from './data.service';
 
@@ -105,7 +105,7 @@ describe('DataComponent', () => {
       expect(dataService.logout).toHaveBeenCalledTimes(1);
       expect(router.navigate).toHaveBeenCalled();
       expect(router.navigate).toHaveBeenCalledTimes(1);
-      expect(router.navigate).toHaveBeenCalledWith(['/login']);
+      expect(router.navigate).toHaveBeenCalledWith([ '/login' ]);
     }),
   );
 });

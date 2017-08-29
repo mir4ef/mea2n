@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 
 import { EagerService } from './eager.service';
 
@@ -9,7 +9,7 @@ describe('EagerService', () => {
     });
   });
 
-  it('should exist', inject([EagerService], (service: EagerService) => {
+  it('should exist', inject([ EagerService ], (service: EagerService) => {
     expect(service).toBeTruthy();
   }));
 });

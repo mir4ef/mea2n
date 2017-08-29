@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
 import { AuthService } from '../core/auth/auth.service';
-import { LoadingIndicatorService } from '../core/loading-indicator/loading-indicator.service';
+import { LoadingIndicatorService } from '../components/loading-indicator/loading-indicator.service';
 
 @Component({
   templateUrl: './login.component.html',
@@ -13,11 +13,11 @@ import { LoadingIndicatorService } from '../core/loading-indicator/loading-indic
 })
 export class LoginComponent implements OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  user = {
+  public user = {
     username: '',
     password: ''
   };
-  errMsg: string = '';
+  public errMsg: string = '';
 
   constructor(
     private router: Router,
@@ -27,7 +27,7 @@ export class LoginComponent implements OnDestroy {
     this.authService.updateLoggedInState();
   }
 
-  login() {
+  public login(): void {
     // show the loading indicator
     this.loadingIndicator.setIndicatorState(true);
 
@@ -47,7 +47,7 @@ export class LoginComponent implements OnDestroy {
       );
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }

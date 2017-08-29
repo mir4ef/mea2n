@@ -41,7 +41,7 @@
     "docs:app": "node ./node_modules/typedoc/bin/typedoc --out ./src/documentation/app/ --mode file --module \"node\" --target \"ES5\" ./src/app/",
     "docs:api": "node ./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js -d ./server/swagger.def.js -o ./src/documentation/api/swagger.json ./server/routes/v1/*.js ./server/routes/v1/**/*.js",
     "docs:api:watch": "npm run docs:api -- -w",
-    "docs:css": "node ./node_modules/del-cli/cli.js \"./src/documentation/css/*.html\" && node ./node_modules/less/bin/lessc ./src/styles.less ./src/documentation/css/styles.css && node ./node_modules/.bin/kss --config kss-config.json",
+    "docs:css": "node ./node_modules/del-cli/cli.js \"./src/documentation/css/*.html\" && node ./node_modules/less/bin/lessc ./src/styles.less ./src/documentation/css/styles.css && node ./node_modules/kss/bin/kss --config kss-config.json",
     "copy:swagger": "node ./node_modules/copyfiles/copyfiles -f \"./node_modules/swagger-ui-dist/sw*.js*\" \"./node_modules/swagger-ui-dist/sw*.css*\" \"./node_modules/swagger-ui-dist/oauth2-redirect.html\" ./src/documentation/api",
     "security:scan": "node ./node_modules/nsp/bin/nsp check",
     "pre-git": "npm run e2e && npm run build:prod"
@@ -89,8 +89,8 @@
     "copyfiles": "^1.2.0",
     "del-cli": "^1.1.0",
     "eslint": "~4.5.0",
-    "jasmine": "~2.7.0",
-    "jasmine-core": "~2.7.0",
+    "jasmine": "~2.8.0",
+    "jasmine-core": "~2.8.0",
     "jasmine-node": "~1.14.5",
     "jasmine-spec-reporter": "^4.2.0",
     "karma": "~1.7.0",
@@ -113,7 +113,7 @@
     "swagger-jsdoc": "^1.9.5",
     "swagger-ui-dist": "^3.1.1",
     "ts-node": "~3.3.0",
-    "tslint": "~5.6.0",
+    "tslint": "~5.7.0",
     "typedoc": "~0.8.0",
     "typescript": "~2.4.2"
   }

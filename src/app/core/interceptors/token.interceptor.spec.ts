@@ -40,9 +40,7 @@ describe('TokenInterceptor', () => {
       const res: IResponse = { success: true, message: 'got data' };
       let actualRes: IResponse;
 
-      service.apiGet({ path: 'endpoint' }).subscribe((data: IResponse) => {
-        actualRes = data;
-      });
+      service.apiGet({ path: 'endpoint' }).subscribe((data: IResponse): IResponse => actualRes = data);
 
       const req: TestRequest = httpMock.expectOne('/api/v1/endpoint');
 
@@ -60,9 +58,7 @@ describe('TokenInterceptor', () => {
       const res: IResponse = { success: true, message: 'got data' };
       let actualRes: IResponse;
 
-      service.apiGet({ path: 'endpoint' }).subscribe((data: IResponse) => {
-        actualRes = data;
-      });
+      service.apiGet({ path: 'endpoint' }).subscribe((data: IResponse): IResponse => actualRes = data);
 
       const req: TestRequest = httpMock.expectOne('/api/v1/endpoint');
 

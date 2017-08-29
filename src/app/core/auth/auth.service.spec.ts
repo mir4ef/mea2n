@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -40,87 +40,94 @@ describe('AuthService', () => {
     httpMock.verify();
   }));
 
-  it('should exist', inject([ AuthService ], (service: AuthService) => {
-    expect(service).toBeTruthy();
+  it('should exist',
+    inject([ AuthService ], (service: AuthService) => {
+      expect(service).toBeTruthy();
   }));
 
-  it('should not have requestURL set at initialization', inject([ AuthService ], (service: AuthService) => {
-    expect(service.requestedURL).toEqual('');
+  it('should not have requestURL set at initialization',
+    inject([ AuthService ], (service: AuthService) => {
+      expect(service.requestedURL).toEqual('');
   }));
 
-  it('should set the requestURL to the passed value', inject([ AuthService ], (service: AuthService) => {
-    service.requestedURL = '/route';
+  it('should set the requestURL to the passed value',
+    inject([ AuthService ], (service: AuthService) => {
+      service.requestedURL = '/route';
 
-    expect(service.requestedURL).toEqual('/route');
+      expect(service.requestedURL).toEqual('/route');
   }));
 
-  it('should login user', inject([ AuthService, TokenService, HttpTestingController ], (service: AuthService, tokenService: TokenService, httpMock: HttpTestingController) => {
-    const user = {
-      username: 'user.name',
-      password: 'password'
-    };
-    const res: IResponse = { success: true, message: 'logged in', token: 'jwt.token.string' };
-    let actualRes: IResponse;
+  it('should login user',
+    inject([ AuthService, TokenService, HttpTestingController ], (service: AuthService, tokenService: TokenService, httpMock: HttpTestingController) => {
+      const user = {
+        username: 'user.name',
+        password: 'password'
+      };
+      const res: IResponse = { success: true, message: 'logged in', token: 'jwt.token.string' };
+      let actualRes: IResponse;
 
-    spyOn(service, 'updateLoggedInState').and.callThrough();
+      spyOn(service, 'updateLoggedInState').and.callThrough();
 
-    service.login(user).subscribe((data: IResponse) => {
-      actualRes = data;
-    });
+      service.login(user).subscribe((data: IResponse): IResponse => actualRes = data);
 
-    const req: TestRequest = httpMock.expectOne('/api/v1/auth');
+      const req: TestRequest = httpMock.expectOne('/api/v1/auth');
 
-    req.flush(res);
+      req.flush(res);
 
-    expect(req.request.method).toEqual('POST');
-    expect(req.request.body).toEqual(user);
-    expect(actualRes).toEqual(res);
-    expect(service.updateLoggedInState).toHaveBeenCalledTimes(1);
-    expect(service.updateLoggedInState).toHaveBeenCalledWith();
-    expect(tokenService.token).toBe(actualRes.token);
+      expect(req.request.method).toEqual('POST');
+      expect(req.request.body).toEqual(user);
+      expect(actualRes).toEqual(res);
+      expect(service.updateLoggedInState).toHaveBeenCalledTimes(1);
+      expect(service.updateLoggedInState).toHaveBeenCalledWith();
+      expect(tokenService.token).toBe(actualRes.token);
   }));
 
-  it('should get the logged in state of the user', inject([ AuthService, TokenService ], (service: AuthService, tokenService: TokenService) => {
-    tokenService.token = 'token';
-    service.updateLoggedInState();
+  it('should get the logged in state of the user',
+    inject([ AuthService, TokenService ], (service: AuthService, tokenService: TokenService) => {
+      tokenService.token = 'token';
+      service.updateLoggedInState();
 
-    service.getLoggedInState().subscribe(state => expect(state).toBeTruthy());
+      service.getLoggedInState().subscribe((state: boolean) => expect(state).toBeTruthy());
   }));
 
-  it('should return false if user is not logged in', inject([ AuthService, TokenService ], (service: AuthService, tokenService: TokenService) => {
-    tokenService.token = '';
+  it('should return false if user is not logged in',
+    inject([ AuthService, TokenService ], (service: AuthService, tokenService: TokenService) => {
+      tokenService.token = '';
 
-    expect(service.isLoggedIn).toBeFalsy();
+      expect(service.isLoggedIn).toBeFalsy();
   }));
 
-  it('should return true if user is logged in', inject([ AuthService, TokenService ], (service: AuthService, tokenService: TokenService) => {
-    tokenService.token = 'token';
+  it('should return true if user is logged in',
+    inject([ AuthService, TokenService ], (service: AuthService, tokenService: TokenService) => {
+      tokenService.token = 'token';
 
-    expect(service.isLoggedIn).toBeTruthy();
+      expect(service.isLoggedIn).toBeTruthy();
   }));
 
-  it('should get user details', inject([ AuthService, HttpTestingController ], (service: AuthService, httpMock: HttpTestingController) => {
-    const res: IResponse = { success: true, message: 'decoded token info' };
-    let actualRes: IResponse;
+  it('should get user details',
+    inject([ AuthService, HttpTestingController ], (service: AuthService, httpMock: HttpTestingController) => {
+      const res: IResponse = { success: true, message: 'decoded token info' };
+      let actualRes: IResponse;
 
-    service.getUser().subscribe((data: IResponse) => actualRes = data);
+      service.getUser().subscribe((data: IResponse): IResponse => actualRes = data);
 
-    const req: TestRequest = httpMock.expectOne('/api/v1/me');
+      const req: TestRequest = httpMock.expectOne('/api/v1/me');
 
-    req.flush(res);
+      req.flush(res);
 
-    expect(req.request.method).toEqual('GET');
-    expect(actualRes).toEqual(res);
+      expect(req.request.method).toEqual('GET');
+      expect(actualRes).toEqual(res);
   }));
 
-  it('should logout the user', inject([ AuthService ], (service: AuthService) => {
-    spyOn(service, 'updateLoggedInState').and.callThrough();
+  it('should logout the user',
+    inject([ AuthService ], (service: AuthService) => {
+      spyOn(service, 'updateLoggedInState').and.callThrough();
 
-    service.logout();
+      service.logout();
 
-    expect(service.updateLoggedInState).toHaveBeenCalled();
-    expect(service.updateLoggedInState).toHaveBeenCalledTimes(1);
-    expect(service.updateLoggedInState).toHaveBeenCalledWith();
-    expect(service.isLoggedIn).toBeFalsy();
+      expect(service.updateLoggedInState).toHaveBeenCalled();
+      expect(service.updateLoggedInState).toHaveBeenCalledTimes(1);
+      expect(service.updateLoggedInState).toHaveBeenCalledWith();
+      expect(service.isLoggedIn).toBeFalsy();
   }));
 });

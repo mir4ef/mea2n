@@ -31,7 +31,7 @@ describe('Lazy2Service', () => {
         ]
       };
 
-      service.getEntries().then((data: IResponse) => {
+      service.getEntries().then((data: IResponse): void => {
         expect(data).toEqual(res);
       });
 

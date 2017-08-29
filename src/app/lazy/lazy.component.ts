@@ -3,7 +3,7 @@ import { Subject } from 'rxjs/Subject';
 
 import 'rxjs/add/operator/takeUntil';
 
-import { LoadingIndicatorService } from '../core/loading-indicator/loading-indicator.service';
+import { LoadingIndicatorService } from '../components/loading-indicator/loading-indicator.service';
 import { fade } from '../shared/animations';
 
 import { LazyService } from './lazy.service';
@@ -28,7 +28,7 @@ export class LazyComponent implements OnInit, OnDestroy {
 
   constructor(private loaderIndicator: LoadingIndicatorService, private dataService: LazyService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // show the loading indicator
     this.loaderIndicator.setIndicatorState(true);
 
@@ -49,7 +49,7 @@ export class LazyComponent implements OnInit, OnDestroy {
       );
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }

@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 import { HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
@@ -48,9 +48,7 @@ describe('CoreHttpService', () => {
       const res: IResponse = { success: true, message: 'got data' };
       let actualRes: IResponse;
 
-      service.apiGet({ path: 'endpoint', headers }).subscribe((data: IResponse) => {
-        actualRes = data;
-      });
+      service.apiGet({ path: 'endpoint', headers }).subscribe((data: IResponse): IResponse => actualRes = data);
 
       const req: TestRequest = httpMock.expectOne('/api/v1/endpoint');
 
@@ -82,7 +80,7 @@ describe('CoreHttpService', () => {
       spyOn(router, 'navigate');
       tokenService.token = '';
 
-      service.apiGet({ path: 'endpoint' }).subscribe(null, (error: HttpErrorResponse) => {
+      service.apiGet({ path: 'endpoint' }).subscribe(null, (error: HttpErrorResponse): void => {
         actualRes = error.error;
 
         expect(error.status).toBe(403);
@@ -116,7 +114,7 @@ describe('CoreHttpService', () => {
       };
       let actualRes: IResponse;
 
-      service.apiGet({ path: 'endpoint' }).subscribe(null, (error: HttpErrorResponse) => {
+      service.apiGet({ path: 'endpoint' }).subscribe(null, (error: HttpErrorResponse): void => {
         actualRes = error.error;
 
         expect(error.status).toBe(500);
@@ -146,7 +144,7 @@ describe('CoreHttpService', () => {
       };
       let actualRes: HttpErrorResponse;
 
-      service.apiGet({ path: 'endpoint' }).subscribe(null, (error: HttpErrorResponse) => {
+      service.apiGet({ path: 'endpoint' }).subscribe(null, (error: HttpErrorResponse): void => {
         actualRes = error;
 
         expect(actualRes.status).toBe(0);
@@ -166,9 +164,7 @@ describe('CoreHttpService', () => {
         const res: IResponse = { success: true, message: 'got data' };
         let actualRes: IResponse;
 
-        service.apiGet({ path: 'endpoint' }).subscribe((data: IResponse) => {
-          actualRes = data;
-        });
+        service.apiGet({ path: 'endpoint' }).subscribe((data: IResponse): IResponse => actualRes = data);
 
         const req: TestRequest = httpMock.expectOne('/api/v1/endpoint');
 
@@ -183,9 +179,7 @@ describe('CoreHttpService', () => {
         const res: IResponse = { success: true, message: 'got data' };
         let actualRes: IResponse;
 
-        service.apiGet({ path: 'endpoint', params: { param1: 'value1', param2: 'value 2' } }).subscribe((data: IResponse) => {
-          actualRes = data;
-        });
+        service.apiGet({ path: 'endpoint', params: { param1: 'value1', param2: 'value 2' } }).subscribe((data: IResponse): IResponse => actualRes = data);
 
         const req: TestRequest = httpMock.expectOne('/api/v1/endpoint?param1=value1&param2=value%202');
 
@@ -201,11 +195,7 @@ describe('CoreHttpService', () => {
         const res: IResponse = { success: true, message: 'got data' };
         let actualRes: IResponse;
 
-        service.apiGet({ scheme: 'https', host: 'api.levodigital.com', path: 'v1/endpoint' }).subscribe((data: IResponse) => {
-          actualRes = data;
-          expect(data).toEqual(res);
-          expect(data.success).toBeTruthy();
-        });
+        service.apiGet({ scheme: 'https', host: 'api.levodigital.com', path: 'v1/endpoint' }).subscribe((data: IResponse): IResponse => actualRes = data);
 
         const req: TestRequest = httpMock.expectOne('https://api.levodigital.com/v1/endpoint');
 
@@ -221,9 +211,7 @@ describe('CoreHttpService', () => {
         let actualRes: IResponse;
 
 
-        service.apiGet({ scheme: 'https', host: 'api.levodigital.com', port: 3000, path: 'v1/endpoint' }).subscribe((data: IResponse) => {
-          actualRes = data;
-        });
+        service.apiGet({ scheme: 'https', host: 'api.levodigital.com', port: 3000, path: 'v1/endpoint' }).subscribe((data: IResponse): IResponse => actualRes = data);
 
         const req: TestRequest = httpMock.expectOne('https://api.levodigital.com:3000/v1/endpoint');
 
@@ -238,11 +226,9 @@ describe('CoreHttpService', () => {
         const res: IResponse = { success: true, message: 'got data' };
         let actualRes: IResponse;
 
-        service.apiGet({ scheme: 'https', host: 'api.levodigital.com', path: '' }).subscribe((data: IResponse) => {
-          actualRes = data;
-        });
+        service.apiGet({ scheme: 'https', host: 'api.levodigital.com', path: '' }).subscribe((data: IResponse): IResponse => actualRes = data);
 
-        const req: TestRequest = httpMock.expectOne('https://api.levodigital.com/');
+        const req: TestRequest = httpMock.expectOne('https://api.levodigital.com');
 
         req.flush(res);
 
@@ -258,9 +244,7 @@ describe('CoreHttpService', () => {
         const res: IResponse = { success: true, message: 'got data' };
         let actualRes: IResponse;
 
-        service.apiPost({ path: 'endpoint', body }).subscribe((data: IResponse) => {
-          actualRes = data;
-        });
+        service.apiPost({ path: 'endpoint', body }).subscribe((data: IResponse): IResponse => actualRes = data);
 
         const req: TestRequest = httpMock.expectOne('/api/v1/endpoint');
 
@@ -276,9 +260,7 @@ describe('CoreHttpService', () => {
         const res: IResponse = { success: true, message: 'got data' };
         let actualRes: IResponse;
 
-        service.apiPost({ path: 'endpoint' }).subscribe((data: IResponse) => {
-          actualRes = data;
-        });
+        service.apiPost({ path: 'endpoint' }).subscribe((data: IResponse): IResponse => actualRes = data);
 
         const req: TestRequest = httpMock.expectOne('/api/v1/endpoint');
 

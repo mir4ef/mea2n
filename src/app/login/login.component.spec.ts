@@ -12,7 +12,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CoreHttpService } from '../core/http/core-http.service';
 import { AuthService } from '../core/auth/auth.service';
 import { TokenService } from '../core/auth/token.service';
-import { LoadingIndicatorService } from '../core/loading-indicator/loading-indicator.service';
+import { LoadingIndicatorService } from '../components/loading-indicator/loading-indicator.service';
 
 import { LoginComponent } from './login.component';
 

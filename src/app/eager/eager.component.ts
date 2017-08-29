@@ -8,6 +8,4 @@ import { fade } from '../shared/animations';
   styleUrls: [ './eager.component.less' ],
   animations: [ fade() ]
 })
-export class EagerComponent {
-
-}
+export class EagerComponent { }

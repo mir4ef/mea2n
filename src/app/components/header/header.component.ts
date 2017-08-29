@@ -4,7 +4,7 @@ import { Subject } from 'rxjs/Subject';
 
 import 'rxjs/add/operator/takeUntil';
 
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -13,29 +13,25 @@ import { AuthService } from '../auth/auth.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  isLoggedIn: boolean = false;
+  public isLoggedIn: boolean = false;
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService) { }
 
-  }
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.authService.getLoggedInState()
       .takeUntil(this.ngUnsubscribe)
       .subscribe(
-      state => this.isLoggedIn = state,
-      err => {
-        console.error('err');
-      }
+        (state: boolean): boolean => this.isLoggedIn = state,
+        (err): void => console.error('err:', err)
     );
   }
 
-  logout() {
+  public logout(): void {
     this.authService.logout();
     this.router.navigate(['/']);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }

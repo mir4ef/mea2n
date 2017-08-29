@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 
 import { HomeService } from './home.service';
 
@@ -9,7 +9,7 @@ describe('HomeService', () => {
     });
   });
 
-  it('should exist', inject([HomeService], (service: HomeService) => {
+  it('should exist', inject([ HomeService ], (service: HomeService) => {
     expect(service).toBeTruthy();
   }));
 });

@@ -27,7 +27,7 @@ interface IRequestOptions<T> {
   host?: string;
   headers?: { [key: string]: string };
   port?: number;
-  path: string;
+  path?: string;
   params?: IParams;
   body?: T;
 }
@@ -41,7 +41,7 @@ export interface IResponse {
 
 @Injectable()
 export class CoreHttpService {
-  private apiURI = '/api/v1/';
+  private apiURI: string = '/api/v1';
 
   constructor(
     private http: HttpClient,
@@ -115,17 +115,14 @@ export class CoreHttpService {
 
     // build a completely new URL if the requester needs it
     if (options.scheme && options.host) {
-      url = `${options.scheme}://${options.host}`;
+      const host: string = options.host.endsWith('/') ? options.host.slice(0, -1) : options.host;
 
-      if (options.port) {
-        url += `:${options.port}/`;
-      } else {
-        url += '/';
-      }
+      url = `${options.scheme}://${host}`;
+      url += options.port ? `:${options.port}` : '';
     }
 
     if (options.path) {
-      url += options.path;
+      url += options.path.startsWith('/') ? options.path : `/${options.path}`;
     }
 
     return url;

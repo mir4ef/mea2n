@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 
 import 'rxjs/add/operator/takeUntil';
 
-import { LoadingIndicatorService } from '../core/loading-indicator/loading-indicator.service';
+import { LoadingIndicatorService } from '../components/loading-indicator/loading-indicator.service';
+import { IResponse } from '../core/http/core-http.service';
 
 import { DataService } from './data.service';
 
@@ -16,7 +18,7 @@ interface IUserData {
 
 @Component({
   templateUrl: './data.component.html',
-  styleUrls: ['./data.component.less']
+  styleUrls: [ './data.component.less']
 })
 export class DataComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
@@ -28,11 +30,9 @@ export class DataComponent implements OnInit, OnDestroy {
     private router: Router,
     private loadingIndicator: LoadingIndicatorService,
     private dataService: DataService
-  ) {
+  ) { }
 
-  }
-
-  ngOnInit() {
+  ngOnInit(): void {
     // show the loading indicator
     this.loadingIndicator.setIndicatorState(true);
 
@@ -40,23 +40,23 @@ export class DataComponent implements OnInit, OnDestroy {
     this.dataService.getUser(123)
       .takeUntil(this.ngUnsubscribe)
       .subscribe(
-        data => {
+        (data: IResponse): void => {
           this.loadingIndicator.setIndicatorState(false);
           this.userData = data.message;
         },
-        err => {
+        (err: HttpErrorResponse): void => {
           this.loadingIndicator.setIndicatorState(false);
           this.errMsg = err.message;
         }
       );
   }
 
-  logout() {
+  public logout(): void {
     this.dataService.logout();
     this.router.navigate(['/login']);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }

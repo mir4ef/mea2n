@@ -9,12 +9,8 @@ import { AuthService } from './auth/auth.service';
 import { TokenService } from './auth/token.service';
 import { CoreHttpService } from './http/core-http.service';
 import { TokenInterceptor } from './interceptors/token.interceptor';
-import { LoadingIndicatorService } from './loading-indicator/loading-indicator.service';
+import { LoadingIndicatorService } from '../components/loading-indicator/loading-indicator.service';
 import { SelectivePreloadingStrategy } from './preloading-strategy/preloading-strategy';
-
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
 
 import { throwIfAlreadyLoaded } from '../utils/module-import-guard';
 
@@ -23,16 +19,6 @@ import { throwIfAlreadyLoaded } from '../utils/module-import-guard';
     RouterModule,
     HttpClientModule,
     SharedModule
-  ],
-  exports: [
-    HeaderComponent,
-    FooterComponent,
-    LoadingIndicatorComponent
-  ],
-  declarations: [
-    HeaderComponent,
-    FooterComponent,
-    LoadingIndicatorComponent
   ],
   providers: [
     AuthGuard,

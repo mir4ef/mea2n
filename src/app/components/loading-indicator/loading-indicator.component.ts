@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
 import 'rxjs/add/operator/takeUntil';
@@ -10,20 +10,22 @@ import { LoadingIndicatorService } from './loading-indicator.service';
   templateUrl: './loading-indicator.component.html',
   styleUrls: ['./loading-indicator.component.less']
 })
-export class LoadingIndicatorComponent implements OnDestroy {
+export class LoadingIndicatorComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   public isLoading: boolean = false;
 
-  constructor(private loaderIndicator: LoadingIndicatorService) {
+  constructor(private loaderIndicator: LoadingIndicatorService) { }
+
+  ngOnInit(): void {
     this.loaderIndicator.getIndicatorState()
       .takeUntil(this.ngUnsubscribe)
       .subscribe(
-      state => this.isLoading = state,
-      err => this.isLoading = false
-    );
+        (state: boolean): boolean => this.isLoading = state,
+        (err): boolean => this.isLoading = false
+      );
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }

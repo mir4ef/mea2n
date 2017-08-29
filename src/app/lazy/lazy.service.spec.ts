@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -27,16 +27,16 @@ describe('LazyService', () => {
     httpMock.verify();
   }));
 
-  it('should exist', inject([LazyService], (service: LazyService) => {
+  it('should exist', inject([ LazyService ], (service: LazyService) => {
     expect(service).toBeTruthy();
   }));
 
   it('should return data details',
-    inject([LazyService, HttpTestingController], (service: LazyService, httpMock: HttpTestingController) => {
+    inject([ LazyService, HttpTestingController ], (service: LazyService, httpMock: HttpTestingController) => {
       const res: IResponse = { success: true, message: { id: 123, title: 'Title', bodyText: 'Body text.' }};
       let actualRes: IResponse;
 
-      service.getData().subscribe((data: IResponse) => {
+      service.getData().subscribe((data: IResponse): void => {
         actualRes = data;
       });
 
@@ -49,7 +49,7 @@ describe('LazyService', () => {
   }));
 
   it('should return a server error if something went wrong on the server side',
-    inject([LazyService, HttpTestingController], (service: LazyService, httpMock: HttpTestingController) => {
+    inject([ LazyService, HttpTestingController ], (service: LazyService, httpMock: HttpTestingController) => {
       const res: HttpErrorResponse = {
         error: { success: false, message: 'server error message' },
         message: 'error message',
@@ -63,7 +63,7 @@ describe('LazyService', () => {
       };
       let actualRes: IResponse;
 
-      service.getData().subscribe(null, (error: HttpErrorResponse) => {
+      service.getData().subscribe(null, (error: HttpErrorResponse): void => {
         actualRes = error.error;
 
         expect(error.status).toBe(500);

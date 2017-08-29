@@ -9,7 +9,7 @@ import { TokenService } from './token.service';
 export class AuthService {
   // property to hold the url the user came from
   private fromURL: string = '/';
-  private loggedInState = new BehaviorSubject<boolean>(this.isLoggedIn);
+  private loggedInState: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isLoggedIn);
 
   constructor(private http: CoreHttpService, private tokenService: TokenService) { }
 
@@ -34,7 +34,7 @@ export class AuthService {
       path: 'auth'
     };
 
-    return this.http.apiPost(opt).map(data => {
+    return this.http.apiPost(opt).map((data: IResponse): IResponse => {
       this.tokenService.token = data.token;
       this.updateLoggedInState();
 
@@ -62,7 +62,7 @@ export class AuthService {
   /**
    * @description Update the user logged in state
    */
-  public updateLoggedInState() {
+  public updateLoggedInState(): void {
     this.loggedInState.next(this.isLoggedIn);
   }
 

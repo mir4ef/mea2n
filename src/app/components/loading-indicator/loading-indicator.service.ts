@@ -10,7 +10,7 @@ export class LoadingIndicatorService {
    * @description Update the visual state of loading indicator
    * @param {Boolean} show - The indicator visual state
    */
-  public setIndicatorState(show: boolean) {
+  public setIndicatorState(show: boolean): void {
     this.indicator.next(show);
   }
 

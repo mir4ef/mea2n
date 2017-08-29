@@ -2,9 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { AuthService } from '../auth/auth.service';
-import { TokenService } from '../auth/token.service';
-import { CoreHttpService } from '../http/core-http.service';
+import { AuthService } from '../../core/auth/auth.service';
+import { TokenService } from '../../core/auth/token.service';
+import { CoreHttpService } from '../../core/http/core-http.service';
 
 import { HeaderComponent } from './header.component';
 
