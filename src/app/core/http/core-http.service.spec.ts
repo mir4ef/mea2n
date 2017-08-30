@@ -176,10 +176,19 @@ describe('CoreHttpService', () => {
 
     it('should GET requested endpoint with query params and success 200',
       inject([ CoreHttpService, HttpTestingController ], (service: CoreHttpService, httpMock: HttpTestingController) => {
+        const Query = function (): void {
+          this.param1 = 'value1';
+          this.param2 = 'value 2';
+        } as any;
+
+        // extend the prototype to cover the else branch in the query params loop
+        Query.prototype.param3 = 'param3';
+
+        const params = new Query();
         const res: IResponse = { success: true, message: 'got data' };
         let actualRes: IResponse;
 
-        service.apiGet({ path: 'endpoint', params: { param1: 'value1', param2: 'value 2' } }).subscribe((data: IResponse): IResponse => actualRes = data);
+        service.apiGet({ path: 'endpoint', params }).subscribe((data: IResponse): IResponse => actualRes = data);
 
         const req: TestRequest = httpMock.expectOne('/api/v1/endpoint?param1=value1&param2=value%202');
 
@@ -196,6 +205,21 @@ describe('CoreHttpService', () => {
         let actualRes: IResponse;
 
         service.apiGet({ scheme: 'https', host: 'api.levodigital.com', path: 'v1/endpoint' }).subscribe((data: IResponse): IResponse => actualRes = data);
+
+        const req: TestRequest = httpMock.expectOne('https://api.levodigital.com/v1/endpoint');
+
+        req.flush(res);
+
+        expect(req.request.method).toEqual('GET');
+        expect(actualRes).toEqual(res);
+    }));
+
+    it('should GET requested endpoint agnostic to host ending slash and path leading slash',
+      inject([ CoreHttpService, HttpTestingController ], (service: CoreHttpService, httpMock: HttpTestingController) => {
+        const res: IResponse = { success: true, message: 'got data' };
+        let actualRes: IResponse;
+
+        service.apiGet({ scheme: 'https', host: 'api.levodigital.com/', path: '/v1/endpoint' }).subscribe((data: IResponse): IResponse => actualRes = data);
 
         const req: TestRequest = httpMock.expectOne('https://api.levodigital.com/v1/endpoint');
 
