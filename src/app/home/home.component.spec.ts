@@ -11,10 +11,12 @@ describe('HomeComponent', () => {
     .compileComponents();
   }));
 
-  it('should exist', () => {
+  it('should exist', async(() => {
     const fixture: ComponentFixture<HomeComponent> = TestBed.createComponent(HomeComponent);
     const component: HomeComponent = fixture.componentInstance;
 
     expect(component).toBeTruthy();
-  });
+
+    fixture.destroy();
+  }));
 });

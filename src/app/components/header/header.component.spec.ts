@@ -19,10 +19,12 @@ describe('HeaderComponent', () => {
     .compileComponents();
   }));
 
-  it('should exist', () => {
+  it('should exist', async(() => {
     const fixture: ComponentFixture<HeaderComponent> = TestBed.createComponent(HeaderComponent);
     const component: HeaderComponent = fixture.componentInstance;
 
     expect(component).toBeTruthy();
-  });
+
+    fixture.destroy();
+  }));
 });

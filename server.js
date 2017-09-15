@@ -76,8 +76,8 @@ app.use(bodyParser.json({ limit: '2mb' }));
 // handle CORS requests
 app.use(cors({
   origin: config.allowCORS,
-  methods: ['GET, POST'],
-  allowedHeaders: ['X-Requested-With', 'Content-Type'],
+  methods: [ 'GET, POST' ],
+  allowedHeaders: [ 'X-Requested-With', 'Content-Type' ],
 
   // Provides a status code to use for successful OPTIONS requests, since some legacy browsers (IE11, various SmartTVs) choke on 204.
   optionsSuccessStatus: 200

@@ -22,6 +22,8 @@ describe('AppComponent', () => {
     const app: AppComponent = fixture.debugElement.componentInstance;
 
     expect(app).toBeTruthy();
+
+    fixture.destroy();
   }));
 
   it(`should have as title 'app works!'`, async(() => {
@@ -29,6 +31,8 @@ describe('AppComponent', () => {
     const app: AppComponent = fixture.debugElement.componentInstance;
 
     expect(app.title).toEqual('app works!');
+
+    fixture.destroy();
   }));
 
   it('should render title in a h1 tag', async(() => {
@@ -39,5 +43,7 @@ describe('AppComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
 
     expect(compiled.querySelector('h1').textContent).toContain('app works!');
+
+    fixture.destroy();
   }));
 });

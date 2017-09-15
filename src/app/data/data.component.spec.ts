@@ -38,12 +38,14 @@ describe('DataComponent', () => {
     .compileComponents();
   }));
 
-  it('should exist', () => {
+  it('should exist', async(() => {
     const fixture: ComponentFixture<DataComponent> = TestBed.createComponent(DataComponent);
     const component: DataComponent = fixture.componentInstance;
 
     expect(component).toBeTruthy();
-  });
+
+    fixture.destroy();
+  }));
 
   it('should get the details of the user by calling getUser observable', async(
     inject([ LoadingIndicatorService, DataService ], (indicator: LoadingIndicatorService, dataService: DataService) => {
@@ -64,6 +66,8 @@ describe('DataComponent', () => {
         expect(indicator.setIndicatorState).toHaveBeenCalledWith(false);
         expect(component.userData).toEqual(sampleUser);
         expect(component.errMsg).toBeUndefined();
+
+        fixture.destroy();
       });
     })
   ));
@@ -87,11 +91,13 @@ describe('DataComponent', () => {
         expect(indicator.setIndicatorState).toHaveBeenCalledWith(false);
         expect(component.userData).toBeUndefined();
         expect(component.errMsg).toEqual(errResponse.message);
+
+        fixture.destroy();
       });
     })
   ));
 
-  it('should logout the user and navigate to a login page when logout clicked',
+  it('should logout the user and navigate to a login page when logout clicked', async(
     inject([ Router, DataService ], (router: Router, dataService: DataService) => {
       const fixture: ComponentFixture<DataComponent> = TestBed.createComponent(DataComponent);
       const component: DataComponent = fixture.componentInstance;
@@ -106,6 +112,8 @@ describe('DataComponent', () => {
       expect(router.navigate).toHaveBeenCalled();
       expect(router.navigate).toHaveBeenCalledTimes(1);
       expect(router.navigate).toHaveBeenCalledWith([ '/login' ]);
+
+      fixture.destroy();
     }),
-  );
+  ));
 });

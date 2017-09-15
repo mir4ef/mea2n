@@ -34,12 +34,12 @@ describe('LazyComponent', () => {
     .compileComponents();
   }));
 
-  it('should exist', () => {
+  it('should exist', async(() => {
     const fixture: ComponentFixture<LazyComponent> = TestBed.createComponent(LazyComponent);
     const component: LazyComponent = fixture.componentInstance;
 
     expect(component).toBeTruthy();
-  });
+  }));
 
   it('should get data by calling getData observable', async(
     inject([ LazyService ], (lazyService: LazyService) => {

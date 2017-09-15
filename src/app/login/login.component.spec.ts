@@ -35,12 +35,14 @@ describe('LoginComponent', () => {
     .compileComponents();
   }));
 
-  it('should exist', () => {
+  it('should exist', async(() => {
     const fixture: ComponentFixture<LoginComponent> = TestBed.createComponent(LoginComponent);
     const component: LoginComponent = fixture.componentInstance;
 
     expect(component).toBeTruthy();
-  });
+
+    fixture.destroy();
+  }));
 
   it('should login user successfully and redirect to /', async(
     inject([ Router, AuthService ], (router: Router, authService: AuthService) => {
@@ -68,6 +70,8 @@ describe('LoginComponent', () => {
         expect(router.navigate).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledWith(['/']);
         expect(component.errMsg).toEqual('');
+
+        fixture.destroy();
       });
     })
   ));
@@ -99,6 +103,8 @@ describe('LoginComponent', () => {
         expect(router.navigate).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledWith([url]);
         expect(component.errMsg).toEqual('');
+
+        fixture.destroy();
       });
     })
   ));
@@ -128,6 +134,8 @@ describe('LoginComponent', () => {
       fixture.whenStable().then(() => {
         expect(router.navigate).not.toHaveBeenCalled();
         expect(component.errMsg).toEqual('wrong credentials');
+
+        fixture.destroy();
       });
     })
   ));

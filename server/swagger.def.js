@@ -14,7 +14,7 @@ const def = {
   },
 
   // Schemes (optional)
-  schemes: ['https'],
+  schemes: [ 'https' ],
 
   // API base path (optional)
   basePath: '/api',

@@ -11,10 +11,12 @@ describe('EagerComponent', () => {
     .compileComponents();
   }));
 
-  it('should exist', () => {
+  it('should exist', async(() => {
     const fixture: ComponentFixture<EagerComponent> = TestBed.createComponent(EagerComponent);
     const component: EagerComponent = fixture.componentInstance;
 
     expect(component).toBeTruthy();
-  });
+
+    fixture.destroy();
+  }));
 });

@@ -22,12 +22,14 @@ describe('DetailComponent', () => {
     .compileComponents();
   }));
 
-  it('should create', () => {
+  it('should create', async(() => {
     const fixture: ComponentFixture<DetailComponent> = TestBed.createComponent(DetailComponent);
     const component: DetailComponent = fixture.componentInstance;
 
     expect(component).toBeTruthy();
-  });
+
+    fixture.destroy();
+  }));
 
   it('should get the details of the selected element by calling getEntry promise', async(
     inject([Lazy2Service], (lazy2Service: Lazy2Service) => {
@@ -43,6 +45,8 @@ describe('DetailComponent', () => {
 
       fixture.whenStable().then(() => {
         expect(component.entry).toEqual(sampleEntry);
+
+        fixture.destroy();
       });
     })
   ));

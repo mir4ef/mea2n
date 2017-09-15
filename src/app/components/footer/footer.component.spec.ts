@@ -11,10 +11,12 @@ describe('FooterComponent', () => {
     .compileComponents();
   }));
 
-  it('should exist', () => {
+  it('should exist', async(() => {
     const fixture: ComponentFixture<FooterComponent> = TestBed.createComponent(FooterComponent);
     const component: FooterComponent = fixture.componentInstance;
 
     expect(component).toBeTruthy();
-  });
+
+    fixture.destroy();
+  }));
 });

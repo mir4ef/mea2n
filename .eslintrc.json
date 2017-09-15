@@ -127,7 +127,11 @@
     "no-path-concat": "error",
     "no-process-env": "error",
     "no-process-exit": "error",
-    "array-bracket-spacing": ["error", "never"],
+    "array-bracket-spacing": [
+      "error",
+      "always",
+      { "objectsInArrays": false }
+    ],
     "block-spacing": "error",
     "brace-style": "error",
     "camelcase": "error",

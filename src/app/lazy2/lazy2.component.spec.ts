@@ -13,10 +13,12 @@ describe('Lazy2Component', () => {
     .compileComponents();
   }));
 
-  it('should exist', () => {
+  it('should exist', async(() => {
     const fixture: ComponentFixture<Lazy2Component> = TestBed.createComponent(Lazy2Component);
     const component: Lazy2Component = fixture.componentInstance;
 
     expect(component).toBeTruthy();
-  });
+
+    fixture.destroy();
+  }));
 });

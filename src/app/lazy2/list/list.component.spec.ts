@@ -17,12 +17,14 @@ describe('ListComponent', () => {
     .compileComponents();
   }));
 
-  it('should exist', () => {
+  it('should exist', async(() => {
     const fixture: ComponentFixture<ListComponent> = TestBed.createComponent(ListComponent);
     const component: ListComponent = fixture.componentInstance;
 
     expect(component).toBeTruthy();
-  });
+
+    fixture.destroy();
+  }));
 
   it('should get a list of entries by calling getEntries promise', async(
     inject([Lazy2Service], (lazy2Service: Lazy2Service) => {
@@ -52,6 +54,8 @@ describe('ListComponent', () => {
         expect(component.entries).toEqual(sampleEntries);
         expect(component.entries.length).toBe(len);
         expect(component.errorMsg).toEqual('');
+
+        fixture.destroy();
       });
     })
   ));
@@ -73,6 +77,8 @@ describe('ListComponent', () => {
       fixture.whenStable().then(() => {
         expect(component.entries).toBeUndefined();
         expect(component.errorMsg).toEqual(response);
+
+        fixture.destroy();
       });
     })
   ));
