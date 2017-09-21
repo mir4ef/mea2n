@@ -1,4 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 
@@ -36,11 +37,11 @@ export class LoginComponent implements OnDestroy {
       .login(this.user)
       .takeUntil(this.ngUnsubscribe)
       .subscribe(
-        () => {
+        (): void => {
           this.loadingIndicator.setIndicatorState(false);
           this.router.navigate([this.authService.requestedURL]);
         },
-        err => {
+        (err: HttpErrorResponse): void => {
           this.loadingIndicator.setIndicatorState(false);
           this.errMsg = err.message;
         }

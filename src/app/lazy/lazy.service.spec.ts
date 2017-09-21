@@ -50,16 +50,9 @@ describe('LazyService', () => {
 
   it('should return a server error if something went wrong on the server side',
     inject([ LazyService, HttpTestingController ], (service: LazyService, httpMock: HttpTestingController) => {
-      const res: HttpErrorResponse = {
-        error: { success: false, message: 'server error message' },
-        message: 'error message',
-        name: 'HttpErrorResponse',
-        ok: false,
-        headers: null,
-        status: 500,
-        statusText: 'OK',
-        url: '/api/v1/endpoint',
-        type: null
+      const res: IResponse = {
+        success: false,
+        message: 'server error message'
       };
       let actualRes: IResponse;
 
@@ -67,7 +60,7 @@ describe('LazyService', () => {
         actualRes = error.error;
 
         expect(error.status).toBe(500);
-        expect(actualRes).toEqual(res.error);
+        expect(actualRes.message).toEqual(res.message);
         expect(actualRes.success).toBeFalsy();
       });
 

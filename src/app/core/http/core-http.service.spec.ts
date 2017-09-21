@@ -64,16 +64,9 @@ describe('CoreHttpService', () => {
 
   it('should handle 403 and navigate to login page if not authorized to access requested endpoint',
     inject([ Router, CoreHttpService, TokenService, HttpTestingController ], (router: Router, service: CoreHttpService, tokenService: TokenService, httpMock: HttpTestingController) => {
-      const res: HttpErrorResponse = {
-        error: { success: false, message: 'not authorized' },
-        message: 'error message',
-        name: 'HttpErrorResponse',
-        ok: false,
-        headers: null,
-        status: 403,
-        statusText: 'OK',
-        url: '/api/v1/endpoint',
-        type: null
+      const res: IResponse = {
+        success: false,
+        message: 'not authorized'
       };
       let actualRes: IResponse;
 
@@ -84,7 +77,7 @@ describe('CoreHttpService', () => {
         actualRes = error.error;
 
         expect(error.status).toBe(403);
-        expect(actualRes).toEqual(res.error);
+        expect(actualRes.message).toEqual(res.message);
         expect(actualRes.success).toBeFalsy();
         expect(router.navigate).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledTimes(1);
@@ -101,16 +94,9 @@ describe('CoreHttpService', () => {
 
   it('should handle unsuccessful error code from the server',
     inject([ CoreHttpService, HttpTestingController ], (service: CoreHttpService, httpMock: HttpTestingController) => {
-      const res: HttpErrorResponse = {
-        error: { success: false, message: 'server error message' },
-        message: 'error message',
-        name: 'HttpErrorResponse',
-        ok: false,
-        headers: null,
-        status: 500,
-        statusText: 'OK',
-        url: '/api/v1/endpoint',
-        type: null
+      const res: IResponse = {
+        success: false,
+        message: 'server error message'
       };
       let actualRes: IResponse;
 
@@ -118,7 +104,7 @@ describe('CoreHttpService', () => {
         actualRes = error.error;
 
         expect(error.status).toBe(500);
-        expect(actualRes).toEqual(res.error);
+        expect(actualRes.message).toEqual(res.message);
         expect(actualRes.success).toBeFalsy();
       });
 

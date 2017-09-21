@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AuthGuard } from './core/auth/auth.guard';
 import { SelectivePreloadingStrategy } from './core/preloading-strategy/preloading-strategy';
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   },
   {
     path: 'protected',
-    loadChildren: 'app/data/data.module#DataModule'
+    loadChildren: 'app/data/data.module#DataModule',
+    canLoad: [ AuthGuard ]
   },
   {
     path: '',

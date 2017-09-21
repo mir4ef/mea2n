@@ -54,24 +54,17 @@ describe('DataService', () => {
   it('should return 404 if the user id doesnt exist',
     inject([ DataService, HttpTestingController ], (service: DataService, httpMock: HttpTestingController) => {
       const id = 111;
-      const res: HttpErrorResponse = {
-        error: { success: false, message: 'user not found' },
-        message: 'error message',
-        name: 'HttpErrorResponse',
-        ok: false,
-        headers: null,
-        status: 404,
-        statusText: 'OK',
-        url: `/api/v1/data/${id}`,
-        type: null
+      const res: IResponse = {
+        success: false,
+        message: 'user not found'
       };
-      let actualRes: HttpErrorResponse;
+      let actualRes: IResponse;
 
       service.getUser(id).subscribe(null, (error: HttpErrorResponse) => {
         actualRes = error.error;
 
         expect(error.status).toBe(404);
-        expect(actualRes).toEqual(res.error);
+        expect(actualRes).toEqual(res);
       });
 
       const req: TestRequest = httpMock.expectOne(`/api/v1/data/${id}`);
@@ -84,24 +77,17 @@ describe('DataService', () => {
   it('should return a server error if something went wrong on the server side',
     inject([DataService, HttpTestingController], (service: DataService, httpMock: HttpTestingController) => {
       const id = 111;
-      const res: HttpErrorResponse = {
-        error: { success: false, message: 'server error' },
-        message: 'error message',
-        name: 'HttpErrorResponse',
-        ok: false,
-        headers: null,
-        status: 500,
-        statusText: 'OK',
-        url: `/api/v1/data/${id}`,
-        type: null
+      const res: IResponse = {
+        success: false,
+        message: 'server error'
       };
-      let actualRes: HttpErrorResponse;
+      let actualRes: IResponse;
 
       service.getUser(id).subscribe(null, (error: HttpErrorResponse) => {
         actualRes = error.error;
 
         expect(error.status).toBe(500);
-        expect(actualRes).toEqual(res.error);
+        expect(actualRes).toEqual(res);
       });
 
       const req: TestRequest = httpMock.expectOne(`/api/v1/data/${id}`);

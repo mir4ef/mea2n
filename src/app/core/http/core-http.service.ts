@@ -96,8 +96,8 @@ export class CoreHttpService {
     }
 
     // The backend returned an unsuccessful response code
-    if (err.error.message) {
-      return Promise.reject(err.error);
+    if (typeof err.error === 'string') {
+      return Promise.reject(JSON.parse(err.error));
     }
 
     // A client-side or network error occurred
