@@ -75,7 +75,7 @@ describe('DataService', () => {
   }));
 
   it('should return a server error if something went wrong on the server side',
-    inject([DataService, HttpTestingController], (service: DataService, httpMock: HttpTestingController) => {
+    inject([ DataService, HttpTestingController ], (service: DataService, httpMock: HttpTestingController) => {
       const id = 111;
       const res: IResponse = {
         success: false,
