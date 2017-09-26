@@ -2,6 +2,8 @@
 
 This is a starting point for (M)EAN stack applications (with Angular 2+). MongoDB drivers are not setup as part of this boilerplate, but can easily be added (with `mongoose` or some other package). The idea is to have a setup to get you up and running quickly and to be database agnostic. You can easily add a database driver that fits your needs.
 
+_This projet is similar to [mean2](https://github.com/mir4ef/mean2), but is with `less` rather than `scss`_
+
 ## TL;DR
 
 You need:
