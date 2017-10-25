@@ -73,13 +73,12 @@ describe('CoreHttpService', () => {
       spyOn(router, 'navigate');
       tokenService.token = '';
 
-      service.apiGet({ path: 'endpoint' }).subscribe(null, (error: HttpErrorResponse): void => {
-        actualRes = error.error;
+      service.apiGet({ path: 'endpoint' }).subscribe(null, (error: IResponse): void => {
+        actualRes = error;
 
         expect(error.status).toBe(403);
         expect(actualRes.message).toEqual(res.message);
         expect(actualRes.success).toBeFalsy();
-        expect(router.navigate).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledTimes(1);
         expect(router.navigate).toHaveBeenCalledWith([ '/login' ]);
       });
@@ -90,7 +89,7 @@ describe('CoreHttpService', () => {
 
       expect(req.request.method).toEqual('GET');
       expect(tokenService.token).toBeNull();
-  }));
+    }));
 
   it('should handle unsuccessful error code from the server',
     inject([ CoreHttpService, HttpTestingController ], (service: CoreHttpService, httpMock: HttpTestingController) => {
@@ -100,8 +99,8 @@ describe('CoreHttpService', () => {
       };
       let actualRes: IResponse;
 
-      service.apiGet({ path: 'endpoint' }).subscribe(null, (error: HttpErrorResponse): void => {
-        actualRes = error.error;
+      service.apiGet({ path: 'endpoint' }).subscribe(null, (error: IResponse): void => {
+        actualRes = error;
 
         expect(error.status).toBe(500);
         expect(actualRes.message).toEqual(res.message);
@@ -158,7 +157,7 @@ describe('CoreHttpService', () => {
 
         expect(req.request.method).toEqual('GET');
         expect(actualRes).toEqual(res);
-    }));
+      }));
 
     it('should GET requested endpoint with query params and success 200',
       inject([ CoreHttpService, HttpTestingController ], (service: CoreHttpService, httpMock: HttpTestingController) => {
@@ -183,7 +182,7 @@ describe('CoreHttpService', () => {
         expect(req.request.method).toEqual('GET');
         expect(actualRes).toEqual(res);
         expect(actualRes.success).toBeTruthy();
-    }));
+      }));
 
     it('should GET requested endpoint with specified schema and url and success 200',
       inject([ CoreHttpService, HttpTestingController ], (service: CoreHttpService, httpMock: HttpTestingController) => {
@@ -198,7 +197,7 @@ describe('CoreHttpService', () => {
 
         expect(req.request.method).toEqual('GET');
         expect(actualRes).toEqual(res);
-    }));
+      }));
 
     it('should GET requested endpoint agnostic to host ending slash and path leading slash',
       inject([ CoreHttpService, HttpTestingController ], (service: CoreHttpService, httpMock: HttpTestingController) => {
@@ -213,7 +212,7 @@ describe('CoreHttpService', () => {
 
         expect(req.request.method).toEqual('GET');
         expect(actualRes).toEqual(res);
-    }));
+      }));
 
     it('should GET requested endpoint with specified schema, url and port and success 200',
       inject([ CoreHttpService, HttpTestingController ], (service: CoreHttpService, httpMock: HttpTestingController) => {
@@ -229,7 +228,7 @@ describe('CoreHttpService', () => {
 
         expect(req.request.method).toEqual('GET');
         expect(actualRes).toEqual(res);
-    }));
+      }));
 
     it('should GET requested endpoint with specified schema, url and no path and success 200',
       inject([ CoreHttpService, HttpTestingController ], (service: CoreHttpService, httpMock: HttpTestingController) => {
@@ -244,7 +243,7 @@ describe('CoreHttpService', () => {
 
         expect(req.request.method).toEqual('GET');
         expect(actualRes).toEqual(res);
-    }));
+      }));
   });
 
   describe('POST', () => {
@@ -263,7 +262,7 @@ describe('CoreHttpService', () => {
         expect(req.request.method).toEqual('POST');
         expect(req.request.body).toEqual(body);
         expect(actualRes).toEqual(res);
-    }));
+      }));
 
     it('should POST requested endpoint with no body and success 200',
       inject([ CoreHttpService, HttpTestingController ], (service: CoreHttpService, httpMock: HttpTestingController) => {
@@ -279,6 +278,6 @@ describe('CoreHttpService', () => {
         expect(req.request.method).toEqual('POST');
         expect(req.request.body).toBeNull();
         expect(actualRes).toEqual(res);
-    }));
+      }));
   });
 });
