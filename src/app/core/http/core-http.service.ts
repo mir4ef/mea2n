@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
+import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
@@ -88,7 +89,7 @@ export class CoreHttpService {
   /**
    * @description Handle response errors
    * @param {HttpErrorResponse} err - The error response
-   * @returns {Promise<never>}
+   * @returns {Observable<IResponse | HttpErrorResponse>}
    */
   private handleError = (err: HttpErrorResponse): Observable<IResponse | HttpErrorResponse> => {
     if (err.status === 403) {
