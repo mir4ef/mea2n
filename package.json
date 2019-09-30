@@ -88,7 +88,7 @@
     "codelyzer": "^4.0.0",
     "copyfiles": "^1.2.0",
     "del-cli": "^1.1.0",
-    "eslint": "~4.10.0",
+    "eslint": "~6.5.0",
     "jasmine": "~2.8.0",
     "jasmine-core": "~2.8.0",
     "jasmine-node": "~1.14.5",
